@@ -1,2 +1,2 @@
 # ubconfig
-Configurate OS
+Configure OS
