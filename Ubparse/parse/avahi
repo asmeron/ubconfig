@@ -1,0 +1,6 @@
+/etc/avahi/avahi-daemon.conf
+Comment ^#\s?
+Off ^#\\S
+Block Select ^\\[.+\\]$
+End ^$
+Key =

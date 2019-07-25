@@ -1,0 +1,20 @@
+/etc/httpd/conf/httpd.conf
+Q /etc/httpd/
+Comment ^#\s?
+Off ^#\\S
+Block IF ^<IfModule\\s?.+>$
+End </IfModule>
+Block De ^<Directory\\s?.+>$
+End </Directory>
+Block File ^<Files\\s?.+>$
+End </Files>
+Block Fi ^<FilesMatch\\s?".+">$
+End </FilesMatch>
+Group LoadModule
+Group ErrorDocument
+Group AddIcon
+Group AddIconByType
+Group AddLanguage
+Group AddCharset
+Group ProxyHTMLLinks
+I Include
