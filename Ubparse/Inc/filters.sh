@@ -96,7 +96,7 @@ function filter_name_key
 	for i in $@
 	do
 		if [ "$type" == "set" ] || [[ $type =~ ^group ]]; then
-			key=$(echo $line | cut -d "$separ" -f1)
+			key=$(get_value "$set" "$line" 1)
 			
 			if [[ $key =~ ^$i ]]; then
 				return 0
