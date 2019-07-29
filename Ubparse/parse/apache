@@ -2,13 +2,13 @@
 Q /etc/httpd/
 Comment ^#\s?
 Off ^#\\S
-Block IF ^<IfModule\\s?.+>$
+Block IF ^<IfModule\\s?(.+)>$
 End </IfModule>
-Block De ^<Directory\\s?.+>$
+Block De ^<Directory\\s?(.+)>$
 End </Directory>
-Block File ^<Files\\s?.+>$
+Block File ^<Files\\s?(.+)>$
 End </Files>
-Block Fi ^<FilesMatch\\s?".+">$
+Block Fi ^<FilesMatch\\s?"(.+)">$
 End </FilesMatch>
 Group LoadModule
 Group ErrorDocument
@@ -18,3 +18,4 @@ Group AddLanguage
 Group AddCharset
 Group ProxyHTMLLinks
 I Include
+Set ^([a-Z]+)\\s(.+)

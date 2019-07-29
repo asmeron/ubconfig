@@ -1,5 +1,25 @@
 #!/bin/bash
 
+# Извлечение информаций из инфо.сущности
+#
+# $1 - регулярное выражение по которому определяется сущность
+# $2 - Строка содержашие сущность
+# $3 - Номер извлекаемого элемента
+#
+# Возвращает имя блока
+function get_value
+{
+	# reg - шаблон извлечение имени
+	local reg
+	
+	reg=$1
+	
+	# Извлекаем имя
+	if [[ $2 =~ $reg ]]; then
+		echo "${BASH_REMATCH[$3]}"
+	fi
+}
+
 # Инициализация шаблона парсинга
 #
 # $1 - Файл с шаблоном
@@ -13,6 +33,7 @@ function init_pattern
 	local type LINE i count
 	i=0
 	separ=" "
+	inc="include"
 	end=0
 	
 	while read LINE;
@@ -33,20 +54,19 @@ function init_pattern
 		#####################################
 		else
 		
-			type=$(echo $LINE | cut -d' ' -f1 )
-			
+			type=$(get_value "^([a-Z]+)\\s.+" "$LINE" 1)
 
 			case "$type" in
-				'Comment') comment=($(echo $LINE | cut -d' ' -f2 ) );;
-				'Key') separ=$(echo $LINE | cut -d' ' -f2 ) ;;
-				'Group') group=(${group[@]} $(echo $LINE | cut -d' ' -f2 ));;
-				'Block') blocks=(${blocks[@]} $(echo $LINE | cut -d' ' -f2 ))
-			 	 	     blocks=(${blocks[@]} $(echo $LINE | cut -d' ' -f3 ))
+				'Comment') comment=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1);;
+				'Set') set=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
+				'Group') group=(${group[@]} $(get_value "^[a-Z]+\\s(.+)" "$LINE" 1)) ;;
+				'Block') blocks=(${blocks[@]} $(get_value "^[a-Z]+\\s([a-Z]+)\\s.+" "$LINE" 1))
+			 	 	     blocks=(${blocks[@]} $(get_value "^[a-Z]+\\s[a-Z]+\\s(.+)" "$LINE" 1))
 					 	 (( count++ ));;
-				'End') blocks=(${blocks[@]} $(echo $LINE | cut -d' ' -f2 ));;
-				'Off') func=($(echo $LINE | cut -d' ' -f2 ) );;
-				'I') inc=($(echo $LINE | cut -d' ' -f2 ) );;
-				'Q') f_path=($(echo $LINE | cut -d' ' -f2 ) );;
+				'End') blocks=(${blocks[@]} $(get_value "^[a-Z]+\\s(.+)" "$LINE" 1)) ;;
+				'Off') func=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
+				'I') inc=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
+				'Q') f_path=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
 				*) return 2;;
 			esac
 			
@@ -65,25 +85,6 @@ function init_pattern
 	fi
 }
 
-# Извлечение имени блока по шаблону парсинга
-#
-# $1 - регулярное выражение по которому определяется блок
-# $2 - Строка содержашие начало блока
-#
-# Возвращает имя блока
-function get_name
-{
-	# reg - шаблон извлечение имени
-	local reg
-	
-	# Преобразуем рег.выражение для парсинга имени
-	reg=$(echo $1| sed 's/.+/(.+)/' )
-	
-	# Извлекаем имя
-	if [[ $2 =~ $reg ]]; then
-		echo ${BASH_REMATCH[1]}
-	fi
-}
 
 # Определение типа строки конфигураций
 #
@@ -117,7 +118,7 @@ function check_str
 			exp=${blocks[$i]}
 		
 			if [[ $1 =~ $exp ]]; then
-				name=$(get_name "$exp" "$1")
+				name=$(get_value "$exp" "$1" 1)
 				type="bb_${blocks[$i-1]}_$name"
 			elif [[ $1 =~ $str ]] && [ $nest -gt 1 ]; then
 				type="bb_end"
@@ -127,12 +128,18 @@ function check_str
 		#####################################
 	fi
 	
-	i=0
-	key=$(echo $1 | cut -d"$separ" -f1 )
+	# Проверка на предмет пустой строки
+	if [ "$1" == "" ]; then
+		type="em_st"
+	fi
 	
+	i=0
+
 	# Проверка на особые ключи
 	#####################################
 	if [ "$type" == "0" ]; then
+	
+		key=$(get_value "$set" "$1" 1)
 		
 		while [ $i -lt ${#group[*]} -a "$type" == "0" ]
 		do
@@ -148,16 +155,16 @@ function check_str
 	
 	
 	if [ "$type" == "0" ]; then
-		
-		# Проверка на предмет пустой строки
-		if [ "$1" == "" ]; then
-			type="em_st"
+	
 		# Проверка на дериктиву подключения
-		elif [[ "$key" == "$inc" ]]; then
-			name=$(echo $1 | cut -d' ' -f2 | awk -F '/' '{print $NF}' )
+		if [[ "$key" == "$inc" ]]; then
+			name=$(get_value "$set" "$1" 2)
+			name=$(get_value "([^\\/]+)$" "$name" 1)
 			type="bb_inc_$name"
-		else
+		elif [[ "$1" =~ $set ]]; then
 			type="set"
+		else
+			type="unk"
 		fi
 	fi
 		
@@ -191,7 +198,7 @@ function recursive_read
 		
 		# Читаем подключаемый файл
 		if [[ $type =~ ^bb_inc ]]; then
-			path=$(echo $line | cut -d" " -f2 )
+			path=$(get_value "$set" "$line" 2)
 			(( nest++ ))
 			recursive_read $f_path$path "$2"
 		elif [[ $type =~ ^bb_[^end] ]]; then
@@ -217,7 +224,7 @@ function recursive_read
 # Возврашает имя блока
 function block_name
 {
-	echo $type | cut -d'_' --complement -f"1,2"
+	echo $(get_value "^[a-Z]+_[a-Z]+_(.+)" "$type" 1)
 	return 1
 }
 
@@ -232,7 +239,7 @@ function handlers
 	
 	for i in $@
  	do
-		i=$(echo $i | sed 's/@/ /g' )
+		i=${i//@/ }
 		$i
 		
 		if [ $? == 1 ]; then

@@ -1,6 +1,7 @@
 /etc/X11/vncserver-virtual.conf
 Comment ^#\s? 
 Off ^#\\S
-Block Sec ^Section\\s?\".+"
+Block Sec ^Section\\s?\(".+")
 Group Option
 End EndSection
+Set ^([a-Z]+)\\s(.+)

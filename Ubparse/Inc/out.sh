@@ -5,16 +5,16 @@ function init_format
 {
 	while read LINE;
 	do
-		type=$(echo $LINE | cut -d' ' -f1 )
+		type=$(get_value "^([a-Z]+)\\s.+" "$LINE" 1)
 			
 
 			case "$type" in
-				'Set') SetFormat=$(echo $LINE | cut -d' ' --complement -f1) ;;
-				'Block') BlockFormat=$(echo $LINE | cut -d' ' --complement -f1) ;;
-				'End') EndBlock=$(echo $LINE | cut -d' ' --complement -f1) ;;
-				'BeginGroup') GroupFormat=$(echo $LINE | cut -d' ' --complement -f1);;
-				'ValueGroup') GVFormat=$(echo $LINE | cut -d' ' --complement -f1);;
-				'EndGroup') GEFormat=$(echo $LINE | cut -d' ' --complement -f1);;
+				'Set') SetFormat=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1);;
+				'Block') BlockFormat=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
+				'End') EndBlock=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
+				'BeginGroup') GroupFormat=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1);;
+				'ValueGroup') GVFormat=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1);;
+				'EndGroup') GEFormat=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1);;
 			esac
 			
 	done < $path_run/format.out
@@ -62,8 +62,8 @@ function render
 	# Форматирование строк настроек
 	#####################################
 	if [ "$type" == "set" ]; then
-		key=$(echo $line | cut -d "$separ" -f1)
-		value=$(echo $line | cut -d "$separ" --complement -f1)
+		key=$(get_value "$set" "$line" 1)
+		value=$(get_value "$set" "$line" 2)
 		Set=${SetFormat/key/$key}
 		Set=${Set/value/$value}
 		Set=${Set//'\n'/'\n'$tab}
@@ -73,7 +73,7 @@ function render
 	# Форматирование блоков
 	#####################################
 	elif [[ $type =~ ^bb_[^end] ]]; then
-		bl=$(echo $type | cut -d "_" -f2)
+		bl=$(get_value "^[a-Z]+_([a-Z]+)_.+" "$type" 1)
 		name=$(block_name $type)
 		Set=${BlockFormat/type/$bl}
 		Set=${Set/name/$name}
@@ -97,8 +97,8 @@ function render
 # Форматирование отдельных групп
 function render_group
 {
-	key=$(echo $line | cut -d "$separ" -f1)
-	value=$(echo $line | cut -d "$separ" --complement -f1)
+	key=$(get_value "$set" "$line" 1)
+	value=$(get_value "$set" "$line" 2)
 	
 	if [ "$name_gr" == "$key" ]; then
 		Set=${GVFormat/name/$key}
@@ -143,9 +143,9 @@ function number_str
 function format_write
 {
 	if [ "$type" == "set" ]; then
-		echo $separ
+		echo $set
 	elif [[ $type =~ ^bb_[^end] ]]; then
-		tp=$(echo $type | cut -d'_' -f2)
+		tp=$(get_value "^[a-Z]+_([a-Z]+)_.+" "$type" 1)
 		
 		for (( i=0; i <= ${#blocks[*]}; i=i+3 ))
 		do
