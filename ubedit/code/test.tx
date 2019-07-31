@@ -1,0 +1,1274 @@
+
+conf:apache
+{
+	#
+	# This is the main Apache HTTP server configuration file. It contains the
+	# configuration directives that give the server its instructions.
+	# See <URL:http://httpd.apache.org/docs/2.4/> for detailed information.
+	# In particular, see
+	# <URL:http://httpd.apache.org/docs/2.4/mod/directives.html>
+	# for a discussion of each configuration directive.
+	#
+	# Do NOT simply read the instructions in here without understanding
+	# what they do. They're here only as hints or reminders. If you are unsure
+	# consult the online docs. You have been warned.
+	#
+	# Configuration and logfile names: If the filenames you specify for many
+	# of the server's control files begin with "/" (or "drive:/" for Win32), the
+	# server will use that explicit path. If the filenames do *not* begin
+	# with "/", the value of ServerRoot is prepended -- so "logs/access_log"
+	# with ServerRoot set to "/usr/local/apache2" will be interpreted by the
+	# server as "/usr/local/apache2/logs/access_log", whereas "/logs/access_log"
+	# will be interpreted as '/logs/access_log'.
+	#
+	# ServerRoot: The top of the directory tree under which the server's
+	# configuration, error, and log files are kept.
+	#
+	# Do not add a slash at the end of the directory path. If you point
+	# ServerRoot at a non-local disk, be sure to specify a local disk on the
+	# Mutex directive, if file-based mutexes are used. If you wish to share the
+	# same ServerRoot for multiple httpd daemons, you will need to change at
+	# least PidFile.
+	#
+	ServerRoot = "/etc/httpd"
+	#
+	# Mutex: Allows you to set the mutex mechanism and mutex file directory
+	# for individual mutexes, or change the global defaults
+	#
+	# Uncomment and change the directory if mutexes are file-based and the default
+	# mutex file directory is not on a local disk or is not appropriate for some
+	# other reason.
+	#
+	# Mutex default:/run/httpd
+	#
+	# Listen: Allows you to bind Apache to specific IP addresses and/or
+	# ports, instead of the default. See also the <VirtualHost>
+	# directive.
+	#
+	# Change this to Listen on specific IP addresses as shown below to
+	# prevent Apache from glomming onto all bound IP addresses.
+	#
+	#Listen 12.34.56.78:80
+	Listen = 80
+	#
+	# Dynamic Shared Object (DSO) Support
+	#
+	# To be able to use the functionality of a module which was built as a DSO you
+	# have to place corresponding `LoadModule' lines at this location so the
+	# directives contained in it are actually available _before_ they are used.
+	# Statically compiled modules (those listed by `httpd -l') do not need
+	# to be loaded here.
+	#
+	# Example:
+	# LoadModule foo_module modules/mod_foo.so
+	#
+	#LoadModule mpm_event_module modules/mod_mpm_event.so
+	[LoadModule]
+	(
+	  mpm_prefork_module modules/mod_mpm_prefork.so;
+	)
+	#LoadModule mpm_worker_module modules/mod_mpm_worker.so
+	[LoadModule]
+	(
+	  authn_file_module modules/mod_authn_file.so;
+	)
+	#LoadModule authn_dbm_module modules/mod_authn_dbm.so
+	#LoadModule authn_anon_module modules/mod_authn_anon.so
+	#LoadModule authn_dbd_module modules/mod_authn_dbd.so
+	#LoadModule authn_socache_module modules/mod_authn_socache.so
+	[LoadModule]
+	(
+	  authn_core_module modules/mod_authn_core.so;
+	  authz_host_module modules/mod_authz_host.so
+	  authz_groupfile_module modules/mod_authz_groupfile.so
+	  authz_user_module modules/mod_authz_user.so
+	)
+	#LoadModule authz_dbm_module modules/mod_authz_dbm.so
+	#LoadModule authz_owner_module modules/mod_authz_owner.so
+	#LoadModule authz_dbd_module modules/mod_authz_dbd.so
+	[LoadModule]
+	(
+	  authz_core_module modules/mod_authz_core.so;
+	)
+	#LoadModule authnz_ldap_module modules/mod_authnz_ldap.so
+	#LoadModule authnz_fcgi_module modules/mod_authnz_fcgi.so
+	[LoadModule]
+	(
+	  access_compat_module modules/mod_access_compat.so;
+	  auth_basic_module modules/mod_auth_basic.so
+	)
+	#LoadModule auth_form_module modules/mod_auth_form.so
+	#LoadModule auth_digest_module modules/mod_auth_digest.so
+	#LoadModule allowmethods_module modules/mod_allowmethods.so
+	#LoadModule file_cache_module modules/mod_file_cache.so
+	#LoadModule cache_module modules/mod_cache.so
+	#LoadModule cache_disk_module modules/mod_cache_disk.so
+	#LoadModule cache_socache_module modules/mod_cache_socache.so
+	#LoadModule socache_shmcb_module modules/mod_socache_shmcb.so
+	#LoadModule socache_dbm_module modules/mod_socache_dbm.so
+	#LoadModule socache_memcache_module modules/mod_socache_memcache.so
+	#LoadModule socache_redis_module modules/mod_socache_redis.so
+	#LoadModule watchdog_module modules/mod_watchdog.so
+	#LoadModule macro_module modules/mod_macro.so
+	#LoadModule dbd_module modules/mod_dbd.so
+	#LoadModule dumpio_module modules/mod_dumpio.so
+	#LoadModule echo_module modules/mod_echo.so
+	#LoadModule buffer_module modules/mod_buffer.so
+	#LoadModule data_module modules/mod_data.so
+	#LoadModule ratelimit_module modules/mod_ratelimit.so
+	[LoadModule]
+	(
+	  reqtimeout_module modules/mod_reqtimeout.so;
+	)
+	#LoadModule ext_filter_module modules/mod_ext_filter.so
+	#LoadModule request_module modules/mod_request.so
+	[LoadModule]
+	(
+	  include_module modules/mod_include.so;
+	  filter_module modules/mod_filter.so
+	)
+	#LoadModule reflector_module modules/mod_reflector.so
+	#LoadModule substitute_module modules/mod_substitute.so
+	#LoadModule sed_module modules/mod_sed.so
+	#LoadModule charset_lite_module modules/mod_charset_lite.so
+	#LoadModule deflate_module modules/mod_deflate.so
+	#LoadModule xml2enc_module modules/mod_xml2enc.so
+	#LoadModule proxy_html_module modules/mod_proxy_html.so
+	#LoadModule brotli_module modules/mod_brotli.so
+	[LoadModule]
+	(
+	  mime_module modules/mod_mime.so;
+	)
+	#LoadModule ldap_module modules/mod_ldap.so
+	[LoadModule]
+	(
+	  log_config_module modules/mod_log_config.so;
+	)
+	#LoadModule log_debug_module modules/mod_log_debug.so
+	#LoadModule log_forensic_module modules/mod_log_forensic.so
+	#LoadModule logio_module modules/mod_logio.so
+	#LoadModule lua_module modules/mod_lua.so
+	[LoadModule]
+	(
+	  env_module modules/mod_env.so;
+	)
+	#LoadModule mime_magic_module modules/mod_mime_magic.so
+	#LoadModule cern_meta_module modules/mod_cern_meta.so
+	#LoadModule expires_module modules/mod_expires.so
+	[LoadModule]
+	(
+	  headers_module modules/mod_headers.so;
+	)
+	#LoadModule ident_module modules/mod_ident.so
+	#LoadModule usertrack_module modules/mod_usertrack.so
+	#LoadModule unique_id_module modules/mod_unique_id.so
+	[LoadModule]
+	(
+	  setenvif_module modules/mod_setenvif.so;
+	  version_module modules/mod_version.so
+	)
+	#LoadModule remoteip_module modules/mod_remoteip.so
+	#LoadModule proxy_module modules/mod_proxy.so
+	#LoadModule proxy_connect_module modules/mod_proxy_connect.so
+	#LoadModule proxy_ftp_module modules/mod_proxy_ftp.so
+	#LoadModule proxy_http_module modules/mod_proxy_http.so
+	#LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
+	#LoadModule proxy_scgi_module modules/mod_proxy_scgi.so
+	#LoadModule proxy_uwsgi_module modules/mod_proxy_uwsgi.so
+	#LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so
+	#LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so
+	#LoadModule proxy_ajp_module modules/mod_proxy_ajp.so
+	#LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
+	#LoadModule proxy_express_module modules/mod_proxy_express.so
+	#LoadModule proxy_hcheck_module modules/mod_proxy_hcheck.so
+	#LoadModule session_module modules/mod_session.so
+	#LoadModule session_cookie_module modules/mod_session_cookie.so
+	#LoadModule session_crypto_module modules/mod_session_crypto.so
+	#LoadModule session_dbd_module modules/mod_session_dbd.so
+	[LoadModule]
+	(
+	  slotmem_shm_module modules/mod_slotmem_shm.so;
+	)
+	#LoadModule slotmem_plain_module modules/mod_slotmem_plain.so
+	#LoadModule ssl_module modules/mod_ssl.so
+	#LoadModule dialup_module modules/mod_dialup.so
+	#LoadModule http2_module modules/mod_http2.so
+	#LoadModule proxy_http2_module modules/mod_proxy_http2.so
+	#LoadModule md_module modules/mod_md.so
+	#LoadModule lbmethod_byrequests_module modules/mod_lbmethod_byrequests.so
+	#LoadModule lbmethod_bytraffic_module modules/mod_lbmethod_bytraffic.so
+	#LoadModule lbmethod_bybusyness_module modules/mod_lbmethod_bybusyness.so
+	#LoadModule lbmethod_heartbeat_module modules/mod_lbmethod_heartbeat.so
+	[LoadModule]
+	(
+	  unixd_module modules/mod_unixd.so;
+	)
+	#LoadModule heartbeat_module modules/mod_heartbeat.so
+	#LoadModule heartmonitor_module modules/mod_heartmonitor.so
+	#LoadModule dav_module modules/mod_dav.so
+	[LoadModule]
+	(
+	  status_module modules/mod_status.so;
+	  autoindex_module modules/mod_autoindex.so
+	)
+	#LoadModule asis_module modules/mod_asis.so
+	#LoadModule info_module modules/mod_info.so
+	#LoadModule suexec_module modules/mod_suexec.so
+	
+	IF:!mpm_prefork_module
+	{
+		#LoadModule cgid_module modules/mod_cgid.so
+	}
+	
+	
+	IF:mpm_prefork_module
+	{
+		#LoadModule cgi_module modules/mod_cgi.so
+	}
+	
+	#LoadModule dav_fs_module modules/mod_dav_fs.so
+	#LoadModule dav_lock_module modules/mod_dav_lock.so
+	#LoadModule vhost_alias_module modules/mod_vhost_alias.so
+	[LoadModule]
+	(
+	  negotiation_module modules/mod_negotiation.so;
+	  dir_module modules/mod_dir.so
+	  php7_module modules/libphp7.so
+	)
+	#LoadModule imagemap_module modules/mod_imagemap.so
+	#LoadModule actions_module modules/mod_actions.so
+	#LoadModule speling_module modules/mod_speling.so
+	[LoadModule]
+	(
+	  userdir_module modules/mod_userdir.so;
+	  alias_module modules/mod_alias.so
+	)
+	#LoadModule rewrite_module modules/mod_rewrite.so
+	
+	IF:unixd_module
+	{
+		#
+		# If you wish httpd to run as a different user or group, you must run
+		# httpd as root initially and it will switch.
+		#
+		# User/Group: The name (or #number) of the user/group to run httpd as.
+		# It is usually good practice to create a dedicated user and group for
+		# running httpd, as with most system services.
+		#
+		User = http
+		Group = http
+	}
+	
+	# 'Main' server configuration
+	#
+	# The directives in this section set up the values used by the 'main'
+	# server, which responds to any requests that aren't handled by a
+	# <VirtualHost> definition. These values also provide defaults for
+	# any <VirtualHost> containers you may define later in the file.
+	#
+	# All of these directives may appear inside <VirtualHost> containers,
+	# in which case these default settings will be overridden for the
+	# virtual host being defined.
+	#
+	#
+	# ServerAdmin: Your address, where problems with the server should be
+	# e-mailed. This address appears on some server-generated pages, such
+	# as error documents. e.g. admin@your-domain.com
+	#
+	ServerAdmin = you@example.com
+	#
+	# ServerName gives the name and port that the server uses to identify itself.
+	# This can often be determined automatically, but we recommend you specify
+	# it explicitly to prevent problems during startup.
+	#
+	# If your host doesn't have a registered DNS name, enter its IP address here.
+	#
+	#ServerName www.example.com:80
+	#
+	# Deny access to the entirety of your server's filesystem. You must
+	# explicitly permit access to web content directories in other
+	# <Directory> blocks below.
+	#
+	
+	De:/
+	{
+		AllowOverride = none
+		Require = all denied
+	}
+	
+	#
+	# Note that from this point forward you must specifically allow
+	# particular features to be enabled - so if something's not working as
+	# you might expect, make sure that you have specifically enabled it
+	# below.
+	#
+	#
+	# DocumentRoot: The directory out of which you will serve your
+	# documents. By default, all requests are taken from this directory, but
+	# symbolic links and aliases may be used to point to other locations.
+	#
+	DocumentRoot = "/srv/http"
+	
+	De:"/srv/http"
+	{
+		#
+		# Possible values for the Options directive are "None", "All",
+		# or any combination of:
+		# Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews
+		#
+		# Note that "MultiViews" must be named *explicitly* --- "Options All"
+		# doesn't give it to you.
+		#
+		# The Options directive is both complicated and important. Please see
+		# http://httpd.apache.org/docs/2.4/mod/core.html#options
+		# for more information.
+		#
+		Options = Indexes FollowSymLinks
+		#
+		# AllowOverride controls what directives may be placed in .htaccess files.
+		# It can be "All", "None", or any combination of the keywords:
+		# AllowOverride FileInfo AuthConfig Limit
+		#
+		AllowOverride = None
+		#
+		# Controls who can get stuff from this server.
+		#
+		Require = all granted
+	}
+	
+	#
+	# DirectoryIndex: sets the file that Apache will serve if a directory
+	# is requested.
+	#
+	
+	IF:dir_module
+	{
+		DirectoryIndex = index.html
+	}
+	
+	#
+	# The following lines prevent .htaccess and .htpasswd files from being
+	# viewed by Web clients.
+	#
+	
+	File:".ht*"
+	{
+		Require = all denied
+	}
+	
+	#
+	# ErrorLog: The location of the error log file.
+	# If you do not specify an ErrorLog directive within a <VirtualHost>
+	# container, error messages relating to that virtual host will be
+	# logged here. If you *do* define an error logfile for a <VirtualHost>
+	# container, that host's errors will be logged there and not here.
+	#
+	ErrorLog = "/var/log/httpd/error_log"
+	#
+	# LogLevel: Control the number of messages logged to the error_log.
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	#
+	LogLevel = warn
+	
+	IF:log_config_module
+	{
+		#
+		# The following directives define some format nicknames for use with
+		# a CustomLog directive (see below).
+		#
+		LogFormat = "%h %l %u %t "%r" %>s %b "%{Referer}i" "%{User-Agent}i"" combined
+		LogFormat = "%h %l %u %t "%r" %>s %b" common
+		
+		IF:logio_module
+		{
+			# You need to enable mod_logio.c to use %I and %O
+			LogFormat = "%h %l %u %t "%r" %>s %b "%{Referer}i" "%{User-Agent}i" %I %O" combinedio
+		}
+		
+		#
+		# The location and format of the access logfile (Common Logfile Format).
+		# If you do not define any access logfiles within a <VirtualHost>
+		# container, they will be logged here. Contrariwise, if you *do*
+		# define per-<VirtualHost> access logfiles, transactions will be
+		# logged therein and *not* in this file.
+		#
+		CustomLog = "/var/log/httpd/access_log" common
+		#
+		# If you prefer a logfile with access, agent, and referer information
+		# (Combined Logfile Format) you can use the following directive.
+		#
+		#CustomLog "/var/log/httpd/access_log" combined
+	}
+	
+	
+	IF:alias_module
+	{
+		#
+		# Redirect: Allows you to tell clients about documents that used to
+		# exist in your server's namespace, but do not anymore. The client
+		# will make a new request for the document at its new location.
+		# Example:
+		# Redirect permanent /foo http://www.example.com/bar
+		#
+		# Alias: Maps web paths into filesystem paths and is used to
+		# access content that does not live under the DocumentRoot.
+		# Example:
+		# Alias /webpath /full/filesystem/path
+		#
+		# If you include a trailing / on /webpath then the server will
+		# require it to be present in the URL. You will also likely
+		# need to provide a <Directory> section to allow access to
+		# the filesystem path.
+		#
+		# ScriptAlias: This controls which directories contain server scripts.
+		# ScriptAliases are essentially the same as Aliases, except that
+		# documents in the target directory are treated as applications and
+		# run by the server when requested rather than as documents sent to the
+		# client. The same rules about trailing "/" apply to ScriptAlias
+		# directives as to Alias.
+		#
+		ScriptAlias = /cgi-bin/ "/srv/http/cgi-bin/"
+	}
+	
+	
+	IF:cgid_module
+	{
+		#
+		# ScriptSock: On threaded servers, designate the path to the UNIX
+		# socket used to communicate with the CGI daemon of mod_cgid.
+		#
+		#Scriptsock cgisock
+	}
+	
+	#
+	# "/srv/http/cgi-bin" should be changed to whatever your ScriptAliased
+	# CGI directory exists, if you have that configured.
+	#
+	
+	De:"/srv/http/cgi-bin"
+	{
+		AllowOverride = None
+		Options = None
+		Require = all granted
+	}
+	
+	
+	IF:headers_module
+	{
+		#
+		# Avoid passing HTTP_PROXY environment to CGI's on this or any proxied
+		# backend servers which have lingering "httpoxy" defects.
+		# 'Proxy' request header is undefined by the IETF, not listed by IANA
+		#
+		RequestHeader = unset Proxy early
+	}
+	
+	
+	IF:mime_module
+	{
+		#
+		# TypesConfig points to the file containing the list of mappings from
+		# filename extension to MIME-type.
+		#
+		TypesConfig = conf/mime.types
+		#
+		# AddType allows you to add to or override the MIME configuration
+		# file specified in TypesConfig for specific file types.
+		#
+		#AddType application/x-gzip .tgz
+		#
+		# AddEncoding allows you to have certain browsers uncompress
+		# information on the fly. Note: Not all browsers support this.
+		#
+		#AddEncoding x-compress .Z
+		#AddEncoding x-gzip .gz .tgz
+		#
+		# If the AddEncoding directives above are commented-out, then you
+		# probably should define those extensions to indicate media types:
+		#
+		AddType = application/x-compress .Z
+		AddType = application/x-gzip .gz .tgz
+		#
+		# AddHandler allows you to map certain file extensions to "handlers":
+		# actions unrelated to filetype. These can be either built into the server
+		# or added with the Action directive (see below)
+		#
+		# To use CGI scripts outside of ScriptAliased directories:
+		# (You will also need to add "ExecCGI" to the "Options" directive.)
+		#
+		#AddHandler cgi-script .cgi
+		# For type maps (negotiated resources):
+		#AddHandler type-map var
+		#
+		# Filters allow you to process content before it is sent to the client.
+		#
+		# To parse .shtml files for server-side includes (SSI):
+		# (You will also need to add "Includes" to the "Options" directive.)
+		#
+		#AddType text/html .shtml
+		#AddOutputFilter INCLUDES .shtml
+	}
+	
+	#
+	# The mod_mime_magic module allows the server to use various hints from the
+	# contents of the file itself to determine its type. The MIMEMagicFile
+	# directive tells the module where the hint definitions are located.
+	#
+	#MIMEMagicFile conf/magic
+	#
+	# Customizable error responses come in three flavors:
+	# 1) plain text 2) local redirects 3) external redirects
+	#
+	# Some examples:
+	#ErrorDocument 500 "The server made a boo boo."
+	#ErrorDocument 404 /missing.html
+	#ErrorDocument 404 "/cgi-bin/missing_handler.pl"
+	#ErrorDocument 402 http://www.example.com/subscription_info.html
+	#
+	#
+	# MaxRanges: Maximum number of Ranges in a request before
+	# returning the entire resource, or one of the special
+	# values 'default', 'none' or 'unlimited'.
+	# Default setting is to accept 200 Ranges.
+	#MaxRanges unlimited
+	#
+	# EnableMMAP and EnableSendfile: On systems that support it,
+	# memory-mapping or the sendfile syscall may be used to deliver
+	# files. This usually improves server performance, but must
+	# be turned off when serving from networked-mounted
+	# filesystems or if support for these functions is otherwise
+	# broken on your system.
+	# Defaults: EnableMMAP On, EnableSendfile Off
+	#
+	#EnableMMAP off
+	#EnableSendfile on
+	# Supplemental configuration
+	#
+	# The configuration files in the conf/extra/ directory can be
+	# included to add extra features or to modify the default configuration of
+	# the server, or you may simply copy their contents here and change as
+	# necessary.
+	# Server-pool management (MPM specific)
+	
+	inc:httpd-mpm.conf
+	{
+		#
+		# Server-Pool Management (MPM specific)
+		#
+		#
+		# PidFile: The file in which the server should record its process
+		# identification number when it starts.
+		#
+		# Note that this is the default PidFile for most MPMs.
+		#
+		
+		IF:!mpm_netware_module
+		{
+			PidFile = "/run/httpd/httpd.pid"
+		}
+		
+		#
+		# Only one of the below sections will be relevant on your
+		# installed httpd. Use "apachectl -l" to find out the
+		# active mpm.
+		#
+		# prefork MPM
+		# StartServers: number of server processes to start
+		# MinSpareServers: minimum number of server processes which are kept spare
+		# MaxSpareServers: maximum number of server processes which are kept spare
+		# MaxRequestWorkers: maximum number of server processes allowed to start
+		# MaxConnectionsPerChild: maximum number of connections a server process serves
+		# before terminating
+		
+		IF:mpm_prefork_module
+		{
+			StartServers =             5
+			MinSpareServers =          5
+			MaxSpareServers =         10
+			MaxRequestWorkers =      250
+			MaxConnectionsPerChild =   0
+		}
+		
+		# worker MPM
+		# StartServers: initial number of server processes to start
+		# MinSpareThreads: minimum number of worker threads which are kept spare
+		# MaxSpareThreads: maximum number of worker threads which are kept spare
+		# ThreadsPerChild: constant number of worker threads in each server process
+		# MaxRequestWorkers: maximum number of worker threads
+		# MaxConnectionsPerChild: maximum number of connections a server process serves
+		# before terminating
+		
+		IF:mpm_worker_module
+		{
+			StartServers =             3
+			MinSpareThreads =         75
+			MaxSpareThreads =        250
+			ThreadsPerChild =         25
+			MaxRequestWorkers =      400
+			MaxConnectionsPerChild =   0
+		}
+		
+		# event MPM
+		# StartServers: initial number of server processes to start
+		# MinSpareThreads: minimum number of worker threads which are kept spare
+		# MaxSpareThreads: maximum number of worker threads which are kept spare
+		# ThreadsPerChild: constant number of worker threads in each server process
+		# MaxRequestWorkers: maximum number of worker threads
+		# MaxConnectionsPerChild: maximum number of connections a server process serves
+		# before terminating
+		
+		IF:mpm_event_module
+		{
+			StartServers =             3
+			MinSpareThreads =         75
+			MaxSpareThreads =        250
+			ThreadsPerChild =         25
+			MaxRequestWorkers =      400
+			MaxConnectionsPerChild =   0
+		}
+		
+		# NetWare MPM
+		# ThreadStackSize: Stack size allocated for each worker thread
+		# StartThreads: Number of worker threads launched at server startup
+		# MinSpareThreads: Minimum number of idle threads, to handle request spikes
+		# MaxSpareThreads: Maximum number of idle threads
+		# MaxThreads: Maximum number of worker threads alive at the same time
+		# MaxConnectionsPerChild: Maximum number of connections a thread serves. It
+		# is recommended that the default value of 0 be set
+		# for this directive on NetWare. This will allow the
+		# thread to continue to service requests indefinitely.
+		
+		IF:mpm_netware_module
+		{
+			ThreadStackSize =      65536
+			StartThreads =           250
+			MinSpareThreads =         25
+			MaxSpareThreads =        250
+			MaxThreads =            1000
+			MaxConnectionsPerChild =   0
+		}
+		
+		# OS/2 MPM
+		# StartServers: Number of server processes to maintain
+		# MinSpareThreads: Minimum number of idle threads per process,
+		# to handle request spikes
+		# MaxSpareThreads: Maximum number of idle threads per process
+		# MaxConnectionsPerChild: Maximum number of connections per server process
+		
+		IF:mpm_mpmt_os2_module
+		{
+			StartServers =             2
+			MinSpareThreads =          5
+			MaxSpareThreads =         10
+			MaxConnectionsPerChild =   0
+		}
+		
+		# WinNT MPM
+		# ThreadsPerChild: constant number of worker threads in the server process
+		# MaxConnectionsPerChild: maximum number of connections a server process serves
+		
+		IF:mpm_winnt_module
+		{
+			ThreadsPerChild =        150
+			MaxConnectionsPerChild =   0
+		}
+		
+		# The maximum number of free Kbytes that every allocator is allowed
+		# to hold without calling free(). In threaded MPMs, every thread has its own
+		# allocator. When not set, or when set to zero, the threshold will be set to
+		# unlimited.
+		
+		IF:!mpm_netware_module
+		{
+			MaxMemFree =            2048
+		}
+		
+		
+		IF:mpm_netware_module
+		{
+			MaxMemFree =             100
+		}
+		
+	}
+	
+	# Multi-language error messages
+	
+	inc:httpd-multilang-errordoc.conf
+	{
+		#
+		# The configuration below implements multi-language error documents through
+		# content-negotiation.
+		#
+		# Required modules: mod_alias, mod_authz_core, mod_authz_host,
+		# mod_include, mod_negotiation
+		#
+		# We use Alias to redirect any /error/HTTP_<error>.html.var response to
+		# our collection of by-error message multi-language collections. We use
+		# includes to substitute the appropriate text.
+		#
+		# You can modify the messages' appearance without changing any of the
+		# default HTTP_<error>.html.var files by adding the line:
+		#
+		# Alias /error/include/ "/your/include/path/"
+		#
+		# which allows you to create your own set of files by starting with the
+		# /usr/share/httpd/error/include/ files and copying them to /your/include/path/,
+		# even on a per-VirtualHost basis. The default include files will display
+		# your Apache version number and your ServerAdmin email address regardless
+		# of the setting of ServerSignature.
+		Alias = /error/ "/usr/share/httpd/error/"
+		
+		De:"/usr/share/httpd/error"
+		{
+			AllowOverride = None
+			Options = IncludesNoExec
+			AddOutputFilter = Includes html
+			AddHandler = type-map var
+			Require = all granted
+			LanguagePriority = en cs de es fr it ja ko nl pl pt-br ro sv tr
+			ForceLanguagePriority = Prefer Fallback
+		}
+		
+		[ErrorDocument]
+		(
+		  400 /error/HTTP_BAD_REQUEST.html.var;
+		  401 /error/HTTP_UNAUTHORIZED.html.var
+		  403 /error/HTTP_FORBIDDEN.html.var
+		  404 /error/HTTP_NOT_FOUND.html.var
+		  405 /error/HTTP_METHOD_NOT_ALLOWED.html.var
+		  408 /error/HTTP_REQUEST_TIME_OUT.html.var
+		  410 /error/HTTP_GONE.html.var
+		  411 /error/HTTP_LENGTH_REQUIRED.html.var
+		  412 /error/HTTP_PRECONDITION_FAILED.html.var
+		  413 /error/HTTP_REQUEST_ENTITY_TOO_LARGE.html.var
+		  414 /error/HTTP_REQUEST_URI_TOO_LARGE.html.var
+		  415 /error/HTTP_UNSUPPORTED_MEDIA_TYPE.html.var
+		  500 /error/HTTP_INTERNAL_SERVER_ERROR.html.var
+		  501 /error/HTTP_NOT_IMPLEMENTED.html.var
+		  502 /error/HTTP_BAD_GATEWAY.html.var
+		  503 /error/HTTP_SERVICE_UNAVAILABLE.html.var
+		  506 /error/HTTP_VARIANT_ALSO_VARIES.html.var
+		)
+	}
+	
+	# Fancy directory listings
+	
+	inc:httpd-autoindex.conf
+	{
+		#
+		# Directives controlling the display of server-generated directory listings.
+		#
+		# Required modules: mod_authz_core, mod_authz_host,
+		# mod_autoindex, mod_alias
+		#
+		# To see the listing of a directory, the Options directive for the
+		# directory must include "Indexes", and the directory must not contain
+		# a file matching those listed in the DirectoryIndex directive.
+		#
+		#
+		# IndexOptions: Controls the appearance of server-generated directory
+		# listings.
+		#
+		IndexOptions = FancyIndexing HTMLTable VersionSort
+		# We include the /icons/ alias for FancyIndexed directory listings. If
+		# you do not use FancyIndexing, you may comment this out.
+		#
+		Alias = /icons/ "/usr/share/httpd/icons/"
+		
+		De:"/usr/share/httpd/icons"
+		{
+			Options = Indexes MultiViews
+			AllowOverride = None
+			Require = all granted
+		}
+		
+		#
+		# AddIcon* directives tell the server which icon to show for different
+		# files or filename extensions. These are only displayed for
+		# FancyIndexed directories.
+		#
+		AddIconByEncoding = (CMP,/icons/compressed.gif) x-compress x-gzip
+		[AddIconByType]
+		(
+		  (TXT,/icons/text.gif) text/*;
+		  (IMG,/icons/image2.gif) image/*
+		  (SND,/icons/sound2.gif) audio/*
+		  (VID,/icons/movie.gif) video/*
+		)
+		[AddIcon]
+		(
+		  /icons/binary.gif .bin .exe;
+		  /icons/binhex.gif .hqx
+		  /icons/tar.gif .tar
+		  /icons/world2.gif .wrl .wrl.gz .vrml .vrm .iv
+		  /icons/compressed.gif .Z .z .tgz .gz .zip
+		  /icons/a.gif .ps .ai .eps
+		  /icons/layout.gif .html .shtml .htm .pdf
+		  /icons/text.gif .txt
+		  /icons/c.gif .c
+		  /icons/p.gif .pl .py
+		  /icons/f.gif .for
+		  /icons/dvi.gif .dvi
+		  /icons/uuencoded.gif .uu
+		  /icons/script.gif .conf .sh .shar .csh .ksh .tcl
+		  /icons/tex.gif .tex
+		  /icons/bomb.gif core
+		)
+		[AddIcon]
+		(
+		  /icons/back.gif ..;
+		  /icons/hand.right.gif README
+		  /icons/folder.gif ^^DIRECTORY^^
+		  /icons/blank.gif ^^BLANKICON^^
+		)
+		#
+		# DefaultIcon is which icon to show for files which do not have an icon
+		# explicitly set.
+		#
+		DefaultIcon = /icons/unknown.gif
+		#
+		# AddDescription allows you to place a short description after a file in
+		# server-generated indexes. These are only displayed for FancyIndexed
+		# directories.
+		# Format: AddDescription "description" filename
+		#
+		#AddDescription "GZIP compressed document" .gz
+		#AddDescription "tar archive" .tar
+		#AddDescription "GZIP compressed tar archive" .tgz
+		#
+		# ReadmeName is the name of the README file the server will look for by
+		# default, and append to directory listings.
+		#
+		# HeaderName is the name of a file which should be prepended to
+		# directory indexes.
+		ReadmeName = README.html
+		HeaderName = HEADER.html
+		#
+		# IndexIgnore is a set of filenames which directory indexing should ignore
+		# and not include in the listing. Shell-style wildcarding is permitted.
+		#
+		IndexIgnore = .??* *~ *# HEADER* README* RCS CVS *,v *,t
+	}
+	
+	# Language settings
+	
+	inc:httpd-languages.conf
+	{
+		#
+		# Settings for hosting different languages.
+		#
+		# Required modules: mod_mime, mod_negotiation
+		# DefaultLanguage and AddLanguage allows you to specify the language of
+		# a document. You can then use content negotiation to give a browser a
+		# file in a language the user can understand.
+		#
+		# Specify a default language. This means that all data
+		# going out without a specific language tag (see below) will
+		# be marked with this one. You probably do NOT want to set
+		# this unless you are sure it is correct for all cases.
+		#
+		# action.sh test.tx test.txt ubedit It is generally better to not mark a page as
+		# action.sh test.tx test.txt ubedit being a certain language than marking it with the wrong
+		# action.sh test.tx test.txt ubedit language!
+		#
+		# DefaultLanguage nl
+		#
+		# Note 1: The suffix does not have to be the same as the language
+		# keyword --- those with documents in Polish (whose net-standard
+		# language code is pl) may wish to use "AddLanguage pl .po" to
+		# avoid the ambiguity with the common suffix for perl scripts.
+		#
+		# Note 2: The example entries below illustrate that in some cases
+		# the two character 'Language' abbreviation is not identical to
+		# the two character 'Country' code for its country,
+		# E.g. 'Danmark/dk' versus 'Danish/da'.
+		#
+		# Note 3: In the case of 'ltz' we violate the RFC by using a three char
+		# specifier. There is 'work in progress' to fix this and get
+		# the reference data for rfc1766 cleaned up.
+		#
+		# Catalan (ca) - Croatian (hr) - Czech (cs) - Danish (da) - Dutch (nl)
+		# English (en) - Esperanto (eo) - Estonian (et) - French (fr) - German (de)
+		# Greek-Modern (el) - Hebrew (he) - Italian (it) - Japanese (ja)
+		# Korean (ko) - Luxembourgeois* (ltz) - Norwegian Nynorsk (nn)
+		# Norwegian (no) - Polish (pl) - Portugese (pt)
+		# Brazilian Portuguese (pt-BR) - Russian (ru) - Swedish (sv)
+		# Turkish (tr) - Simplified Chinese (zh-CN) - Spanish (es)
+		# Traditional Chinese (zh-TW)
+		#
+		[AddLanguage]
+		(
+		  ca .ca;
+		  cs .cz .cs
+		  da .dk
+		  de .de
+		  el .el
+		  en .en
+		  eo .eo
+		  es .es
+		  et .et
+		  fr .fr
+		  he .he
+		  hr .hr
+		  it .it
+		  ja .ja
+		  ko .ko
+		  ltz .ltz
+		  nl .nl
+		  nn .nn
+		  no .no
+		  pl .po
+		  pt .pt
+		  pt-BR .pt-br
+		  ru .ru
+		  sv .sv
+		  tr .tr
+		  zh-CN .zh-cn
+		  zh-TW .zh-tw
+		)
+		# LanguagePriority allows you to give precedence to some languages
+		# in case of a tie during content negotiation.
+		#
+		# Just list the languages in decreasing order of preference. We have
+		# more or less alphabetized them here. You probably want to change this.
+		#
+		LanguagePriority = en ca cs da de el eo es et fr he hr it ja ko ltz nl nn no pl pt pt-BR ru sv tr zh-CN zh-TW
+		#
+		# ForceLanguagePriority allows you to serve a result page rather than
+		# MULTIPLE CHOICES (Prefer) [in case of a tie] or NOT ACCEPTABLE (Fallback)
+		# [in case no accepted languages matched the available variants]
+		#
+		ForceLanguagePriority = Prefer Fallback
+		#
+		# Commonly used filename extensions to character sets. You probably
+		# want to avoid clashes with the language extensions, unless you
+		# are good at carefully testing your setup after each change.
+		# See http://www.iana.org/assignments/character-sets for the
+		# official list of charset names and their respective RFCs.
+		#
+		[AddCharset]
+		(
+		  us-ascii.ascii .us-ascii;
+		  ISO-8859-1  .iso8859-1  .latin1
+		  ISO-8859-2  .iso8859-2  .latin2 .cen
+		  ISO-8859-3  .iso8859-3  .latin3
+		  ISO-8859-4  .iso8859-4  .latin4
+		  ISO-8859-5  .iso8859-5  .cyr .iso-ru
+		  ISO-8859-6  .iso8859-6  .arb .arabic
+		  ISO-8859-7  .iso8859-7  .grk .greek
+		  ISO-8859-8  .iso8859-8  .heb .hebrew
+		  ISO-8859-9  .iso8859-9  .latin5 .trk
+		  ISO-8859-10  .iso8859-10  .latin6
+		  ISO-8859-13  .iso8859-13
+		  ISO-8859-14  .iso8859-14  .latin8
+		  ISO-8859-15  .iso8859-15  .latin9
+		  ISO-8859-16  .iso8859-16  .latin10
+		  ISO-2022-JP .iso2022-jp .jis
+		  ISO-2022-KR .iso2022-kr .kis
+		  ISO-2022-CN .iso2022-cn .cis
+		  Big5.Big5   .big5 .b5
+		  cn-Big5 .cn-big5
+		)
+		# For russian, more than one charset is used (depends on client, mostly):
+		[AddCharset]
+		(
+		  WINDOWS-1251 .cp-1251   .win-1251;
+		  CP866   .cp866
+		  KOI8  .koi8
+		  KOI8-E  .koi8-e
+		  KOI8-r  .koi8-r .koi8-ru
+		  KOI8-U  .koi8-u
+		  KOI8-ru .koi8-uk .ua
+		  ISO-10646-UCS-2 .ucs2
+		  ISO-10646-UCS-4 .ucs4
+		  UTF-7   .utf7
+		  UTF-8   .utf8
+		  UTF-16  .utf16
+		  UTF-16BE .utf16be
+		  UTF-16LE .utf16le
+		  UTF-32  .utf32
+		  UTF-32BE .utf32be
+		  UTF-32LE .utf32le
+		  euc-cn  .euc-cn
+		  euc-gb  .euc-gb
+		  euc-jp  .euc-jp
+		  euc-kr  .euc-kr
+		)
+		#Not sure how euc-tw got in - IANA doesn't list it???
+		[AddCharset]
+		(
+		  EUC-TW  .euc-tw;
+		  gb2312  .gb2312 .gb
+		  iso-10646-ucs-2 .ucs-2 .iso-10646-ucs-2
+		  iso-10646-ucs-4 .ucs-4 .iso-10646-ucs-4
+		  shift_jis   .shift_jis .sjis
+		)
+	}
+	
+	# User home directories
+	
+	inc:httpd-userdir.conf
+	{
+		# Settings for user home directories
+		#
+		# Required module: mod_authz_core, mod_authz_host, mod_userdir
+		#
+		# UserDir: The name of the directory that is appended onto a user's home
+		# directory if a ~user request is received. Note that you must also set
+		# the default access control for these directories, as in the example below.
+		#
+		UserDir = public_html
+		#
+		# Control access to UserDir directories. The following is an example
+		# for a site where these directories are restricted to read-only.
+		#
+		
+		De:"/home/*/public_html"
+		{
+			AllowOverride = FileInfo AuthConfig Limit Indexes
+			Options = MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+			Require = method GET POST OPTIONS
+		}
+		
+	}
+	
+	# Real-time info on requests and configuration
+	#Include conf/extra/httpd-info.conf
+	# Virtual hosts
+	#Include conf/extra/httpd-vhosts.conf
+	# Local access to the Apache HTTP Server Manual
+	#Include conf/extra/httpd-manual.conf
+	# Distributed authoring and versioning (WebDAV)
+	#Include conf/extra/httpd-dav.conf
+	# Various default settings
+	
+	inc:httpd-default.conf
+	{
+		#
+		# This configuration file reflects default settings for Apache HTTP Server.
+		#
+		# You may change these, but chances are that you may not need to.
+		#
+		#
+		# Timeout: The number of seconds before receives and sends time out.
+		#
+		Timeout = 60
+		#
+		# KeepAlive: Whether or not to allow persistent connections (more than
+		# one request per connection). Set to "Off" to deactivate.
+		#
+		KeepAlive = On
+		#
+		# MaxKeepAliveRequests: The maximum number of requests to allow
+		# during a persistent connection. Set to 0 to allow an unlimited amount.
+		# We recommend you leave this number high, for maximum performance.
+		#
+		MaxKeepAliveRequests = 100
+		#
+		# KeepAliveTimeout: Number of seconds to wait for the next request from the
+		# same client on the same connection.
+		#
+		KeepAliveTimeout = 5
+		#
+		# UseCanonicalName: Determines how Apache constructs self-referencing
+		# URLs and the SERVER_NAME and SERVER_PORT variables.
+		# When set "Off", Apache will use the Hostname and Port supplied
+		# by the client. When set "On", Apache will use the value of the
+		# ServerName directive.
+		#
+		UseCanonicalName = Off
+		#
+		# AccessFileName: The name of the file to look for in each directory
+		# for additional configuration directives. See also the AllowOverride
+		# directive.
+		#
+		AccessFileName = .htaccess
+		#
+		# ServerTokens
+		# This directive configures what you return as the Server HTTP response
+		# Header. The default is 'Full' which sends information about the OS-Type
+		# and compiled in modules.
+		# Set to one of: Full | OS | Minor | Minimal | Major | Prod
+		# where Full conveys the most information, and Prod the least.
+		#
+		ServerTokens = Full
+		#
+		# Optionally add a line containing the server version and virtual host
+		# name to server-generated pages (internal error documents, FTP directory
+		# listings, mod_status and mod_info output etc., but not CGI generated
+		# documents or custom error documents).
+		# Set to "EMail" to also include a mailto: link to the ServerAdmin.
+		# Set to one of: On | Off | EMail
+		#
+		ServerSignature = Off
+		#
+		# HostnameLookups: Log the names of clients or just their IP addresses
+		# e.g., www.apache.org (on) or 204.62.129.132 (off).
+		# The default is off because it'd be overall better for the net if people
+		# had to knowingly turn this feature on, since enabling it means that
+		# each client request will result in AT LEAST one lookup request to the
+		# nameserver.
+		#
+		HostnameLookups = Off
+		#
+		# Set a timeout for how long the client may take to send the request header
+		# and body.
+		# The default for the headers is header=20-40,MinRate=500, which means wait
+		# for the first byte of headers for 20 seconds. If some data arrives,
+		# increase the timeout corresponding to a data rate of 500 bytes/s, but not
+		# above 40 seconds.
+		# The default for the request body is body=20,MinRate=500, which is the same
+		# but has no upper limit for the timeout.
+		# To disable, set to header=0 body=0
+		#
+		
+		IF:reqtimeout_module
+		{
+			RequestReadTimeout = header=20-40,MinRate=500 body=20,MinRate=500
+		}
+		
+	}
+	
+	
+	inc:php7_module.conf
+	{
+		# Required modules: dir_module, php7_module
+		
+		IF:dir_module
+		{
+			
+			IF:php7_module
+			{
+				DirectoryIndex = index.php index.html
+				
+				Fi:.php$
+				{
+					SetHandler = application/x-httpd-php
+				}
+				
+				
+				Fi:.phps$
+				{
+					SetHandler = application/x-httpd-php-source
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	# Configure mod_proxy_html to understand HTML4/XHTML1
+	
+	IF:proxy_html_module
+	{
+		
+		inc:proxy-html.conf
+		{
+			# Configuration example.
+			#
+			# For detailed information about these directives see
+			# <URL:http://httpd.apache.org/docs/2.4/mod/mod_proxy_html.html>
+			# and for mod_xml2enc see
+			# <URL:http://httpd.apache.org/docs/2.4/mod/mod_xml2enc.html>
+			#
+			# First, to load the module with its prerequisites. Note: mod_xml2enc
+			# is not always necessary, but without it mod_proxy_html is likely to
+			# mangle pages in encodings other than ASCII or Unicode (utf-8).
+			#
+			# For Unix-family systems:
+			# LoadFile /usr/lib/libxml2.so
+			# LoadModule proxy_html_module modules/mod_proxy_html.so
+			# LoadModule xml2enc_module modules/mod_xml2enc.so
+			#
+			# For Windows (I don't know if there's a standard path for the libraries)
+			# LoadFile C:/path/zlib.dll
+			# LoadFile C:/path/iconv.dll
+			# LoadFile C:/path/libxml2.dll
+			# LoadModule proxy_html_module modules/mod_proxy_html.so
+			# LoadModule xml2enc_module modules/mod_xml2enc.so
+			#
+			# All knowledge of HTML links has been removed from the mod_proxy_html
+			# code itself, and is instead read from httpd.conf (or included file)
+			# at server startup. So you MUST declare it. This will normally be
+			# at top level, but can also be used in a <Location>.
+			#
+			# Here's the declaration for W3C HTML 4.01 and XHTML 1.0
+			[ProxyHTMLLinks]
+			(
+			  a		href;
+			  area		href
+			  link		href
+			  img		src longdesc usemap
+			  object		classid codebase data usemap
+			  q		cite
+			  blockquote	cite
+			  ins		cite
+			  del		cite
+			  form		action
+			  input		src usemap
+			  head		profile
+			  base		href
+			  script		src for
+			)
+			# To support scripting events (with ProxyHTMLExtended On),
+			# you'll need to declare them too.
+			ProxyHTMLEvents = onclick ondblclick onmousedown onmouseup 		onmouseover onmousemove onmouseout onkeypress 		onkeydown onkeyup onfocus onblur onload 		onunload onsubmit onreset onselect onchange
+			# If you need to support legacy (pre-1998, aka "transitional") HTML or XHTML,
+			# you'll need to uncomment the following deprecated link attributes.
+			# Note that these are enabled in earlier mod_proxy_html versions
+			#
+			# ProxyHTMLLinks frame src longdesc
+			# ProxyHTMLLinks iframe src longdesc
+			# ProxyHTMLLinks body background
+			# ProxyHTMLLinks applet codebase
+			#
+			# If you're dealing with proprietary HTML variants,
+			# declare your own URL attributes here as required.
+			#
+			# ProxyHTMLLinks myelement myattr otherattr
+			#
+			###########
+			# EXAMPLE #
+			###########
+			#
+			# To define the URL /my-gateway/ as a gateway to an appserver with address
+			# http://some.app.intranet/ on a private network, after loading the
+			# modules and including this configuration file:
+			#
+			# ProxyRequests Off <-- this is an important security setting
+			# ProxyPass /my-gateway/ http://some.app.intranet/
+			# <Location /my-gateway/>
+			# ProxyPassReverse /
+			# ProxyHTMLEnable On
+			# ProxyHTMLURLMap http://some.app.intranet/ /my-gateway/
+			# ProxyHTMLURLMap / /my-gateway/
+			# </Location>
+			#
+			# Many (though not all) real-life setups are more complex.
+			#
+			# See the documentation at
+			# http://apache.webthing.com/mod_proxy_html/
+			# and the tutorial at
+			# http://www.apachetutor.org/admin/reverseproxies
+		}
+		
+	}
+	
+	# Secure (SSL/TLS) connections
+	#Include conf/extra/httpd-ssl.conf
+	#
+	# Note: The following must must be present to support
+	# starting without SSL on platforms with no /dev/random equivalent
+	# but a statically compiled-in mod_ssl.
+	#
+	
+	IF:ssl_module
+	{
+		SSLRandomSeed = startup builtin
+		SSLRandomSeed = connect builtin
+	}
+	
+}
+

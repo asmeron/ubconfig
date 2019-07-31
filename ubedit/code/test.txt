@@ -1,0 +1,13 @@
+del_write test
+{
+	[InputDevice:2]
+	{
+		
+	}
+	
+	[InputDevice:1]
+	{
+	
+	}
+	
+}
