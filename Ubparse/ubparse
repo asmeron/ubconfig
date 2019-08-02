@@ -2,10 +2,10 @@
 
 path_run=$(dirname $0)
 
-. $path_run/inc/api.sh
-. $path_run/inc/filters.sh
-. $path_run/inc/error.sh
-. $path_run/inc/out.sh
+. $path_run/api.sh
+. $path_run/filters.sh
+. $path_run/out.sh
+. $path_run/error.sh
 
 if [ $# -eq 0 ]; then
 	error_pros 1
@@ -39,7 +39,7 @@ fi
 
 while getopts ":n:r:t:k:lfqesw" opt
 do
-	parm=$(echo $OPTARG | sed 's/ /@/g')
+	parm=${OPTARG// /@}
 	case $opt in
 		r) str="$str filter_nest@$parm";;
 		n) str="$str filter_name@$parm";;
