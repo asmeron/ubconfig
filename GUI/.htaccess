@@ -1,0 +1,6 @@
+RewriteEngine On
+ErrorDocument 404 /index.php
+RewriteRule ^apache$ index.php?conf=apache
+RewriteRule ^X11$ index.php?conf=X11
+RewriteRule ^SSH$ index.php?conf=SSH
+RewriteRule ^avahi$ index.php?conf=avahi

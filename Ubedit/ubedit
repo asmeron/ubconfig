@@ -4,24 +4,20 @@ path_run=$(dirname $0)
 
 . $path_run/action.sh
 
-function sh_run
-{
-	while read line;
-	do
-		$line
-		
-	done < $1
-}
 
-while getopts "d:l:iv:" opt
+while getopts "d:l:i:v:" opt
 do
 	#parm=$(echo $OPTARG | sed 's/ /@/g')
 	case $opt in
 		d) del_block $OPTARG;;
 		l) del_write $OPTARG;;
-		i) echo "$str filter_type@$parm";;
-		v) ins_write $OPTARG;;
-		*) echo "Dick";
+		i) ins_block $OPTARG;;
+		v) 	str1=$(echo $OPTARG | cut -d' ' -f1)
+		 	str2=$(echo $OPTARG | cut -d' ' -f2)
+		 	str3=$(echo $OPTARG | cut -d' ' -f3)
+		 	str4=$(echo $OPTARG | cut -d' ' --complement -f1,2,3)
+			ins_write $str1 $str2 $str3 "$str4";;
+		*) echo "Emtry key";
 	esac
 done
 
@@ -34,4 +30,3 @@ done
 #ins_write MyBlock 1 test "Device Out_Keyboard"
 #del_block "MyBlock" 1 "test"
 #ins_write "Monitor" 1 "test" "\ \ Device \"Out_Mouse\""
-#sh_run $path_run/test.txt

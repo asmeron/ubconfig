@@ -3,14 +3,14 @@
 # Удаление записи
 #
 # $1 - Индефикатор конфигураций
-# $2 - Имя блока в котором нужно удалить записьН
+# $2 - Имя блока в котором нужно удалить запись
 # $3 - Индефикатор записи
 # $4 - Номер вхождения
 function del_write
 {	
 	local date i
 	
-	let "i=($4-1)*2"
+	let "i=($4-1)*2"0
 	date=(${date[@]} $( ubparse -n "$2" -k "$3" -q $1))
 	n_st=${date[$i]}
 	path=${date[$i+1]}
@@ -40,7 +40,7 @@ function del_block
 function ins_write
 {
  	local date i
-	
+	echo $1 $2 $3 $4
 	let "i=($3-1)*4"
 	date=(${date[@]} $( ubparse -n "$2" -t "bb"  -q $1))
 	sed -i "${date[$i+2]}i $4" ${date[$i+1]}

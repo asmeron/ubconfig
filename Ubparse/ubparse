@@ -2,10 +2,10 @@
 
 path_run=$(dirname $0)
 
-. $path_run/api.sh
-. $path_run/filters.sh
-. $path_run/out.sh
-. $path_run/error.sh
+. $path_run/Inc/api.sh
+. $path_run/Inc/filters.sh
+. $path_run/Inc/out.sh
+. $path_run/Inc/error.sh
 
 if [ $# -eq 0 ]; then
 	error_pros 1

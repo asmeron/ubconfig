@@ -1,6 +1,5 @@
-/etc/avahi/avahi-daemon.conf
+Patch /etc/avahi/avahi-daemon.conf
 Comment ^#\s?
 Off ^#\\S
-Block Select ^\\[.+\\]$
-End ^$
-Key =
+Block Select ^\\[(.+)\\]$ ^$
+Set ^([^#].+)=(.+)

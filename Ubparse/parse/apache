@@ -1,15 +1,11 @@
-/etc/httpd/conf/httpd.conf
-Q /etc/httpd/
+Patch /etc/httpd/conf/httpd.conf
+IncludePath /etc/httpd/
 Comment ^#\s?
 Off ^#\\S
-Block IF ^<IfModule\\s?(.+)>$
-End </IfModule>
-Block De ^<Directory\\s?(.+)>$
-End </Directory>
-Block File ^<Files\\s?(.+)>$
-End </Files>
-Block Fi ^<FilesMatch\\s?"(.+)">$
-End </FilesMatch>
+Block IF ^<IfModule\\s?(.+)>$ </IfModule>
+Block De ^<Directory\\s?(.+)>$ </Directory>
+Block File ^<Files\\s?(.+)>$ </Files>
+Block Fi ^<FilesMatch\\s?"(.+)">$ </FilesMatch>
 Group LoadModule
 Group ErrorDocument
 Group AddIcon
@@ -17,5 +13,5 @@ Group AddIconByType
 Group AddLanguage
 Group AddCharset
 Group ProxyHTMLLinks
-I Include
+DInclude Include
 Set ^([a-Z]+)\\s(.+)

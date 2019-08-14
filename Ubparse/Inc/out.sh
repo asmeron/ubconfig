@@ -64,7 +64,7 @@ function render
 	if [ "$type" == "set" ]; then
 		key=$(get_value "$set" "$line" 1)
 		value=$(get_value "$set" "$line" 2)
-		Set=${SetFormat/key/$key}
+		Set=${SetFormat//key/$key}
 		Set=${Set/value/$value}
 		Set=${Set//'\n'/'\n'$tab}
 		echo -e "$tab$Set"
@@ -101,7 +101,7 @@ function render_group
 	value=$(get_value "$set" "$line" 2)
 	
 	if [ "$name_gr" == "$key" ]; then
-		Set=${GVFormat/name/$key}
+		Set=${GVFormat//name/$key}
 		Set=${Set/value/$value}
 		Set=${Set//'\n'/'\n'$tab}
 		echo -e "$tab$Set"
