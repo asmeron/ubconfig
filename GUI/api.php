@@ -1,27 +1,22 @@
 <?php
 
-	/*
-	* Поиск файлов определеного типа
-	*
-	* @param $path путь поиска
-	* @param $type искомый тип файла
-	*
-	* @returns массив с именами файлов
-	*/
-
-	function find_file($path, $type) 
+	function read_setting($path)
 	{
-		$files = scandir($path);
-		$files = array_diff($files, array('.', '..'));
+		$conf = file_get_contents($path);
+		$reg = '/name\s=\s(.+)\n.+alt\s=\s(.+)\n.+type\s=\s(.+)\n.+collect_values\s=\s\((.+)\)/';
+		preg_match_all($reg, $conf, $temp);
 
-		foreach($files as $file) 
-		{
-			if (strpos($file, '.' . $type)) 
-				$result[] = $file;
-		}
+
+		$result['name'] = $temp[1];
+		$result['alt'] = $temp[2];
+		$result['type'] = $temp[3];
+		$result['value'] = $temp[4];
 
 		return $result;
-
-	 }
+	}
 	 
+	function replace_patern($path)
+	{
+		$temp = preg_replace('/\$name/', $test['name'][$key], $temp);
+	}
 ?>

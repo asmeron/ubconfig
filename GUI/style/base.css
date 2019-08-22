@@ -23,6 +23,24 @@ NAV
     margin-top: 20px;
     box-shadow: 4px 4px 7px 4px #264d73
 }
+H3
+{
+    display: inline-block;
+    margin: 0;
+    width: 10%;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    position: relative;
+    top: 1px;
+    background-color: #0C2C4B;
+    color: #D8A863;
+    margin-left: 5px;
+    word-break: break-word;
+    cursor: pointer;
+}
+
 H2
 {
 	margin: 0;
@@ -68,9 +86,10 @@ A
 .work
 {
 	display: inline-block;
-    width: 85%;
+    width: 80%;
     margin-top: 20px;
     vertical-align: top;
+    margin-left: 5%;
 }
 
 FORM
@@ -96,7 +115,7 @@ TEXTAREA
 	resize: none;
 }
 
-INPUT,
+INPUT[type="text"],
 TEXTAREA
 {
 	float: right;
@@ -108,9 +127,8 @@ TEXTAREA
 }
 .block
 {
-	width: 95%;
+	width: 100%;
     display: inline-block;
-    margin-left: 5%;
     vertical-align: top;
     background-color: #56BB97;
     padding-bottom: 10px;
@@ -139,4 +157,10 @@ TEXTAREA
 {
 	background-color: #0C2C4B;
 	cursor: pointer;
+}
+fieldset
+{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 10px;
 }

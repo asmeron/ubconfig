@@ -1,0 +1,38 @@
+[apache:ServerAdmin]
+{
+	name = Почта Администратора сервера
+	alt = Электроный ящик администратора
+	type = field
+	collect_values = ( )
+}
+
+[unixd_module:User]
+{
+	name = Пользователь apache
+	alt = Пользователь от которого исполняется apache
+	type = field
+	collect_values = ( )
+}
+
+[dir_module:DirectoryIndex]
+{
+   name = Входной файл
+   alt = Файл, который будет вызыватся при обращение к серверу
+   type = check
+   collect_values = (index.php:Файл PHP, index.html:Файл HTML, index.lua:Файл LUA )
+}
+
+[dir_module:DirectoryIndex]
+{
+   name = Еще выбрать
+   alt = Файл, который будет вызыватся при обращение к серверу
+   type = radio
+   collect_values = (index.php:Файл PHP, index.html:Файл HTML, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA)
+}
+[dir_module:DirectoryIndex]
+{
+   name = И Еще выбрать
+   alt = Файл, который будет вызыватся при обращение к серверу
+   type = select
+   collect_values = (index.php:Файл PHP, index.html:Файл HTML, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA, index.lua:Файл LUA)
+}
