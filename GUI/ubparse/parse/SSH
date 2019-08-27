@@ -1,4 +1,4 @@
-Patch /etc/ssh/sshd_config
+Path /etc/ssh/sshd_config
 Comment ^#\s? 
 Off ^#\\S
 Group Subsystem
