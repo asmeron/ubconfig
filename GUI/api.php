@@ -14,9 +14,6 @@
 
 		return $result;
 	}
-	 
-	function replace_patern($path)
-	{
-		$temp = preg_replace('/\$name/', $test['name'][$key], $temp);
-	}
+	
+
 ?>

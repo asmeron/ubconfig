@@ -17,7 +17,7 @@ function init_format
 				'EndGroup') GEFormat=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1);;
 			esac
 			
-	done < $path_run/format.out
+	done < ./ubparse/out/format.out
 	
 }
 
@@ -65,7 +65,7 @@ function render
 		key=$(get_value "$set" "$line" 1)
 		value=$(get_value "$set" "$line" 2)
 		Set=${SetFormat//key/$key}
-		Set=${Set/value/$value}
+		Set=${Set//value/$value}
 		Set=${Set//'\n'/'\n'$tab}
 		echo -e "$tab$Set"
 	#####################################
@@ -101,7 +101,7 @@ function render_group
 	value=$(get_value "$set" "$line" 2)
 	
 	if [ "$name_gr" == "$key" ]; then
-		Set=${GVFormat//name/$key}
+		Set=${GVFormat/name/$key}
 		Set=${Set/value/$value}
 		Set=${Set//'\n'/'\n'$tab}
 		echo -e "$tab$Set"
