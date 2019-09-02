@@ -11,7 +11,7 @@
 		$mode = "base";
 
 	if ( $conf == NULL )
-		$conf = "base";
+		$conf = "dashboard";
 	/************************************************************/
 	
 
@@ -20,10 +20,14 @@
 	$html = file_get_contents("./tpl/base.tpl");
 
 	$modules = scandir("config");
-	$modules = array_diff($modules, array('.', '..', 'grf'));
+	$modules = array_diff($modules, array('.', '..', 'grf', 'stperm.sh'));
 	
 	foreach ( $modules as $module )
+	{
+		$st = file_get_contents("config/" . $module . "/" . $module . ".info");
+		print_r($st);
 		$str = $str . "<li><a href = '/$module/base'>$module</a></li>" . PHP_EOL;
+	}
 		
 	$html = str_replace( "\$modules_list\$", $str,  $html);
 	/************************************************************/
@@ -43,6 +47,13 @@
 		/************************************************************/
 
 		if ( $mode == "base")
+		{
+			$path = "./config/$conf/";
+			$str = handler_pattern($path);
+
+		}
+
+		elseif ( $mode == "expert" ) 
 		{
 			/* Формирование основной формы редактирования */
 			/************************************************************/
@@ -83,8 +94,7 @@
 
 
 		}
-
-		$str = $str . "<div class = 'button'><button id = 'save'>Сохранить</button></div></div>";
+		
 		$html = str_replace( "\$work\$", $str,  $html);
 	}
 	else

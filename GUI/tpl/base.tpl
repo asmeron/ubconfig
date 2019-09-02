@@ -15,7 +15,7 @@
 		</NAV><!--
 	--><DIV class = "work">
 		$tabs$
-		<FORM method = "POST" id = "EditForm">
+		<FORM name="AnyName" method = "POST" id = "EditForm">
 		$work$
 		</FORM>
 		</DIV>

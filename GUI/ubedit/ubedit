@@ -1,6 +1,6 @@
 #!/bin/bash
 
-path_run=$(dirname $0)
+path_run="./ubedit"
 
 . $path_run/action.sh
 

@@ -165,7 +165,7 @@ fieldset
     padding-top: 20px;
 }
 
-button
+#save
 {
     margin-left: 5%;
     width: 90%;
@@ -196,4 +196,8 @@ button
     left: 35%;
     transform: translateY(-450px);
     display: none;
+}
+FORM
+{
+    background-color: #DEC197;
 }
