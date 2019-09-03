@@ -15,19 +15,25 @@
 		return $result;
 	}
 
-	function read_info($path)
+	function read_info($path, $derictives = NULL)
 	{
 		$reg = '/(.+)\s=\s(.+)/i';
-		$directives = ["Name", "Status", "Tab"];
-		preg_match_all($reg, $path, $result);
 
-		//foreach ($result[1] as $key => $directive) 
-		//{
-			//if ( in_array($directive, $directives) )
-			//{
-				//echo "hello";
-			//}
-		//}
+		if ( $derictives == NULL)
+			$directives = ["Name", "Status", "Tab"];
+
+		$info = file_get_contents($path);
+		preg_match_all($reg, $info, $res);
+
+		foreach ($res[1] as $key => $directive) 
+		{
+			if ( in_array($directive, $directives) )
+			{
+				$result["$directive"] = $res[2][$key];
+			}
+		}
+
+		return $result;
 
 	}
 	
@@ -74,7 +80,8 @@
 
 	function handler_pattern($path)
 	{
-		$str = file_get_contents($path . "base.tpl");
+		$str = file_get_contents($path);
+		$path = strstr($path, "tabs", true);
 		preg_match_all('/`(.+)`/', $str, $scripts);
 
 		foreach ($scripts[1] as $key => $script) 
@@ -86,6 +93,30 @@
 
 		$str = form_generation($str);
 		return $str;
+	}
+
+	function handler_temp($path, $values)
+	{
+		$tpl = file_get_contents($path);
+		preg_match_all('/@(.+)@/', $tpl, $str);
+		$str = $str[1][0];
+		$result = "";
+		
+		foreach ($values as $key => $value) 
+		{
+			$buff = $str;
+
+			foreach ($value as $key => $val) 
+			{
+				$buff = str_replace("$".$key, $val, $buff);
+			}
+
+			$result .= $buff . PHP_EOL;
+		}
+
+		$result = str_replace("@".$str."@", $result, $tpl);
+		return $result;
+		
 	}
 
 ?>

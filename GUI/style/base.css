@@ -74,7 +74,7 @@ LI
 	margin-right: 10px;
     background-color: #0C2C4B;
     font-size: large;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 A
@@ -165,7 +165,8 @@ fieldset
     padding-top: 20px;
 }
 
-#save
+#save,
+#form_handler
 {
     margin-left: 5%;
     width: 90%;
