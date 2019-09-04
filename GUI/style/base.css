@@ -52,7 +52,7 @@ H2
     text-align: center;
 	word-break: break-all;
 }
-UL
+.modules
 {
 	list-style: none;
     width: 100%;
@@ -62,7 +62,7 @@ UL
     padding-bottom: 15px;
     background-color: #DEC197;
 }
-LI
+.modules LI
 {
 	padding-left: 5px;
     padding-right: 5px;

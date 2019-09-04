@@ -61,11 +61,11 @@
 					$buff = $array[1][0];
 					$buff = preg_replace('/\$value_key/', $array1[0], $buff);
 					$buff = preg_replace('/\$value_name/', $array1[1], $buff);
-					$st = $st . $buff . PHP_EOL;
+					$st .= $buff . PHP_EOL;
 				}
 
 				$temp = preg_replace('/@.+@/', $st, $temp);
-				$ar = $ar . $temp;
+				$ar .= $temp;
 			}
 
 			$str = str_replace($pattern, $ar, $str);
@@ -82,13 +82,54 @@
 	{
 		$str = file_get_contents($path);
 		$path = strstr($path, "tabs", true);
-		preg_match_all('/`(.+)`/', $str, $scripts);
+		$reg = '/`.*?([A-z | \.]+)[\$ | #][0-9]*?`/';
+
+		preg_match_all($reg, $str, $scripts);
+		$scripts[0] = array_unique($scripts[0]);
+		$scripts[1] = array_unique($scripts[1]);
 
 		foreach ($scripts[1] as $key => $script) 
+			exec($path . "sh/" . $script, $out[$script]);
+
+
+		foreach ($scripts[0] as $key => $value) 
 		{
-			exec($path . "sh/" . $script, $out);
-			$str = str_replace( "`" . $script . "`", $out[0],  $str);
-			unset($out);
+			if ( strpos($value, "\$") )
+			{
+				$ind = strstr($value, "\$");
+				$ind = strstr($ind, "`", true);
+				$ind = substr($ind, 1);
+				$ind --;
+
+				$name = strstr($value, "\$", true);
+				$name = substr($name, 1);
+
+				$str = str_replace($value , $out[$name][$ind],  $str);
+			}
+
+			if ( strpos($value, "#") )
+			{
+				$reg = "/.+$value.+/";
+				preg_match_all($reg, $str, $pat);
+				$pat = $pat[0];
+
+				$name = strstr($value, "#", true);
+				$name = substr($name, 1);
+
+				foreach ($pat as $key => $pat) 
+				{
+					$res = "";
+
+					foreach ($out[$name] as $key => $val) 
+					{
+						$st = str_replace($value, $val, $pat);
+						$res .= $st . PHP_EOL;
+					}
+
+					$str = str_replace($pat, $res, $str);
+				}
+			}
+
 		}
 
 		$str = form_generation($str);
