@@ -1,0 +1,7 @@
+Set <span><label for='key'>key</label><input type = 'text' placeholder='value' name = 'key[]'><button class='delete'></button></span>
+Block \\n<div class="block">\\n<h2>type:name</h2>\\n
+End \\n</div>
+BeginGroup [name]\\n(\\n  value
+BeginGroup <span><label for='name'>name</label><textarea>value&#10;
+ValueGroup value&#10;
+EndGroup </textarea>

@@ -1,17 +1,18 @@
 #!/bin/bash
 
-path_run=$(dirname $0)
+path_run="./ubparse/inc"
 
-. $path_run/inc/api.sh
-. $path_run/inc/filters.sh
-. $path_run/inc/out.sh
-. $path_run/inc/error.sh
+. $path_run/api.sh
+. $path_run/filters.sh
+. $path_run/error.sh
+. $path_run/out.sh
+
 
 if [ $# -eq 0 ]; then
 	error_pros 1
 fi
 
-pattern=$path_run/parse/${@:$#}
+pattern=./ubparse/parse/${@:$#}
 
 if [ ! -e $pattern ]; then
 	error_pros 2
@@ -41,7 +42,7 @@ fi
 
 while getopts ":n:r:t:k:lfqeswz:" opt
 do
-	parm=${OPTARG// /@}
+	parm=$(echo $OPTARG | sed 's/ /@/g')
 	case $opt in
 		r) str="$str filter_nest@$parm";;
 		n) str="$str filter_name@$parm";;

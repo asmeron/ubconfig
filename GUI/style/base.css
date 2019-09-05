@@ -1,14 +1,16 @@
 BODY
 {
-	margin-left: 15px;
-    margin-right: 15px;
+	margin: 1.2vw;
 	letter-spacing: 0.5px;
+	min-width: 400px;
+	font-family: 'Anonymous Pro', monospace;
 }
 
 H1
 {
     margin: 0;
-    padding: 21px;
+    padding-top: 21px;
+    padding-bottom: 21px;
     background-color: #264d73;
     color: #D8A863;
     text-transform: uppercase;
@@ -16,29 +18,51 @@ H1
 }
 NAV
 {
-	display: inline-grid;
-	width: 22%;
+	display: inline-block;
+	width: 15%;
     margin-top: 20px;
-    box-shadow: 25px 4px 7px 4px #264d73
+    box-shadow: 4px 4px 7px 4px #264d73
 }
+H3
+{
+    display: inline-block;
+    margin: 0;
+    width: 10%;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    position: relative;
+    top: 1px;
+    background-color: #0C2C4B;
+    color: #D8A863;
+    margin-left: 5px;
+    word-break: break-word;
+    cursor: pointer;
+}
+
 H2
 {
 	margin: 0;
-    padding: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     width: 100%;
     background-color: #264d73;
     color: #D8A863;
     text-align: center;
+	word-break: break-all;
 }
-UL
+.modules
 {
 	list-style: none;
     width: 100%;
     margin: 0;
-    padding: 15px;
-    background-color: #56BB97;
+	padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #DEC197;
 }
-LI
+.modules LI
 {
 	padding-left: 5px;
     padding-right: 5px;
@@ -47,8 +71,10 @@ LI
     text-align: center;
     margin-top: 10px;
     margin-left: 10px;
+	margin-right: 10px;
     background-color: #0C2C4B;
     font-size: large;
+	word-break: break-word;
 }
 
 A
@@ -56,18 +82,17 @@ A
 	color: #D8B582;
     text-decoration: none;
 }
+
 .work
 {
-	display: inline-grid;
-    width: 55%;
-    margin-left: 65px;
+	display: inline-block;
+    width: 80%;
+    margin-top: 20px;
+    vertical-align: top;
+    margin-left: 5%;
 }
-FORM
-{
-	width: 100%;
-    padding: 15px;
-    background-color: #56BB97;
-}
+
+
 SPAN
 {
 	display: list-item;
@@ -76,11 +101,104 @@ SPAN
     margin-left: 15px;
 	margin-top: 10px;
 }
-INPUT
+
+TEXTAREA
+{
+	height: 82px;
+	resize: none;
+}
+
+INPUT[type="text"],
+TEXTAREA
 {
 	float: right;
     width: 50%;
     border-radius: 4px;
     border: double 2px #0C2C4B;
+	margin-right: 10px;
 
+}
+.block
+{
+	width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #DEC197;
+    padding-bottom: 10px;
+}
+
+.block .block
+{
+	width: 96%;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-top: 20px;
+	border: none;
+}
+
+.block .block div
+{
+	display : none;
+}
+
+.block .block span
+{
+	display : none;
+}
+
+.block .block H2
+{
+	background-color: #0C2C4B;
+	cursor: pointer;
+}
+fieldset
+{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 10px;
+}
+
+.button
+{
+    background-color: #2B4156;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+#save,
+#form_handler
+{
+    margin-left: 5%;
+    width: 90%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-radius: 3px;
+    border-width: 0px;
+    background-color: #EFDDC5;
+    cursor: pointer;
+}
+.mask
+{
+    background-color: black;
+    width: 999%;
+    height: 999%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+    display: none;
+}
+.window
+{
+    width: 40%;
+    background-color: white;
+    height: 300px;
+    position: absolute;
+    left: 35%;
+    transform: translateY(-450px);
+    display: none;
+}
+FORM
+{
+    background-color: #DEC197;
 }

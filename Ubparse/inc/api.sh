@@ -42,7 +42,7 @@ function init_pattern
 		# Считываев путь к файлу конфигураций
 		#####################################
 		if [ $i == 0 ]; then
-			conf=$LINE 
+			conf=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) 
 			(( i++ ))
 		
 			if [ ! -e "$conf" ] || [ "$conf" == "" ]; then
@@ -63,10 +63,9 @@ function init_pattern
 				'Block') blocks=(${blocks[@]} $(get_value "^[a-Z]+\\s([a-Z]+)\\s.+" "$LINE" 1))
 			 	 	     blocks=(${blocks[@]} $(get_value "^[a-Z]+\\s[a-Z]+\\s(.+)" "$LINE" 1))
 					 	 (( count++ ));;
-				'End') blocks=(${blocks[@]} $(get_value "^[a-Z]+\\s(.+)" "$LINE" 1)) ;;
 				'Off') func=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
-				'I') inc=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
-				'Q') f_path=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
+				'DInclude') inc=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
+				'IncludePath') f_path=$(get_value "^[a-Z]+\\s(.+)" "$LINE" 1) ;;
 				*) return 2;;
 			esac
 			
@@ -129,8 +128,10 @@ function check_str
 	fi
 	
 	# Проверка на предмет пустой строки
-	if [ "$1" == "" ]; then
-		type="em_st"
+	if [ "$type" == "0" ]; then
+		if [ "$1" == "" ]; then
+			type="em_st"
+		fi
 	fi
 	
 	i=0
@@ -247,5 +248,11 @@ function handlers
 		fi
 		
 	done
+	
+	(( cx++ ))
+
+	if [ "$limit" != "0" ] && [ "$limit" == "$cx" ]; then
+		exit
+	fi
 	
 }
