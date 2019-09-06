@@ -1,16 +1,30 @@
 <?php
 
-	function read_setting($str)
+	/*function read_setting($str)
 	{
-		$reg = '/name\s=\s(.+)\n.+alt\s=\s(.+)\n.+type\s=\s(.+)\n.+action\s=(.+)\n.+collect_values\s=\s\((.+)\)/';
+		$reg = '/name\s=\s(.+)\n.+alt\s=\s(.+)\n.+type\s=\s(.+)\n.+default\s=(.+)\n.+collect_values\s=\s\((.+)\)/';
 		preg_match_all($reg, $str, $temp);
 
 
 		$result['name'] = $temp[1];
 		$result['alt'] = $temp[2];
 		$result['type'] = $temp[3];
-		$result['action'] = $temp[4];
+		$result['default'] = $temp[4];
 		$result['value'] = $temp[5];
+
+		return $result;
+	}*/
+
+	function read_setting($str)
+	{
+		$directives = ["name", "alt", "type", "default", "collect_values" ];
+
+		foreach ($directives as $key => $directive) 
+		{
+			$reg = "/$directive\s=\s\(((.|\n)*?)\)/";
+			preg_match_all($reg, $str, $temp);
+			$result[$directive] = $temp[1];
+		}
 
 		return $result;
 	}
@@ -39,7 +53,7 @@
 	
 	function form_generation($str)
 	{
-		$reg = '/<formprepross>((.|\n)*?)<\/formprepross>/i';
+		$reg = '/<formprepross\saction\s=.+>((.|\n)*?)<\/formprepross>/i';
 		preg_match_all( $reg, $str, $pattern);
 		$pattern = $pattern[1];
 
@@ -50,10 +64,15 @@
 			foreach ($form['type'] as $key => $conf) 
 			{
 				$temp = file_get_contents("./config/grf/$conf/pattern.html");
+
 				$temp = preg_replace('/\$name/', $form['name'][$key], $temp);
+				$temp = preg_replace('/\$default/', $form['default'][$key], $temp);
+				$temp = preg_replace('/\$alt/', $form['alt'][$key], $temp);
+
 				preg_match_all('/@(.+)@/', $temp, $array);
 				$st = '';
-				$values = preg_split('/[,]/', $form['value'][$key]);
+				print_r($form['value'][$key]);
+				$values = preg_split('/[,]/', $form['collect_values'][$key]);
 
 				foreach ($values as $keys => $value) 
 				{
@@ -65,15 +84,17 @@
 				}
 
 				$temp = preg_replace('/@.+@/', $st, $temp);
-				$ar .= $temp;
+				$ar .= $temp . PHP_EOL;
 			}
 
-			$str = str_replace($pattern, $ar, $str);
+			$str = str_replace($pat, $ar, $str);
 			$ar = "";
 		}
 
+		$but = file_get_contents("./tpl/button.tpl") . PHP_EOL . "</formprepross>";
+		$str = str_replace("</formprepross>", $but, $str);
+		$str = str_replace("formprepross", "form", $str);
 
-		
 		return $str;
 
 	}
@@ -81,8 +102,9 @@
 	function handler_pattern($path)
 	{
 		$str = file_get_contents($path);
+		$str = form_generation($str);
 		$path = strstr($path, "tabs", true);
-		$reg = '/`.*?([A-z | \.]+)[\$ | #][0-9]*?`/';
+		$reg = '/`.*?([A-z | \.]+)[ @ | #][0-9]*?`/';
 
 		preg_match_all($reg, $str, $scripts);
 		$scripts[0] = array_unique($scripts[0]);
@@ -94,14 +116,14 @@
 
 		foreach ($scripts[0] as $key => $value) 
 		{
-			if ( strpos($value, "\$") )
+			if ( strpos($value, "@") )
 			{
-				$ind = strstr($value, "\$");
+				$ind = strstr($value, "@");
 				$ind = strstr($ind, "`", true);
 				$ind = substr($ind, 1);
 				$ind --;
 
-				$name = strstr($value, "\$", true);
+				$name = strstr($value, "@", true);
 				$name = substr($name, 1);
 
 				$str = str_replace($value , $out[$name][$ind],  $str);
@@ -132,7 +154,6 @@
 
 		}
 
-		$str = form_generation($str);
 		return $str;
 	}
 

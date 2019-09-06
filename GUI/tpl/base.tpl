@@ -10,9 +10,7 @@
 			$modules_list$
 	--><DIV class = "work">
 		$tabs$
-		<FORM name="AnyName" method = "POST" id = "EditForm">
 		$work$
-		</FORM>
 		</DIV>
 		<DIV class = "mask"></DIV>
 		<DIV class = "window"></DIV>

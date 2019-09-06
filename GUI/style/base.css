@@ -104,12 +104,13 @@ SPAN
 
 TEXTAREA
 {
-	height: 82px;
-	resize: none;
+	height: 350px;
+    width: 96%;
+    resize: none;
+    margin-left: 2%;
 }
 
-INPUT[type="text"],
-TEXTAREA
+INPUT[type="text"]
 {
 	float: right;
     width: 50%;
@@ -163,10 +164,11 @@ fieldset
     background-color: #2B4156;
     padding-bottom: 20px;
     padding-top: 20px;
+    margin-top: 15px;
 }
 
 #save,
-#form_handler
+.form_handler
 {
     margin-left: 5%;
     width: 90%;

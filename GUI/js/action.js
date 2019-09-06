@@ -24,7 +24,7 @@ $('.block .block h2').on('click',
 	
 );
 
-$('#EditForm').on('submit',
+$('Form').on('submit',
 
 	function(e)
 	{
@@ -117,6 +117,30 @@ $('.action').on('click',
 			function(date)
 			{
 				location.reload()
+			}
+
+		);
+	}
+
+);
+
+$('.form_handler').on('click',
+
+	function()
+	{
+		form = $(this).parent().parent();
+		action = form.attr('action');
+		config = get_id_config();
+
+		form = form.serializeArray();
+		form.push({name: 'action', value: action });
+		form.push({name: 'config', value: config });
+
+		$.post("/handler.php?mode=exel", form,
+
+			function(date)
+			{
+				alert(date);
 			}
 
 		);
