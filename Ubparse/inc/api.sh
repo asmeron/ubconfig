@@ -249,4 +249,10 @@ function handlers
 		
 	done
 	
+	(( cx++ ))
+
+	if [ "$limit" != "0" ] && [ "$limit" == "$cx" ]; then
+		exit
+	fi
+	
 }

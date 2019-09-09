@@ -1,354 +1,41 @@
-<h1>Hello</h1>
-<div class="block">
-<h2>conf:apache</h2>
-
-	<span><label for='ServerRoot'>ServerRoot</label><input type = 'text' placeholder='"/etc/httpd"' id = 'ServerRoot'></span>
-	<span><label for='Listen'>Listen</label><input type = 'text' placeholder='80' id = 'Listen'></span>
-	
-	<div class="block">
-	<h2>IF:!mpm_prefork_module</h2>
-	
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:mpm_prefork_module</h2>
-	
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:unixd_module</h2>
-	
-		<span><label for='User'>User</label><input type = 'text' placeholder='http' id = 'User'></span>
-		<span><label for='Group'>Group</label><input type = 'text' placeholder='http' id = 'Group'></span>
-	
-	</div>
-	<span><label for='ServerAdmin'>ServerAdmin</label><input type = 'text' placeholder='you@example.com' id = 'ServerAdmin'></span>
-	
-	<div class="block">
-	<h2>De:/</h2>
-	
-		<span><label for='AllowOverride'>AllowOverride</label><input type = 'text' placeholder='All' id = 'AllowOverride'></span>
-		<span><label for='Require'>Require</label><input type = 'text' placeholder='all denied' id = 'Require'></span>
-	
-	</div>
-	<span><label for='DocumentRoot'>DocumentRoot</label><input type = 'text' placeholder='"/srv/http"' id = 'DocumentRoot'></span>
-	
-	<div class="block">
-	<h2>De:"/srv/http"</h2>
-	
-		<span><label for='Options'>Options</label><input type = 'text' placeholder='Indexes FollowSymLinks' id = 'Options'></span>
-		<span><label for='AllowOverride'>AllowOverride</label><input type = 'text' placeholder='All' id = 'AllowOverride'></span>
-		<span><label for='Require'>Require</label><input type = 'text' placeholder='all granted' id = 'Require'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:dir_module</h2>
-	
-		<span><label for='DirectoryIndex'>DirectoryIndex</label><input type = 'text' placeholder='index.php index.html' id = 'DirectoryIndex'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>File:".ht*"</h2>
-	
-		<span><label for='Require'>Require</label><input type = 'text' placeholder='all denied' id = 'Require'></span>
-	
-	</div>
-	<span><label for='ErrorLog'>ErrorLog</label><input type = 'text' placeholder='"/var/log/httpd/error_log"' id = 'ErrorLog'></span>
-	<span><label for='LogLevel'>LogLevel</label><input type = 'text' placeholder='warn' id = 'LogLevel'></span>
-	
-	<div class="block">
-	<h2>IF:log_config_module</h2>
-	
-		<span><label for='LogFormat'>LogFormat</label><input type = 'text' placeholder='"%h %l %u %t "%r" %>s %b "%{Referer}i" "%{User-Agent}i"" combined' id = 'LogFormat'></span>
-		<span><label for='LogFormat'>LogFormat</label><input type = 'text' placeholder='"%h %l %u %t "%r" %>s %b" common' id = 'LogFormat'></span>
-		
-		<div class="block">
-		<h2>IF:logio_module</h2>
-		
-			<span><label for='LogFormat'>LogFormat</label><input type = 'text' placeholder='"%h %l %u %t "%r" %>s %b "%{Referer}i" "%{User-Agent}i" %I %O" combinedio' id = 'LogFormat'></span>
-		
-		</div>
-		<span><label for='CustomLog'>CustomLog</label><input type = 'text' placeholder='"/var/log/httpd/access_log" common' id = 'CustomLog'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:alias_module</h2>
-	
-		<span><label for='ScriptAlias'>ScriptAlias</label><input type = 'text' placeholder='/cgi-bin/ "/srv/http/cgi-bin/"' id = 'ScriptAlias'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:cgid_module</h2>
-	
-	
-	</div>
-	
-	<div class="block">
-	<h2>De:"/srv/http/cgi-bin"</h2>
-	
-		<span><label for='AllowOverride'>AllowOverride</label><input type = 'text' placeholder='All' id = 'AllowOverride'></span>
-		<span><label for='Options'>Options</label><input type = 'text' placeholder='None' id = 'Options'></span>
-		<span><label for='Require'>Require</label><input type = 'text' placeholder='all granted' id = 'Require'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:headers_module</h2>
-	
-		<span><label for='RequestHeader'>RequestHeader</label><input type = 'text' placeholder='unset Proxy early' id = 'RequestHeader'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:mime_module</h2>
-	
-		<span><label for='TypesConfig'>TypesConfig</label><input type = 'text' placeholder='conf/mime.types' id = 'TypesConfig'></span>
-		<span><label for='AddType'>AddType</label><input type = 'text' placeholder='application/x-compress .Z' id = 'AddType'></span>
-		<span><label for='AddType'>AddType</label><input type = 'text' placeholder='application/x-gzip .gz .tgz' id = 'AddType'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>inc:httpd-mpm.conf</h2>
-	
-		
-		<div class="block">
-		<h2>IF:!mpm_netware_module</h2>
-		
-			<span><label for='PidFile'>PidFile</label><input type = 'text' placeholder='"/run/httpd/httpd.pid"' id = 'PidFile'></span>
-		
-		</div>
-		
-		<div class="block">
-		<h2>IF:mpm_prefork_module</h2>
-		
-			<span><label for='StartServers'>StartServers</label><input type = 'text' placeholder='            5' id = 'StartServers'></span>
-			<span><label for='MinSpareServers'>MinSpareServers</label><input type = 'text' placeholder='         5' id = 'MinSpareServers'></span>
-			<span><label for='MaxSpareServers'>MaxSpareServers</label><input type = 'text' placeholder='        10' id = 'MaxSpareServers'></span>
-			<span><label for='MaxRequestWorkers'>MaxRequestWorkers</label><input type = 'text' placeholder='     250' id = 'MaxRequestWorkers'></span>
-			<span><label for='MaxConnectionsPerChild'>MaxConnectionsPerChild</label><input type = 'text' placeholder='  0' id = 'MaxConnectionsPerChild'></span>
-		
-		</div>
-		
-		<div class="block">
-		<h2>IF:mpm_worker_module</h2>
-		
-			<span><label for='StartServers'>StartServers</label><input type = 'text' placeholder='            3' id = 'StartServers'></span>
-			<span><label for='MinSpareThreads'>MinSpareThreads</label><input type = 'text' placeholder='        75' id = 'MinSpareThreads'></span>
-			<span><label for='MaxSpareThreads'>MaxSpareThreads</label><input type = 'text' placeholder='       250' id = 'MaxSpareThreads'></span>
-			<span><label for='ThreadsPerChild'>ThreadsPerChild</label><input type = 'text' placeholder='        25' id = 'ThreadsPerChild'></span>
-			<span><label for='MaxRequestWorkers'>MaxRequestWorkers</label><input type = 'text' placeholder='     400' id = 'MaxRequestWorkers'></span>
-			<span><label for='MaxConnectionsPerChild'>MaxConnectionsPerChild</label><input type = 'text' placeholder='  0' id = 'MaxConnectionsPerChild'></span>
-		
-		</div>
-		
-		<div class="block">
-		<h2>IF:mpm_event_module</h2>
-		
-			<span><label for='StartServers'>StartServers</label><input type = 'text' placeholder='            3' id = 'StartServers'></span>
-			<span><label for='MinSpareThreads'>MinSpareThreads</label><input type = 'text' placeholder='        75' id = 'MinSpareThreads'></span>
-			<span><label for='MaxSpareThreads'>MaxSpareThreads</label><input type = 'text' placeholder='       250' id = 'MaxSpareThreads'></span>
-			<span><label for='ThreadsPerChild'>ThreadsPerChild</label><input type = 'text' placeholder='        25' id = 'ThreadsPerChild'></span>
-			<span><label for='MaxRequestWorkers'>MaxRequestWorkers</label><input type = 'text' placeholder='     400' id = 'MaxRequestWorkers'></span>
-			<span><label for='MaxConnectionsPerChild'>MaxConnectionsPerChild</label><input type = 'text' placeholder='  0' id = 'MaxConnectionsPerChild'></span>
-		
-		</div>
-		
-		<div class="block">
-		<h2>IF:mpm_netware_module</h2>
-		
-			<span><label for='ThreadStackSize'>ThreadStackSize</label><input type = 'text' placeholder='     65536' id = 'ThreadStackSize'></span>
-			<span><label for='StartThreads'>StartThreads</label><input type = 'text' placeholder='          250' id = 'StartThreads'></span>
-			<span><label for='MinSpareThreads'>MinSpareThreads</label><input type = 'text' placeholder='        25' id = 'MinSpareThreads'></span>
-			<span><label for='MaxSpareThreads'>MaxSpareThreads</label><input type = 'text' placeholder='       250' id = 'MaxSpareThreads'></span>
-			<span><label for='MaxThreads'>MaxThreads</label><input type = 'text' placeholder='           1000' id = 'MaxThreads'></span>
-			<span><label for='MaxConnectionsPerChild'>MaxConnectionsPerChild</label><input type = 'text' placeholder='  0' id = 'MaxConnectionsPerChild'></span>
-		
-		</div>
-		
-		<div class="block">
-		<h2>IF:mpm_mpmt_os2_module</h2>
-		
-			<span><label for='StartServers'>StartServers</label><input type = 'text' placeholder='            2' id = 'StartServers'></span>
-			<span><label for='MinSpareThreads'>MinSpareThreads</label><input type = 'text' placeholder='         5' id = 'MinSpareThreads'></span>
-			<span><label for='MaxSpareThreads'>MaxSpareThreads</label><input type = 'text' placeholder='        10' id = 'MaxSpareThreads'></span>
-			<span><label for='MaxConnectionsPerChild'>MaxConnectionsPerChild</label><input type = 'text' placeholder='  0' id = 'MaxConnectionsPerChild'></span>
-		
-		</div>
-		
-		<div class="block">
-		<h2>IF:mpm_winnt_module</h2>
-		
-			<span><label for='ThreadsPerChild'>ThreadsPerChild</label><input type = 'text' placeholder='       150' id = 'ThreadsPerChild'></span>
-			<span><label for='MaxConnectionsPerChild'>MaxConnectionsPerChild</label><input type = 'text' placeholder='  0' id = 'MaxConnectionsPerChild'></span>
-		
-		</div>
-		
-		<div class="block">
-		<h2>IF:!mpm_netware_module</h2>
-		
-			<span><label for='MaxMemFree'>MaxMemFree</label><input type = 'text' placeholder='           2048' id = 'MaxMemFree'></span>
-		
-		</div>
-		
-		<div class="block">
-		<h2>IF:mpm_netware_module</h2>
-		
-			<span><label for='MaxMemFree'>MaxMemFree</label><input type = 'text' placeholder='            100' id = 'MaxMemFree'></span>
-		
-		</div>
-	
-	</div>
-	
-	<div class="block">
-	<h2>inc:httpd-multilang-errordoc.conf</h2>
-	
-		<span><label for='Alias'>Alias</label><input type = 'text' placeholder='/error/ "/usr/share/httpd/error/"' id = 'Alias'></span>
-		
-		<div class="block">
-		<h2>De:"/usr/share/httpd/error"</h2>
-		
-			<span><label for='AllowOverride'>AllowOverride</label><input type = 'text' placeholder='None' id = 'AllowOverride'></span>
-			<span><label for='Options'>Options</label><input type = 'text' placeholder='IncludesNoExec' id = 'Options'></span>
-			<span><label for='AddOutputFilter'>AddOutputFilter</label><input type = 'text' placeholder='Includes html' id = 'AddOutputFilter'></span>
-			<span><label for='AddHandler'>AddHandler</label><input type = 'text' placeholder='type-map var' id = 'AddHandler'></span>
-			<span><label for='Require'>Require</label><input type = 'text' placeholder='all granted' id = 'Require'></span>
-			<span><label for='LanguagePriority'>LanguagePriority</label><input type = 'text' placeholder='en cs de es fr it ja ko nl pl pt-br ro sv tr' id = 'LanguagePriority'></span>
-			<span><label for='ForceLanguagePriority'>ForceLanguagePriority</label><input type = 'text' placeholder='Prefer Fallback' id = 'ForceLanguagePriority'></span>
-		
-		</div>
-	
-	</div>
-	
-	<div class="block">
-	<h2>inc:httpd-autoindex.conf</h2>
-	
-		<span><label for='IndexOptions'>IndexOptions</label><input type = 'text' placeholder='FancyIndexing HTMLTable VersionSort' id = 'IndexOptions'></span>
-		<span><label for='Alias'>Alias</label><input type = 'text' placeholder='/icons/ "/usr/share/httpd/icons/"' id = 'Alias'></span>
-		
-		<div class="block">
-		<h2>De:"/usr/share/httpd/icons"</h2>
-		
-			<span><label for='Options'>Options</label><input type = 'text' placeholder='Indexes MultiViews' id = 'Options'></span>
-			<span><label for='AllowOverride'>AllowOverride</label><input type = 'text' placeholder='None' id = 'AllowOverride'></span>
-			<span><label for='Require'>Require</label><input type = 'text' placeholder='all granted' id = 'Require'></span>
-		
-		</div>
-		<span><label for='AddIconByEncoding'>AddIconByEncoding</label><input type = 'text' placeholder='(CMP,/icons/compressed.gif) x-compress x-gzip' id = 'AddIconByEncoding'></span>
-		<span><label for='DefaultIcon'>DefaultIcon</label><input type = 'text' placeholder='/icons/unknown.gif' id = 'DefaultIcon'></span>
-		<span><label for='ReadmeName'>ReadmeName</label><input type = 'text' placeholder='README.html' id = 'ReadmeName'></span>
-		<span><label for='HeaderName'>HeaderName</label><input type = 'text' placeholder='HEADER.html' id = 'HeaderName'></span>
-		<span><label for='IndexIgnore'>IndexIgnore</label><input type = 'text' placeholder='.??* *~ *# HEADER* README* RCS CVS *,v *,t' id = 'IndexIgnore'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>inc:httpd-languages.conf</h2>
-	
-		<span><label for='LanguagePriority'>LanguagePriority</label><input type = 'text' placeholder='en ca cs da de el eo es et fr he hr it ja ko ltz nl nn no pl pt pt-BR ru sv tr zh-CN zh-TW' id = 'LanguagePriority'></span>
-		<span><label for='ForceLanguagePriority'>ForceLanguagePriority</label><input type = 'text' placeholder='Prefer Fallback' id = 'ForceLanguagePriority'></span>
-	
-	</div>
-	
-	<div class="block">
-	<h2>inc:httpd-userdir.conf</h2>
-	
-		<span><label for='UserDir'>UserDir</label><input type = 'text' placeholder='public_html' id = 'UserDir'></span>
-		
-		<div class="block">
-		<h2>De:"/home/*/public_html"</h2>
-		
-			<span><label for='AllowOverride'>AllowOverride</label><input type = 'text' placeholder='FileInfo AuthConfig Limit Indexes' id = 'AllowOverride'></span>
-			<span><label for='Options'>Options</label><input type = 'text' placeholder='MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec' id = 'Options'></span>
-			<span><label for='Require'>Require</label><input type = 'text' placeholder='method GET POST OPTIONS' id = 'Require'></span>
-		
-		</div>
-	
-	</div>
-	
-	<div class="block">
-	<h2>inc:httpd-default.conf</h2>
-	
-		<span><label for='Timeout'>Timeout</label><input type = 'text' placeholder='60' id = 'Timeout'></span>
-		<span><label for='KeepAlive'>KeepAlive</label><input type = 'text' placeholder='On' id = 'KeepAlive'></span>
-		<span><label for='MaxKeepAliveRequests'>MaxKeepAliveRequests</label><input type = 'text' placeholder='100' id = 'MaxKeepAliveRequests'></span>
-		<span><label for='KeepAliveTimeout'>KeepAliveTimeout</label><input type = 'text' placeholder='5' id = 'KeepAliveTimeout'></span>
-		<span><label for='UseCanonicalName'>UseCanonicalName</label><input type = 'text' placeholder='Off' id = 'UseCanonicalName'></span>
-		<span><label for='AccessFileName'>AccessFileName</label><input type = 'text' placeholder='.htaccess' id = 'AccessFileName'></span>
-		<span><label for='ServerTokens'>ServerTokens</label><input type = 'text' placeholder='Full' id = 'ServerTokens'></span>
-		<span><label for='ServerSignature'>ServerSignature</label><input type = 'text' placeholder='Off' id = 'ServerSignature'></span>
-		<span><label for='HostnameLookups'>HostnameLookups</label><input type = 'text' placeholder='Off' id = 'HostnameLookups'></span>
-		
-		<div class="block">
-		<h2>IF:reqtimeout_module</h2>
-		
-			<span><label for='RequestReadTimeout'>RequestReadTimeout</label><input type = 'text' placeholder='header=20-40,MinRate=500 body=20,MinRate=500' id = 'RequestReadTimeout'></span>
-		
-		</div>
-	
-	</div>
-	
-	<div class="block">
-	<h2>inc:php7_module.conf</h2>
-	
-		
-		<div class="block">
-		<h2>IF:dir_module</h2>
-		
-			
-			<div class="block">
-			<h2>IF:php7_module</h2>
-			
-				<span><label for='DirectoryIndex'>DirectoryIndex</label><input type = 'text' placeholder='index.php index.html' id = 'DirectoryIndex'></span>
-				
-				<div class="block">
-				<h2>Fi:.php$</h2>
-				
-					<span><label for='SetHandler'>SetHandler</label><input type = 'text' placeholder='application/x-httpd-php' id = 'SetHandler'></span>
-				
-				</div>
-				
-				<div class="block">
-				<h2>Fi:.phps$</h2>
-				
-					<span><label for='SetHandler'>SetHandler</label><input type = 'text' placeholder='application/x-httpd-php-source' id = 'SetHandler'></span>
-				
-				</div>
-			
-			</div>
-		
-		</div>
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:proxy_html_module</h2>
-	
-		
-		<div class="block">
-		<h2>inc:proxy-html.conf</h2>
-		
-			<span><label for='ProxyHTMLEvents'>ProxyHTMLEvents</label><input type = 'text' placeholder='onclick ondblclick onmousedown onmouseup 		onmouseover onmousemove onmouseout onkeypress 		onkeydown onkeyup onfocus onblur onload 		onunload onsubmit onreset onselect onchange' id = 'ProxyHTMLEvents'></span>
-		
-		</div>
-	
-	</div>
-	
-	<div class="block">
-	<h2>IF:ssl_module</h2>
-	
-		<span><label for='SSLRandomSeed'>SSLRandomSeed</label><input type = 'text' placeholder='startup builtin' id = 'SSLRandomSeed'></span>
-		<span><label for='SSLRandomSeed'>SSLRandomSeed</label><input type = 'text' placeholder='connect builtin' id = 'SSLRandomSeed'></span>
-	
-	</div>
-
-</div>
-
-
-
+<div class = "fer"><span>ub</span></div>
+<style>
+	.fer {
+	width: 200px;
+	height: 110px;
+	background: #011935;
+	position: fixed;
+    top: 40vh;
+    left: 40vw;
+}
+.fer:before {
+	content: "";
+	position: absolute;
+	top: -50px; 
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 100px solid transparent;
+	border-right: 100px solid transparent;
+	border-bottom: 50px solid #011935;
+}
+.fer:after {
+	content: "";
+	position: absolute;
+	bottom: -50px; 
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 100px solid transparent;
+	border-right: 100px solid transparent;
+	border-top: 50px solid #011935;
+}
+span
+{
+	font-size: 110px;
+    padding-left: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+}
+	</style>

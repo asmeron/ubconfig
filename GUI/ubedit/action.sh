@@ -10,7 +10,7 @@ function del_write
 	local date i
 	
 	let "i=($3-1)*2"
-	date=(${date[@]} $( ubparse -k "$2" -q $1))
+	date=(${date[@]} $( ./ubparse/ubparse -k "$2" -q $1))
 
 	n_st=${date[$i]}
 	path=${date[$i+1]}
@@ -28,7 +28,7 @@ function del_block
 	local date i
 	
 	let "i=($3-1)*4"
-	date=(${date[@]} $( ubparse -n "$2" -t "bb"  -q $1))
+	date=(${date[@]} $( ./ubparse/ubparse -n "$2" -t "bb"  -q $1))
 
 	sed -i "${date[$i]},${date[$i+2]}d" ${date[$i+1]}
 }
@@ -45,12 +45,12 @@ function ins_write
 	local date i str reg
 
 	let "i=($3-1)*4+2"
-	date=(${date[@]} $( ubparse -n $2 -t "bb" -q $1))
+	date=(${date[@]} $( ./ubparse/ubparse -n $2 -t "bb" -q $1))
 
 	n_st=${date[$i]}
 	path=${date[$i+1]}
 
-	str=$( ubparse -t "set" -z 1  $1 )
+	str=$( ./ubparse/ubparse -t "set" -z 1  $1 )
 	reg='([a-Z]+)(.?)(.+)'
 
 	if [[ $str =~ $reg ]]; then
@@ -75,7 +75,7 @@ function ins_block
 {
 	local date i
 	
-	date=(${date[@]} $( ubparse -t "bb_$2" -w -q $1))
+	date=(${date[@]} $( ./ubparse/ubparse -t "bb_$2" -w -q $1))
 
 	Begin_block=$(echo ${date[0]} | sed "s/(.+)/$3/")
 	Begin_block=${Begin_block//[\^,?,$]/}
@@ -96,7 +96,7 @@ function update_write
 	local date i
 
 	let "i=($3-1)*2"
-	date=(${date[@]} $( ubparse -k "$2" -q $1))
+	date=(${date[@]} $( ./ubparse/ubparse -k "$2" -q $1))
 	n_st=${date[$i]}
 	path=${date[$i+1]}
 
@@ -108,5 +108,6 @@ function update_write
 	fi
 
 	re_str=${str/$value/$4}
+	
 	sed -i "${n_st}s/$str/$re_str/" $path
 }

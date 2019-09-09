@@ -52,7 +52,7 @@ H2
     text-align: center;
 	word-break: break-all;
 }
-UL
+.modules
 {
 	list-style: none;
     width: 100%;
@@ -62,7 +62,7 @@ UL
     padding-bottom: 15px;
     background-color: #DEC197;
 }
-LI
+.modules LI
 {
 	padding-left: 5px;
     padding-right: 5px;
@@ -74,7 +74,7 @@ LI
 	margin-right: 10px;
     background-color: #0C2C4B;
     font-size: large;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 A
@@ -104,12 +104,13 @@ SPAN
 
 TEXTAREA
 {
-	height: 82px;
-	resize: none;
+	height: 350px;
+    width: 96%;
+    resize: none;
+    margin-left: 2%;
 }
 
-INPUT[type="text"],
-TEXTAREA
+INPUT[type="text"]
 {
 	float: right;
     width: 50%;
@@ -163,9 +164,11 @@ fieldset
     background-color: #2B4156;
     padding-bottom: 20px;
     padding-top: 20px;
+    margin-top: 15px;
 }
 
-button
+#save,
+.form_handler
 {
     margin-left: 5%;
     width: 90%;
@@ -196,4 +199,8 @@ button
     left: 35%;
     transform: translateY(-450px);
     display: none;
+}
+FORM
+{
+    background-color: #DEC197;
 }

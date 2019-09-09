@@ -7,17 +7,10 @@
 	</HEAD>
 	<BODY>
 		<H1>Ubconfig</H1>
-		<NAV>
-		<H2>Modules list</H2>
-		<UL>
 			$modules_list$
-		</UL>
-		</NAV><!--
 	--><DIV class = "work">
 		$tabs$
-		<FORM method = "POST" id = "EditForm">
 		$work$
-		</FORM>
 		</DIV>
 		<DIV class = "mask"></DIV>
 		<DIV class = "window"></DIV>

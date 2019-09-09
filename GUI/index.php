@@ -6,12 +6,13 @@
 	/************************************************************/
 	$conf = $_REQUEST['conf'];
 	$mode = $_REQUEST['mode'];
+	$info = read_info("./base.info", ["Tab", "Module"]);
 
 	if ( $mode == NULL )
-		$mode = "base";
+		$mode = $info['Tab'];
 
 	if ( $conf == NULL )
-		$conf = "base";
+		$conf = $info['Module'];
 	/************************************************************/
 	
 
@@ -20,79 +21,60 @@
 	$html = file_get_contents("./tpl/base.tpl");
 
 	$modules = scandir("config");
-	$modules = array_diff($modules, array('.', '..', 'grf'));
+	$modules = array_diff($modules, array('.', '..', 'grf', 'stperm.sh'));
 	
-	foreach ( $modules as $module )
-		$str = $str . "<li><a href = '/$module/base'>$module</a></li>" . PHP_EOL;
-		
+	foreach ( $modules as $key => $module )
+	{
+		$path = "config/" . $module . "/" . $module . ".info";
+		$info = read_info($path);
+
+		if ( $info['Status'] == "Active" )
+		{
+			$buff[$key]['Tab'] = $info['Tab'];
+			$buff[$key]['Name'] = $info['Name'];
+			$buff[$key]['module'] = $module;
+		}
+	}
+
+	$str = handler_temp("./tpl/modules.tpl", $buff);
+	unset($buff);
 	$html = str_replace( "\$modules_list\$", $str,  $html);
 	/************************************************************/
+	$str = "";
 
-	if ( $conf != "base" )
+	if ( $mode != "expert" )
 	{
-		/* Формирование вкладок */
-		/************************************************************/
-		$str = "<a href = '/$conf/base'><h3>base</h3></a>";
-		$modules = scandir("./config/$conf/patterns");
-		$modules = array_diff($modules, array('.', '..'));
-		
-		foreach ( $modules as $module )
-			$str = $str . "<a href = '/$conf/$module'><h3>$module</h3></a>";
-			
-		$html = str_replace( "\$tabs\$", $str,  $html);
-		/************************************************************/
+		$path = "./config/$conf/tabs/$mode.tpl";
+		$tpl = handler_pattern($path);
 
-		if ( $mode == "base")
+		$path = "./config/$conf/tabs";
+		$tabs = scandir($path);
+		$tabs= array_diff($tabs, array('.', '..'));
+
+		foreach ( $tabs as $key => $tab )
 		{
-			/* Формирование основной формы редактирования */
-			/************************************************************/
-			exec('./ubparse/ubparse -t "set bb" -f ' . $conf, $str);
-			$str = implode($str);
-			/************************************************************/
+			$tab = strstr($tab, ".tpl", true);
+			$buff[$key]['conf'] = $conf;
+			$buff[$key]['tab'] = $tab;
 		}
 
-		else
-		{
-			/* Генерация продвинутой графической формы */
-			/************************************************************/
-			$test = read_setting("./config/$conf/patterns/$mode");
-			$str = "<div class='block'><h2>$mode</h2>";
+		$str = handler_temp("./tpl/tabs.tpl", $buff);
+		unset($buff);
 
-			foreach ($test['type'] as $key => $conf) 
-			{
-				$temp = file_get_contents("./config/grf/$conf/pattern.html");
-				$temp = preg_replace('/\$name/', $test['name'][$key], $temp);
-				preg_match_all('/@(.+)@/', $temp, $array);
-				$st = '';
-				$values = preg_split('/[,]/', $test['value'][$key]);
-
-				foreach ($values as $keys => $value) 
-				{
-					$array1 = explode(":", $value);
-					$buff = $array[1][0];
-					$buff = preg_replace('/\$value_key/', $array1[0], $buff);
-					$buff = preg_replace('/\$value_name/', $array1[1], $buff);
-					$st = $st . $buff . PHP_EOL;
-				}
-
-				$temp = preg_replace('/@.+@/', $st, $temp);
-				$str = $str . $temp;
-				/************************************************************/
-
-			}
-
-
-		}
-
-		$str = $str . "<div class = 'button'><button id = 'save'>Сохранить</button></div></div>";
-		$html = str_replace( "\$work\$", $str,  $html);
 	}
 	else
 	{
-		$html = str_replace( "\$tabs\$", "",  $html);
-		$html = str_replace( "\$work\$", "",  $html);
+		/* Формирование экспертной формы редактирования */
+		/************************************************************/
+		exec('./ubparse/ubparse -t "set bb" -f ' . $conf, $tpl);
+		$tpl = implode($tpl);
+		$tpl .= file_get_contents("./tpl/button.tpl");
+		/************************************************************/
 	}
-	
+
+	$html = str_replace( "\$work\$", $tpl,  $html);
+	$html = str_replace( "\$tabs\$", $str,  $html);
+
 	echo $html;
 	
 ?>
