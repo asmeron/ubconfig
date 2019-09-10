@@ -103,7 +103,12 @@
 	{
 		$str = file_get_contents($path);
 		$str = form_generation($str);
-		$path = strstr($path, "tabs", true);
+		
+		if ( strstr($path, "tabs", true) )
+			$path = strstr($path, "tabs", true);
+		else
+			$path = strstr($path, "base", true);
+		
 		$reg = '/`.*?([A-z | \.]+)[ @ | #][0-9]*?`/';
 
 		preg_match_all($reg, $str, $scripts);
