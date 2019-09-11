@@ -18,7 +18,7 @@
 
 	/* Формирование заголовка и меню модулей */
 	/************************************************************/
-	$html = file_get_contents("./tpl/base.tpl");
+	$html = handler_pattern("./tpl/base.tpl");
 
 	$modules = scandir("config");
 	$modules = array_diff($modules, array('.', '..', 'grf', 'stperm.sh'));

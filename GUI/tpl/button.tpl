@@ -1,1 +1,1 @@
-<div class='button'><button class='form_handler'>Сохранить</button></div>
+<button class='form_handler'>Сохранить</button>

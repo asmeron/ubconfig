@@ -3,10 +3,14 @@
 	<HEAD>
 		<META name="viewport" content="width=device-width, initial-scale=1.0">
 		<META name="Description" content="Ubconfig GUI">
-		<TITLE>Home</TITLE>
+		<TITLE>Ubconfig</TITLE>
 	</HEAD>
 	<BODY>
-		<H1>Ubconfig</H1>
+		<header>
+			<H1>Ubconfig</H1>
+			<span class="version">`version.sh@1`</span>
+			<span class="base_info">`info.sh@1`.`info.sh@3`</span>
+		</header>
 			$modules_list$
 	--><DIV class = "work">
 		$tabs$
