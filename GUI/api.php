@@ -29,11 +29,11 @@
 		return $result;
 	}
 
-	function read_info($path, $derictives = NULL)
+	function read_info($path, $directives = NULL)
 	{
 		$reg = '/(.+)\s=\s(.+)/i';
 
-		if ( $derictives == NULL)
+		if ( $directives == NULL)
 			$directives = ["Name", "Status", "Tab"];
 
 		$info = file_get_contents($path);
@@ -46,7 +46,7 @@
 				$result["$directive"] = $res[2][$key];
 			}
 		}
-
+		
 		return $result;
 
 	}

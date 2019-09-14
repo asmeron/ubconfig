@@ -36,6 +36,25 @@ header span
     display: inline-block;
 }
 
+header ul
+{
+    color: #fff;
+    display: inline-block;
+    list-style: none;
+    float: right;
+    margin: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+header ul li 
+{
+    margin-top: 3px;
+    font-size: 17px;
+    text-align: end;
+    text-shadow: #81A9D9 0 0 3px;
+}
+
 .base_info
 {
     position: absolute;
@@ -61,6 +80,12 @@ NAV
     word-break: break-word;
     cursor: pointer;
     border-right: dashed 2px; 
+}
+
+.tabs H3:hover,
+.tabs H3:active
+{
+    background-color: #011935;
 }
 
 .tabs a:nth-child(n+2) h3
@@ -101,7 +126,7 @@ H2
 	padding: 0;
     background-color: #011935;
 }
-.modules LI
+.modules li
 {
     display: inline-block;
     border: solid 1px;
@@ -112,11 +137,19 @@ H2
 	word-break: break-word;
 }
 
-A
+.modules li:hover,
+.modules li:active
+{
+    background-color: #6B4C1B;
+}
+
+.modules a
 {
 	color: #001022;
     text-decoration: none;
     font-size: 19px;
+    display: block;
+    width: 100%;
 }
 
 .work
@@ -223,22 +256,34 @@ fieldset
     margin-top: 15px;
 }
 
-#save,
+.action,
 .form_handler
 {
-    margin-left: 84%;
-    width: 15%;
+    
+    
     padding-bottom: 10px;
     padding-top: 10px;
     border-radius: 3px;
     border-width: 0px;
     background-color: #203D61;
     cursor: pointer;
-    margin-top: 25px;
+    
     word-break: break-word;
     color: #FFF6E8;
     text-transform: uppercase;
 }
+
+.form_handler 
+{
+    margin-left: 84%;
+    margin-top: 25px;
+    width: 15%;
+}
+
+.action
+{
+    width: 10%;
+}   
 
 .mask
 {
@@ -261,11 +306,12 @@ fieldset
     transform: translateY(-450px);
     display: none;
 }
-FORM
+FORM,
+.puz,
+.puzl
 {
     background-color: #FFF6E8;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
     border-radius: 3px;
     box-shadow: 2px 2px 6px 2px #011935;
 }
@@ -277,6 +323,20 @@ FORM
     text-align: center;
 }
 
+.puzl
+{
+
+    display: inline-table;
+    margin-top: 10px;
+    width: 45%;
+    float: left;
+    margin-left: 10px;
+}
+
+.puzl:nth-child(n+4)
+{
+    
+}
 
 @media (max-width: 600px)
 {
@@ -286,9 +346,20 @@ FORM
         display: none;
     }
 
+    header ul
+    {
+        display: none;
+    }
+
     header
     {
         text-align: center;
+    }
+
+    .form_handler
+    {
+        margin-left: 70%;
+        min-width: 100px;
     }
 
 }

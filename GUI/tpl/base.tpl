@@ -9,7 +9,11 @@
 		<header>
 			<H1>Ubconfig</H1>
 			<span class="version">`version.sh@1`</span>
-			<span class="base_info">`info.sh@1`.`info.sh@3`</span>
+			<ul>
+				<li>`info.sh@1`.`info.sh@3`</li>
+				<li>`info.sh@2`</li>
+				<li>`date.sh@1`</li>
+			</ul>
 		</header>
 			$modules_list$
 	--><DIV class = "work">

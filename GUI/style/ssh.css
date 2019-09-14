@@ -1,0 +1,17 @@
+.inactive,
+.active
+{
+	display: inline-block;
+	margin: 0;
+	text-transform: capitalize;
+}
+
+.inactive
+{
+	color: #FF5900;
+}
+
+.active
+{
+	color: #26886B;
+}
