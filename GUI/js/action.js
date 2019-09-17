@@ -128,7 +128,7 @@ $('.form_handler').on('click',
 
 	function()
 	{
-		form = $(this).parent().parent();
+		form = $(this).parent();
 		action = form.attr('action');
 		config = get_id_config();
 

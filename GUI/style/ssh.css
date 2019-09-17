@@ -8,10 +8,20 @@
 
 .inactive
 {
-	color: #FF5900;
+	color: #b65b4f;
 }
 
 .active
 {
-	color: #26886B;
+	color: #438f78;
+}
+
+.puz button:nth-of-type(2)
+{
+	background-color: #b65b4f;
+}
+
+.puz button:nth-of-type(3)
+{
+	background-color: #bf8d5b;
 }

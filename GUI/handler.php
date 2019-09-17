@@ -84,6 +84,10 @@
 				file_put_contents("$patht$k.txt", $value);
 				$str .= "$patht$k.txt";
 			}
+			elseif ( is_array( $value ) )
+			{
+				$str .= implode(" ", $value);
+			}
 			else
 			{
 				$str .= $value . " ";
@@ -92,7 +96,7 @@
 
 		$per = "sudo ./config/stperm.sh";
 		$path = $per . " " . $path . $action . $str . "\"";
-		print_r($path);
+		//print_r($path);
 
 
 		exec($path, $out);
@@ -102,5 +106,7 @@
 			unlink("$patht$k.txt");
 			$k--;
 		}
+
+		print_r($out);
 	}
 ?>

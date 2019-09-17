@@ -63,7 +63,7 @@
 
 			foreach ($form['type'] as $key => $conf) 
 			{
-				$temp = file_get_contents("./config/grf/$conf/pattern.html");
+				$temp = file_get_contents("./grf/$conf/pattern.html");
 
 				$temp = preg_replace('/\$name/', $form['name'][$key], $temp);
 				$temp = preg_replace('/\$default/', $form['default'][$key], $temp);

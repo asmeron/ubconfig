@@ -4,7 +4,7 @@ BODY
 	letter-spacing: 0.5px;
 	min-width: 400px;
 	font-family: 'Anonymous Pro', monospace;
-    background-color: #F2D8B0;
+    background-color: #e7e9ea
 }
 
 H1
@@ -13,16 +13,14 @@ H1
     padding-top: 21px;
     padding-bottom: 21px;
     padding-left: 25px;
-    background-color: #011935;
     color: #fff;
-    text-shadow: #81A9D9 0 0 5px;
     text-transform: uppercase;
     text-align: left;
     display: inline-block;
 }
 Header
 {
-    background-color: #011935;
+    background-color: #3984c2;
     position: relative;
     bottom: 3vh;
     right: 2vw;
@@ -52,7 +50,6 @@ header ul li
     margin-top: 3px;
     font-size: 17px;
     text-align: end;
-    text-shadow: #81A9D9 0 0 3px;
 }
 
 .base_info
@@ -66,7 +63,7 @@ NAV
 {
 	display: inline-block;
 	width: 15%;
-    box-shadow: 4px 4px 7px 4px #011935;
+    box-shadow: 4px 4px 7px 4px #AEAFB0;
 }
 
 .tabs H3
@@ -76,16 +73,19 @@ NAV
     text-align: center;
     text-transform: capitalize;
     padding: 12px;
-    color: #fff;
+    color: #041B04;
     word-break: break-word;
     cursor: pointer;
-    border-right: dashed 2px; 
+    max-width: 150px;
+    position: relative;
+    top: 5px;
+    border-radius: 5px 5px 0 0;
 }
 
 .tabs H3:hover,
 .tabs H3:active
 {
-    background-color: #011935;
+    background-color: #FFFEFD;
 }
 
 .tabs a:nth-child(n+2) h3
@@ -93,27 +93,17 @@ NAV
     margin-left: -10px;
 }
 
-.tabs a:nth-child(1) h3
-{
-    border-left: dashed 2px;
-}
-
 H2
 {
 	margin: 0;
-    padding-top: 15px;
-    padding-bottom: 15px;
     width: 100%;
-    background-color: #203D61;
-    color: #fff;
-    text-align: center;
 	word-break: break-all;
+    margin-top: 10px;
 }
 
 .work H2
 {
     text-align: left;
-    background-color: #F2D8B0;
     color: #203D61;
     text-transform: capitalize;
 }
@@ -132,15 +122,16 @@ H2
     border: solid 1px;
     text-align: center;
     width: 100%;
-    background-color: #A58554;
+    background-color: #AEAFB0;
     font-size: large;
 	word-break: break-word;
+    padding: 5px;
 }
 
 .modules li:hover,
 .modules li:active
 {
-    background-color: #6B4C1B;
+    background-color:  #4B7F98;
 }
 
 .modules a
@@ -156,7 +147,6 @@ H2
 {
 	display: inline-block;
     width: 80%;
-    margin-top: -18px;
     vertical-align: top;
     margin-left: 5%;
 }
@@ -265,9 +255,8 @@ fieldset
     padding-top: 10px;
     border-radius: 3px;
     border-width: 0px;
-    background-color: #203D61;
+    background-color: #438f78;
     cursor: pointer;
-    
     word-break: break-word;
     color: #FFF6E8;
     text-transform: uppercase;
@@ -306,21 +295,20 @@ fieldset
     transform: translateY(-450px);
     display: none;
 }
-FORM,
 .puz,
 .puzl
 {
-    background-color: #FFF6E8;
+    background-color: #FFFEFD;
     padding: 10px;
-    border-radius: 3px;
-    box-shadow: 2px 2px 6px 2px #011935;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 2px 2px 6px 2px #77797b;
 }
 .tabs
 {
-    width: 100%;
-    margin-top: 20px;
-    background-color: #203D61;
-    text-align: center;
+    
+    background-color: #ccc;
+    padding-left: 5px;
+    box-shadow: 2px 2px 6px 2px #77797b;
 }
 
 .puzl
@@ -331,12 +319,24 @@ FORM,
     width: 45%;
     float: left;
     margin-left: 10px;
+    word-break: break-word;
 }
 
-.puzl:nth-child(n+4)
+.modules img
 {
-    
+    width: 20%;
+    display: inline-block;
 }
+
+.modules p
+{
+    display: inline-block;
+    width: 60%;
+    margin: 0;
+    margin-top: 10px;
+    text-align: left;
+}
+
 
 @media (max-width: 600px)
 {

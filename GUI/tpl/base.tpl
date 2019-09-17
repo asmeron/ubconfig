@@ -3,6 +3,7 @@
 	<HEAD>
 		<META name="viewport" content="width=device-width, initial-scale=1.0">
 		<META name="Description" content="Ubconfig GUI">
+		<LINK rel="stylesheet" href="../style/base.css">
 		<TITLE>Ubconfig</TITLE>
 	</HEAD>
 	<BODY>
@@ -23,7 +24,6 @@
 		<DIV class = "mask"></DIV>
 		<DIV class = "window"></DIV>
 	</BODY>
-<LINK rel="stylesheet" href="../style/base.css">
 <LINK href="https://fonts.googleapis.com/css?family=Anonymous+Pro&display=swap" rel="stylesheet">
 <SCRIPT src="../js/jq.js"></script>
 <SCRIPT src="../js/action.js"></script>

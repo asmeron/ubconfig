@@ -1,3 +1,4 @@
+<div class = "puz">
 <H2>Set Apache</H2>
 <formprepross action = "test">
 
@@ -11,3 +12,4 @@
 }
 
 </formprepross>
+</div>

@@ -1,3 +1,4 @@
+<div class = "puz">
 <h2>Edit info</h2>
 <formprepross action = 'test'>
 
@@ -29,3 +30,4 @@
 }
 
 </formprepross> 
+</div>
