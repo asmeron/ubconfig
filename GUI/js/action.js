@@ -140,7 +140,8 @@ $('.form_handler').on('click',
 
 			function(date)
 			{
-				alert(date);
+				alert("Изменения внесены");
+				location.reload();
 			}
 
 		);
