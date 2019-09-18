@@ -1,30 +1,45 @@
-BODY
-{
-	margin: 1.2vw;
-	letter-spacing: 0.5px;
-	min-width: 400px;
-	font-family: 'Anonymous Pro', monospace;
-    background-color: #e7e9ea
-}
-
-H1
+html,
+body
 {
     margin: 0;
-    padding-top: 21px;
+    width: 100%;
+    height: 100%;
+}
+
+@font-face
+{
+    font-family: "Exo2";
+    src: url("/font/exo2.ttf");
+}
+
+BODY
+{
+    letter-spacing: 0.5px;
+    min-width: 400px;
+    font-family: "Exo2";
+    background: linear-gradient(to top left, #3984C2, #023661);
+}
+
+header H1
+{
+    margin: 0;
+    padding-top: 31px;
     padding-bottom: 21px;
-    padding-left: 25px;
     color: #fff;
-    text-transform: uppercase;
+    text-transform: capitalize;
     text-align: left;
     display: inline-block;
+    float: right;
+    margin-right: 27%;
+    font-size: 27px;
 }
+
 Header
 {
-    background-color: #3984c2;
     position: relative;
-    bottom: 3vh;
-    right: 2vw;
-    width: 103.3%;
+    bottom: 10px;
+    right: 10px;
+    width: 100%;
 }
 
 header span
@@ -32,6 +47,7 @@ header span
     color: #fff;
     font-size: 21px;
     display: inline-block;
+    margin: 0;
 }
 
 header ul
@@ -62,7 +78,7 @@ header ul li
 NAV
 {
 	display: inline-block;
-	width: 15%;
+    width: 20%;
     box-shadow: 4px 4px 7px 4px #AEAFB0;
 }
 
@@ -122,7 +138,7 @@ H2
     border: solid 1px;
     text-align: center;
     width: 100%;
-    background-color: #AEAFB0;
+    background-color: #FFFEFD;
     font-size: large;
 	word-break: break-word;
     padding: 5px;
@@ -146,9 +162,10 @@ H2
 .work
 {
 	display: inline-block;
-    width: 80%;
-    vertical-align: top;
+    width: 75%;
     margin-left: 5%;
+    vertical-align: top;
+    height: 90%;
 }
 
 
@@ -169,18 +186,21 @@ TEXTAREA
     margin-left: 2%;
 }
 
-TEXTAREA::-webkit-scrollbar-track 
+TEXTAREA::-webkit-scrollbar-track,
+.puz::-webkit-scrollbar-track
 {
     box-shadow: inset 0 0 6px #75797D;
 }
 
-TEXTAREA::-webkit-scrollbar
+TEXTAREA::-webkit-scrollbar,
+.puz::-webkit-scrollbar
 {
     width: 6px;
     background-color: #fff;
 }
 
-TEXTAREA::-webkit-scrollbar-thumb
+TEXTAREA::-webkit-scrollbar-thumb,
+.puz::-webkit-scrollbar-thumb
 {
     background-color: #203D61;
     outline: 1px solid #203D61;
@@ -277,9 +297,9 @@ fieldset
 .mask
 {
     background-color: black;
-    width: 999%;
-    height: 999%;
-    position: absolute;
+    width: 100%;
+    height: 100%;
+    position: fixed;
     top: 0;
     left: 0;
     opacity: 0.6;
@@ -302,6 +322,8 @@ fieldset
     padding: 10px;
     border-radius: 0 0 3px 3px;
     box-shadow: 2px 2px 6px 2px #77797b;
+    max-height: 100%;
+    overflow: auto;
 }
 .tabs
 {
@@ -336,19 +358,51 @@ fieldset
     margin-top: 10px;
     text-align: left;
 }
+.logo
+{
+    width: 30%;
+    margin-left: 12px;
+    margin-top: 6px;
+}
 
+.left_header
+{
+    display: inline-block;
+    background: url(/pic/enterprise.png);
+    background-position: top -111px right -121px;
+    padding-top: 1%;
+}
+.right_header
+{
+    display: inline-block;
+}
+.base_area
+{
+    padding: 8px;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: -12px;
+    background-color: #e7e9ea;
+    background: rgba(231,233,234,0.7);
+    border-radius: 2px;
+    overflow: hidden;
+    max-height: 85%;
+    height: 100%;
+}
 
-@media (max-width: 600px)
+@media (max-width: 800px)
 {
 
-    header span
+    
+
+    .right_header
     {
         display: none;
     }
 
-    header ul
+    .left_header
     {
-        display: none;
+        width: 100%;
     }
 
     header
@@ -362,4 +416,8 @@ fieldset
         min-width: 100px;
     }
 
+    .logo
+    {
+        
+    }
 }

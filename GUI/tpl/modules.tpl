@@ -1,5 +1,5 @@
 <NAV>
 		<UL class = "modules">
-			@<li><a href = '/$module/$Tab'><img src="/pic/$module.svg" align="left"><p>$Name</p></a></li>@
+			@<a href = '/$module/$Tab'><li><img src="/pic/$module.svg" align="left"><p>$Name</p></li></a>@
 		</UL>
 </NAV><!--

@@ -128,6 +128,7 @@ $('.form_handler').on('click',
 
 	function()
 	{
+		$('.mask').fadeIn(200);
 		form = $(this).parent();
 		action = form.attr('action');
 		config = get_id_config();
