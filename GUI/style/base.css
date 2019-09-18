@@ -23,14 +23,14 @@ BODY
 header H1
 {
     margin: 0;
-    padding-top: 31px;
+    padding-top: 34px;
     padding-bottom: 21px;
     color: #fff;
     text-transform: capitalize;
     text-align: left;
     display: inline-block;
     float: right;
-    margin-right: 27%;
+    margin-right: 24%;
     font-size: 27px;
 }
 
@@ -135,7 +135,7 @@ H2
 .modules li
 {
     display: inline-block;
-    border: solid 1px;
+    border: solid 1px #ccc;
     text-align: center;
     width: 100%;
     background-color: #FFFEFD;

@@ -1,3 +1,3 @@
 #/bin/bash
 
-echo "enterprise 1.0"
+echo "1.0"

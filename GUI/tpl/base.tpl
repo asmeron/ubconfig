@@ -11,7 +11,7 @@
 		<header>
 			<div class="left_header">
 				<img src="/pic/logo.png" class = "logo">
-				<H1>config <span>`version.sh@1`</span></H1>
+				<H1> enterprise config <span>`version.sh@1`</span></H1>
 			</div>
 			<ul class="right_header">
 				<li>`info.sh@1`.`info.sh@3`</li>
