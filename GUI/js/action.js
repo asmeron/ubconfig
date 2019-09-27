@@ -128,7 +128,8 @@ $('.form_handler').on('click',
 
 	function()
 	{
-		form = $(this).parent().parent();
+		$('.mask').fadeIn(200);
+		form = $(this).parent();
 		action = form.attr('action');
 		config = get_id_config();
 
@@ -140,7 +141,8 @@ $('.form_handler').on('click',
 
 			function(date)
 			{
-				alert(date);
+				alert("Изменения внесены");
+				location.reload();
 			}
 
 		);
