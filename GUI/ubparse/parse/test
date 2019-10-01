@@ -1,6 +1,0 @@
-Patch /srv/http/testconfig/test.conf
-Comment ^#\s? 
-Off ^#\\S
-Block Sec ^Section\\s?\"(.+)" EndSection
-Block Sub ^SubSection\\s?\"(.+)" EndSubSection
-Set ^([a-Z]+)\\s(.+)
