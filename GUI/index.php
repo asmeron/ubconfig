@@ -18,10 +18,16 @@
 
 	/* Формирование заголовка и меню модулей */
 	/************************************************************/
-	$html = file_get_contents("./tpl/base.tpl");
+	$html = handler_pattern("./tpl/base.tpl");
 
 	$modules = scandir("config");
 	$modules = array_diff($modules, array('.', '..', 'grf', 'stperm.sh'));
+
+	$in = array_search($info['Module'], $modules);
+	$id = array_search( reset($modules), $modules);
+
+	if ( $in > 0 )
+		list( $modules[$id], $modules[$in] ) = array($modules[$in], $modules[$id]);
 	
 	foreach ( $modules as $key => $module )
 	{
@@ -36,6 +42,7 @@
 		}
 	}
 
+	//print_r($buff);
 	$str = handler_temp("./tpl/modules.tpl", $buff);
 	unset($buff);
 	$html = str_replace( "\$modules_list\$", $str,  $html);

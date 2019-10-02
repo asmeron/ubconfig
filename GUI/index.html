@@ -1,0 +1,41 @@
+<div class = "fer"><span>ub</span></div>
+<style>
+	.fer {
+	width: 200px;
+	height: 110px;
+	background: #011935;
+	position: fixed;
+    top: 40vh;
+    left: 40vw;
+}
+.fer:before {
+	content: "";
+	position: absolute;
+	top: -50px; 
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 100px solid transparent;
+	border-right: 100px solid transparent;
+	border-bottom: 50px solid #011935;
+}
+.fer:after {
+	content: "";
+	position: absolute;
+	bottom: -50px; 
+	left: 0;
+	width: 0;
+	height: 0;
+	border-left: 100px solid transparent;
+	border-right: 100px solid transparent;
+	border-top: 50px solid #011935;
+}
+span
+{
+	font-size: 110px;
+    padding-left: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+}
+	</style>

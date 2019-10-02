@@ -64,4 +64,49 @@
 		
 		exec($path, $out);
 	}
+
+	if ( $mode == "exel" )
+	{
+		$k = 0;
+		$action = $_REQUEST['action'] . ".sh";
+		$conf = $_REQUEST['config'];
+		$str = " ";
+		$path = "\"./config/$conf/sh/";
+
+		unset($_REQUEST['action']);
+		unset($_REQUEST['config']);
+
+		foreach ($_REQUEST as $key => $value) 
+		{
+			if ( strstr($value, "\n") )
+			{
+				$k++;
+				file_put_contents("$patht$k.txt", $value);
+				$str .= "$patht$k.txt";
+			}
+			elseif ( is_array( $value ) )
+			{
+				$str .= implode(" ", $value);
+			}
+			else
+			{
+				$str .= $value . " ";
+			}
+		}
+
+		$per = "sudo ./config/stperm.sh";
+		$path = $per . " " . $path . $action . $str . "\"";
+		//print_r($path);
+
+
+		exec($path, $out);
+
+		while ( $k > 0)
+		{
+			unlink("$patht$k.txt");
+			$k--;
+		}
+
+		print_r($out);
+	}
 ?>
