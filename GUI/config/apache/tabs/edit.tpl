@@ -8,8 +8,7 @@
 	alt = (text_config)
 	type = (area)
     default = (
-    `conf.sh#` 
-    )
+ `conf.sh#` )
     collect_values = ( )
 }
 
