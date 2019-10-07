@@ -17,11 +17,13 @@
 		<p> Домен: `info.sh@3`
 </div>
 <div class = "puzl">
-	<H3>Users list </h3>
+	<H3>Processor info</h3>
 		<Ul>
-		<li>`list.sh#`</li>
+		<li>Модель: `cpu_info.sh@1`</li>
+		<li>Количество ядер: `cpu_info.sh@2`</li>
 	</ul>
 </div>
+
 <LINK rel="stylesheet" href="../style/ssh.css">
 <style>
 .tabs

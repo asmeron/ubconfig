@@ -1,20 +1,5 @@
 <?php
 
-	/*function read_setting($str)
-	{
-		$reg = '/name\s=\s(.+)\n.+alt\s=\s(.+)\n.+type\s=\s(.+)\n.+default\s=(.+)\n.+collect_values\s=\s\((.+)\)/';
-		preg_match_all($reg, $str, $temp);
-
-
-		$result['name'] = $temp[1];
-		$result['alt'] = $temp[2];
-		$result['type'] = $temp[3];
-		$result['default'] = $temp[4];
-		$result['value'] = $temp[5];
-
-		return $result;
-	}*/
-
 	function read_setting($str)
 	{
 		$directives = ["name", "alt", "type", "default", "collect_values" ];
