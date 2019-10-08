@@ -401,6 +401,13 @@ fieldset
     padding: 5px;
 }
 
+.Active_tab
+{
+    background-color: #fff;
+    cursor: default;
+    pointer-events: none;
+}
+
 @media (max-width: 800px)
 {
 

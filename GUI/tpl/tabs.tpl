@@ -1,3 +1,3 @@
 <div class = "tabs">
-	@<a href = '/$conf/$tab'><h3>$tab</h3></a>@
+	@<a class = "$tab" href = '/$conf/$tab'><h3 class = "$tab">$tab</h3></a>@
 </div>

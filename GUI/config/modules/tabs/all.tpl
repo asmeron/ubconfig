@@ -3,9 +3,10 @@
 <form action = "mod">
 <fieldset>
 	<legend>Список модулей</legend>
-	<div class = "list_modules"><input type="checkbox" value="`list.sh#`" name="modul[]"><span>`list.sh#`</span></div>
+	<div class = "list_modules"><input type="checkbox" value="`list.sh#`" id="`list.sh#`" name="modul[]"><span>`list.sh#`</span></div>
 </fieldset>
 <button class='form_handler'>Сохранить</button>
 </form>
 </div>
 <LINK rel="stylesheet" href="../style/modules.css">
+<SCRIPT src="../js/modules.js"></script>

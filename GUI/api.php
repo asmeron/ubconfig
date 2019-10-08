@@ -93,15 +93,18 @@
 			$path = strstr($path, "tabs", true);
 		else
 			$path = strstr($path, "base", true);
+
 		
-		$reg = '/`.*?([A-z | \.]+)[ @ | #][0-9]*?`/';
+		$reg = '/`.*?([A-z | \.  | " ]+)[ @ | #][0-9]*?`/';
 
 		preg_match_all($reg, $str, $scripts);
 		$scripts[0] = array_unique($scripts[0]);
 		$scripts[1] = array_unique($scripts[1]);
 
 		foreach ($scripts[1] as $key => $script) 
+		{
 			exec($path . "sh/" . $script, $out[$script]);
+		}
 
 
 		foreach ($scripts[0] as $key => $value) 

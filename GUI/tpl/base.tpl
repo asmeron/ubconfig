@@ -4,6 +4,7 @@
 		<META name="viewport" content="width=device-width, initial-scale=1.0">
 		<META name="Description" content="Ubconfig GUI">
 		<link href="/pic/favicon.ico" rel="shortcut icon" type="image/icon">
+		<SCRIPT src="../js/jq.js"></script>
 		<LINK rel="stylesheet" href="../style/base.css">
 		<TITLE>Ubconfig</TITLE>
 	</HEAD>
@@ -30,6 +31,5 @@
 			<DIV class = "window"></DIV>
 		</BODY>
 <LINK href="https://fonts.googleapis.com/css?family=Anonymous+Pro&display=swap" rel="stylesheet">
-<SCRIPT src="../js/jq.js"></script>
 <SCRIPT src="../js/action.js"></script>
 		
