@@ -1,5 +1,10 @@
 var $content, form, config;
 
+
+tab = get_id_tab();
+
+$('.'+tab).addClass('Active_tab');
+
 // Расвертывание/Свертывание блоков
 ///////////////////////////////////////////////////////////
 $('.block .block h2').on('click',
@@ -43,6 +48,18 @@ function get_id_config()
 	config = config.slice(pos1, pos2);
 
 	return config;
+}
+
+function get_id_tab()
+{
+	tab = window.location.href;
+	pos = tab.indexOf('fig/');
+	pos += 4;
+	pos = tab.indexOf('/', pos);
+	pos++;
+	tab = tab.slice(pos);
+
+	return tab;
 }
 
 ///////////////////////////////////////////////////////////
