@@ -108,7 +108,6 @@ $('.delete').on('click',
 
 			},
 		)
-
 		.done
 		(
 			function()
@@ -160,6 +159,30 @@ $('.form_handler').on('click',
 			{
 				alert("Изменения внесены");
 				location.reload();
+			}
+
+		);
+	}
+
+);
+
+$('.out_handler').on('click',
+
+	function()
+	{
+		form = $(this).parent();
+		action = form.attr('action');
+		config = get_id_config();
+
+		form = form.serializeArray();
+		form.push({name: 'action', value: action });
+		form.push({name: 'config', value: config });
+
+		$.post("/handler.php?mode=exel", form,
+
+			function(date)
+			{
+				$('.out_div').html(date);
 			}
 
 		);
