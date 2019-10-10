@@ -96,10 +96,10 @@
 
 		$per = "sudo ./config/stperm.sh";
 		$path = $per . " " . $path . $action . $str . "\"";
-		//print_r($path);
-
 
 		exec($path, $out);
+
+		$tr = "";
 
 		while ( $k > 0)
 		{
@@ -107,6 +107,13 @@
 			$k--;
 		}
 
-		print_r($out);
+
+		foreach ($out as $key => $value) 
+		{
+			$tr .= "<br>$value<br>";
+		}
+
+		echo $tr;
 	}
+
 ?>
