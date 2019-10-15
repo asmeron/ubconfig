@@ -42,42 +42,28 @@
 		}
 	}
 
-	//print_r($buff);
 	$str = handler_temp("./tpl/modules.tpl", $buff);
 	unset($buff);
 	$html = str_replace( "\$modules_list\$", $str,  $html);
 	/************************************************************/
 	$str = "";
 
-	if ( $mode != "expert" )
+	$path = "./config/$conf/tabs/$mode.tpl";
+	$tpl = handler_pattern($path);
+
+	$path = "./config/$conf/tabs";
+	$tabs = scandir($path);
+	$tabs= array_diff($tabs, array('.', '..'));
+
+	foreach ( $tabs as $key => $tab )
 	{
-		$path = "./config/$conf/tabs/$mode.tpl";
-		$tpl = handler_pattern($path);
-
-		$path = "./config/$conf/tabs";
-		$tabs = scandir($path);
-		$tabs= array_diff($tabs, array('.', '..'));
-
-		foreach ( $tabs as $key => $tab )
-		{
-			$tab = strstr($tab, ".tpl", true);
-			$buff[$key]['conf'] = $conf;
-			$buff[$key]['tab'] = $tab;
-		}
-
-		$str = handler_temp("./tpl/tabs.tpl", $buff);
-		unset($buff);
-
+		$tab = strstr($tab, ".tpl", true);
+		$buff[$key]['conf'] = $conf;
+		$buff[$key]['tab'] = $tab;
 	}
-	else
-	{
-		/* Формирование экспертной формы редактирования */
-		/************************************************************/
-		exec('./ubparse/ubparse -t "set bb" -f ' . $conf, $tpl);
-		$tpl = implode($tpl);
-		$tpl .= file_get_contents("./tpl/button.tpl");
-		/************************************************************/
-	}
+
+	$str = handler_temp("./tpl/tabs.tpl", $buff);
+	unset($buff);
 
 	$html = str_replace( "\$work\$", $tpl,  $html);
 	$html = str_replace( "\$tabs\$", $str,  $html);

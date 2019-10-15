@@ -84,6 +84,30 @@
 
 	}
 
+	function handler_temp($path, $values)
+	{
+		$tpl = file_get_contents($path);
+		preg_match_all('/@(.+)@/', $tpl, $str);
+		$str = $str[1][0];
+		$result = "";
+		
+		foreach ($values as $key => $value) 
+		{
+			$buff = $str;
+
+			foreach ($value as $key => $val) 
+			{
+				$buff = str_replace("$".$key, $val, $buff);
+			}
+
+			$result .= $buff . PHP_EOL;
+		}
+
+		$result = str_replace("@".$str."@", $result, $tpl);
+		return $result;
+		
+	}
+
 	function handler_pattern($path)
 	{
 		$str = file_get_contents($path);
@@ -148,30 +172,6 @@
 		}
 
 		return $str;
-	}
-
-	function handler_temp($path, $values)
-	{
-		$tpl = file_get_contents($path);
-		preg_match_all('/@(.+)@/', $tpl, $str);
-		$str = $str[1][0];
-		$result = "";
-		
-		foreach ($values as $key => $value) 
-		{
-			$buff = $str;
-
-			foreach ($value as $key => $val) 
-			{
-				$buff = str_replace("$".$key, $val, $buff);
-			}
-
-			$result .= $buff . PHP_EOL;
-		}
-
-		$result = str_replace("@".$str."@", $result, $tpl);
-		return $result;
-		
 	}
 
 ?>

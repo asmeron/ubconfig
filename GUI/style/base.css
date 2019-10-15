@@ -95,8 +95,6 @@ NAV
     word-break: break-word;
     cursor: pointer;
     max-width: 150px;
-    position: relative;
-    top: 5px;
     border-radius: 5px 5px 0 0;
 }
 
