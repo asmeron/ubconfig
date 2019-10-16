@@ -187,5 +187,27 @@ $('.out_handler').on('click',
 
 		);
 	}
+);
 
+$('.page_gen').on('click',
+
+	function()
+	{
+		form = $(this).parent();
+		action = $(this).attr('file');
+		config = get_id_config();
+
+		form = form.serializeArray();
+		form.push({name: 'action', value: action });
+		form.push({name: 'config', value: config });
+
+		$.post("/handler.php?mode=gen", form,
+
+			function(date)
+			{
+				document.location.href = './' + action;
+			}
+
+		);
+	}
 );

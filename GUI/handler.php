@@ -76,4 +76,23 @@
 		echo $tr;
 	}
 
+	if ( $mode == "gen" )
+	{
+		$conf = $_REQUEST['config'];
+		$file = $_REQUEST['action'];
+
+		unset($_REQUEST['action']);
+		unset($_REQUEST['config']);
+
+		$path = "./config/$conf/tabs/$file";
+		$str = file_get_contents("$path.dpl");
+
+		foreach ($_REQUEST as $key => $value) 
+		{
+			$str = str_replace("?$key?", $value, $str);
+		}
+
+		file_put_contents("$path.tpl", $str);
+	}
+
 ?>
