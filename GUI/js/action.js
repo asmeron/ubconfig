@@ -205,7 +205,25 @@ $('.page_gen').on('click',
 
 			function(date)
 			{
-				document.location.href = './' + action;
+				document.location.href = './' + date;
+			}
+
+		);
+	}
+);
+
+$('.close').on('click',
+
+	function()
+	{
+		config = get_id_config();
+		file = get_id_tab();
+
+		$.post("/handler.php?mode=del", {action : file, config : config},
+
+			function(date)
+			{
+				document.location.href = date;
 			}
 
 		);
