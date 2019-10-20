@@ -161,6 +161,7 @@ H2
 
 .work
 {
+    position: relative;
 	display: inline-block;
     width: 76%;
     margin-left: 3%;
@@ -405,6 +406,13 @@ fieldset
     cursor: default;
     pointer-events: none;
 }
+.close
+{
+    position: absolute;
+    top: 65px;
+    right: 15px;
+}
+
 
 @media (max-width: 800px)
 {

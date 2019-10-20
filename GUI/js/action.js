@@ -187,5 +187,45 @@ $('.out_handler').on('click',
 
 		);
 	}
+);
 
+$('.page_gen').on('click',
+
+	function()
+	{
+		form = $(this).parent();
+		action = $(this).attr('file');
+		config = get_id_config();
+
+		form = form.serializeArray();
+		form.push({name: 'action', value: action });
+		form.push({name: 'config', value: config });
+
+		$.post("/handler.php?mode=gen", form,
+
+			function(date)
+			{
+				document.location.href = './' + date;
+			}
+
+		);
+	}
+);
+
+$('.close').on('click',
+
+	function()
+	{
+		config = get_id_config();
+		file = get_id_tab();
+
+		$.post("/handler.php?mode=del", {action : file, config : config},
+
+			function(date)
+			{
+				document.location.href = date;
+			}
+
+		);
+	}
 );

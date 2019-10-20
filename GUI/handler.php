@@ -1,16 +1,22 @@
 <?php
 	
+	include 'api.php';
+
 	$mode = $_REQUEST['mode'];
 	unset($_REQUEST['mode']);
 
-	if ( $mode == "ins_wr")
+	if ( $mode == "del")
 	{
-		foreach ($_REQUEST as $key => $value) 
-		{
-			$str = $str . $value . " ";
-		}
+		$conf = $_REQUEST['config'];
+		$file = $_REQUEST['action'];
 
-		exec('sudo ./ubedit/ubedit -l "' . $str . '"');
+		$path = "./config/$conf/tabs/$file.tpl";
+		unlink($path);
+
+		$info = read_info("./config/$conf/$conf.info", ["Tab"]);
+
+		echo $info['Tab'];
+
 	}
 
 	if ( $mode == "exe" )
@@ -74,6 +80,55 @@
 		}
 
 		echo $tr;
+	}
+
+	if ( $mode == "gen" )
+	{
+		$conf = $_REQUEST['config'];
+		$file = $_REQUEST['action'];
+
+		unset($_REQUEST['action']);
+		unset($_REQUEST['config']);
+
+		$path = "./config/$conf/tabs/$file";
+		$str = file_get_contents("$path.dpl");
+		$k = 0;
+
+		foreach ($_REQUEST as $key => $value) 
+		{
+			$str = str_replace("?$key?", $value, $str);
+		}
+
+		$path = "$path.tpl";
+
+		while ( file_exists($path) ) 
+		{
+			$k++;
+
+			if ( $k == 1)
+			{
+				$path= str_replace(".tpl", "_$k.tpl", $path);
+			}
+			else
+			{
+				$buf = $k - 1;
+				$path = str_replace("_$buf.tpl", "_$k.tpl", $path);
+			}
+
+		}
+
+		$str .= "<button class='close'>Close</button>";
+		file_put_contents($path, $str);
+		$path = str_replace(".tpl", "", $path);
+		
+		if ($k == 0) 
+		{
+			echo "$file";
+		}
+		else
+		{
+			echo $file."_".$k;
+		}
 	}
 
 ?>

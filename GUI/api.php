@@ -119,7 +119,7 @@
 			$path = strstr($path, "base", true);
 
 		
-		$reg = '/`.*?([A-z | \.  | " ]+)[ @ | #][0-9]*?`/';
+		$reg = '/`.*?([A-z | \.  | " | \/ | 0-9 ]+)[ @ | #][0-9]*?`/';
 
 		preg_match_all($reg, $str, $scripts);
 		$scripts[0] = array_unique($scripts[0]);
@@ -129,7 +129,6 @@
 		{
 			exec($path . "sh/" . $script, $out[$script]);
 		}
-
 
 		foreach ($scripts[0] as $key => $value) 
 		{
@@ -148,7 +147,8 @@
 
 			if ( strpos($value, "#") )
 			{
-				$reg = "/.+$value.+/";
+				$valuecs = addcslashes($value, "/");
+				$reg = "/.*$valuecs.*/";
 				preg_match_all($reg, $str, $pat);
 				$pat = $pat[0];
 
