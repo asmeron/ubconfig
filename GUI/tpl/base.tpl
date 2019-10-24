@@ -5,6 +5,7 @@
 		<META name="Description" content="Ubconfig GUI">
 		<link href="/pic/favicon.ico" rel="shortcut icon" type="image/icon">
 		<SCRIPT src="../js/jq.js"></script>
+		<SCRIPT src="../js/lib.js"></script>
 		<LINK rel="stylesheet" href="../style/base.css">
 		<TITLE>Ubconfig</TITLE>
 	</HEAD>

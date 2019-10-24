@@ -34,7 +34,10 @@
 	if ( $mode == "exel" )
 	{
 		$k = 0;
-		$action = $_REQUEST['action'] . ".sh";
+
+		if ( !strrpos($action, ".sh") )
+			$action = $_REQUEST['action'] . ".sh";
+
 		$conf = $_REQUEST['config'];
 		$str = " ";
 		$path = "\"./config/$conf/sh/";
@@ -128,6 +131,29 @@
 		else
 		{
 			echo $file."_".$k;
+		}
+	}
+
+	if ($mode == "tail" )
+	{
+		$conf = $_REQUEST['config'];
+		$action = $_REQUEST['action'];
+		$text = $_REQUEST['text'];
+		$path = "./config/$conf/sh/$action";
+
+		$text = explode("\n", $text);
+		$text = array_filter($text);
+		$text = array_reverse($text);
+		$text = implode("\n", $text);
+
+
+		file_put_contents("tail.txt", $text);
+		exec($path, $out);
+		$out = array_reverse($out);
+		
+		foreach ($out as $key => $value)
+		{
+			echo "$value\n";
 		}
 	}
 

@@ -57,9 +57,12 @@
 
 	foreach ( $tabs as $key => $tab )
 	{
-		$tab = strstr($tab, ".tpl", true);
-		$buff[$key]['conf'] = $conf;
-		$buff[$key]['tab'] = $tab;
+		if ( strrpos($tab, ".tpl") )
+		{
+			$tab = strstr($tab, ".tpl", true);
+			$buff[$key]['conf'] = $conf;
+			$buff[$key]['tab'] = $tab;
+		}
 	}
 
 	$str = handler_temp("./tpl/tabs.tpl", $buff);
