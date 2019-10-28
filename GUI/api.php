@@ -119,9 +119,9 @@
 			$path = strstr($path, "base", true);
 
 		
-		$reg = '/`.*?([A-z | \.  | " | \/ | 0-9 | \- ]+)[ @ | #][0-9]*?`/';
+		$g_reg = '/`.*?([A-z | \.  | " | \/ | 0-9 | \- ]+)[ @ | # | & ][0-9 | ,]*?`/';
 
-		preg_match_all($reg, $str, $scripts);
+		preg_match_all($g_reg, $str, $scripts);
 		$scripts[0] = array_unique($scripts[0]);
 		$scripts[1] = array_unique($scripts[1]);
 
@@ -129,6 +129,7 @@
 		{
 			exec($path . "sh/" . $script, $out[$script]);
 		}
+
 
 		foreach ($scripts[0] as $key => $value) 
 		{
@@ -162,6 +163,22 @@
 					foreach ($out[$name] as $key => $val) 
 					{
 						$st = str_replace($value, $val, $pat);
+
+						while( strpos($st, "#")  )
+						{
+							preg_match_all($g_reg, $st, $test);
+
+							$value1 = $test[0][0];
+							$name = $test[1][0];
+
+							$bar = each( $out[$name] );
+							$val1 = $bar['value'];
+							$in = $bar['key'];
+							unset($out[$name][$in]);
+
+							$st = str_replace($value1, $val1, $st);
+						}
+
 						$res .= $st . PHP_EOL;
 					}
 
