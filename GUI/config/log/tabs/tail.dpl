@@ -1,8 +1,0 @@
-<div class = "puz">
-	<H2>This Auto Generate Page</H2>
-	<p id='par'>Log File: ?log? </p>
-	<p>Size File: `info.sh ?log?@1`</p> 
-	<p>Data File: `info.sh ?log?@2`</p>
-	<textarea id = 'tail'></textarea>
-</div>
-<SCRIPT src="../js/tail.js"></script>
