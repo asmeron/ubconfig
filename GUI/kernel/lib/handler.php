@@ -25,7 +25,7 @@
 		$conf = $_REQUEST['config'];
 
 		$path = "\"../../custom/modules/$conf/sh/";
-		$per = "sudo ../../custom/modules/stperm.sh ";
+		$per = "sudo ../../kernel/stperm.sh ";
 		$path = $per . " " . $path . $script . "\"";
 		
 		exec($path, $out);
@@ -64,7 +64,7 @@
 			}
 		}
 
-		$per = "sudo ../../custom/modules/stperm.sh";
+		$per = "sudo ../../kernel/stperm.sh";
 		$path = $per . " " . $path . $action . $str . "\"";
 
 		exec($path, $out);
