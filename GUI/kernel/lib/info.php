@@ -113,7 +113,7 @@
     */
 	function module_status($module)
 	{
-		$status = info_module($module, ['Status']);
+		$status = module_info($module, ['Status']);
 		$status = $status['Status'];
 
 		if ( $status == 'Active')
@@ -166,7 +166,7 @@
 		else
 			return "Tab not found";
 
-		$reg = '/([A-z]+):\s*(.+)/';
+		$reg = '/([A-z]+):=\s*(.+)/';
 		$result = preg_replace($reg, '', $file);
 
 		return $result;
@@ -190,7 +190,7 @@
 			$tab = array_pop($tab);
 			$tab = strstr($tab, ".", TRUE);
 
-			$name = info_tab($module, $tab, ['Name'] );
+			$name = tab_info($module, $tab, ['Name'] );
 			$name = $name['Name'];
 
 			$result[$tab] = $name;
@@ -263,6 +263,8 @@
 		foreach ($type as $key => $value) 
 		{
 			$buff = "$path/$value";
+			$value = strstr($value, ".");
+			$value = substr($value,1);
 
 			if ( file_exists($buff) )
 				$result[$value] = file_get_contents($buff);
