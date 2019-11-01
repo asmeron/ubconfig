@@ -1,0 +1,38 @@
+<div class = "puz">
+	<H2>This Auto Generate Page</H2>
+	<p id='par'>Log File: ?log? </p>
+	<p>Size File: `info.sh ?log?@1`</p> 
+	<p>Data File: `info.sh ?log?@2`</p>
+	<textarea id = 'tail'></textarea>
+</div>
+
+<script>
+
+function reqw(config, action)
+{
+	text = $("#tail").val();
+
+	$.post("/handler.php?mode=tail", {action : action, config : config, text : text},
+
+			function(date)
+			{
+				text = date + text;
+				$("#tail").val(text);
+			}
+
+		);
+}
+
+config = get_id_config();
+
+par = $('#par').text();
+pos = par.indexOf(':');
+pos++;
+par = par.slice(pos);
+
+action= "tail_log.sh " + par;
+
+reqw(config, action);
+setInterval( function() {reqw(config, action);}, 3000);
+
+</script>
