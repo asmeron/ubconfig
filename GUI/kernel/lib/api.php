@@ -95,7 +95,6 @@
 		preg_match_all($g_reg, $str, $scripts);
 		$scripts[0] = array_unique($scripts[0]);
 		$scripts[1] = array_unique($scripts[1]);
-		print_r($scripts[1]);
 
 		foreach ($scripts[1] as $key => $script) 
 		{
