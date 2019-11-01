@@ -1,12 +1,12 @@
 <?php 
 
-	include 'api.php';
+	include './kernel/lib/api.php';
 
 	/* Обработка параметров */
 	/************************************************************/
 	$conf = $_REQUEST['conf'];
 	$mode = $_REQUEST['mode'];
-	$info = read_info("./base.info", ["Tab", "Module"]);
+	$info = read_info("./kernel/base.info", ["Tab", "Module"]);
 
 	if ( $mode == NULL )
 		$mode = $info['Tab'];
@@ -18,10 +18,10 @@
 
 	/* Формирование заголовка и меню модулей */
 	/************************************************************/
-	$html = handler_pattern("./tpl/base.tpl");
+	$html = handler_pattern("./kernel/tpl/base.tpl");
 
-	$modules = scandir("config");
-	$modules = array_diff($modules, array('.', '..', 'grf', 'stperm.sh'));
+	$modules = scandir("./custom/modules");
+	$modules = array_diff($modules, array('.', '..', 'stperm.sh'));
 
 	$in = array_search($info['Module'], $modules);
 	$id = array_search( reset($modules), $modules);
@@ -31,7 +31,7 @@
 	
 	foreach ( $modules as $key => $module )
 	{
-		$path = "config/" . $module . "/" . $module . ".info";
+		$path = "custom/modules/" . $module . "/" . $module . ".info";
 		$info = read_info($path);
 
 		if ( $info['Status'] == "Active" )
@@ -42,42 +42,31 @@
 		}
 	}
 
-	//print_r($buff);
-	$str = handler_temp("./tpl/modules.tpl", $buff);
+	$str = handler_temp("./kernel/tpl/modules.tpl", $buff);
 	unset($buff);
 	$html = str_replace( "\$modules_list\$", $str,  $html);
 	/************************************************************/
 	$str = "";
 
-	if ( $mode != "expert" )
+	$path = "./custom/modules/$conf/tabs/$mode.tpl";
+	$tpl = handler_pattern($path);
+
+	$path = "./custom/modules/$conf/tabs";
+	$tabs = scandir($path);
+	$tabs= array_diff($tabs, array('.', '..'));
+
+	foreach ( $tabs as $key => $tab )
 	{
-		$path = "./config/$conf/tabs/$mode.tpl";
-		$tpl = handler_pattern($path);
-
-		$path = "./config/$conf/tabs";
-		$tabs = scandir($path);
-		$tabs= array_diff($tabs, array('.', '..'));
-
-		foreach ( $tabs as $key => $tab )
+		if ( strrpos($tab, ".tpl") )
 		{
 			$tab = strstr($tab, ".tpl", true);
 			$buff[$key]['conf'] = $conf;
 			$buff[$key]['tab'] = $tab;
 		}
-
-		$str = handler_temp("./tpl/tabs.tpl", $buff);
-		unset($buff);
-
 	}
-	else
-	{
-		/* Формирование экспертной формы редактирования */
-		/************************************************************/
-		exec('./ubparse/ubparse -t "set bb" -f ' . $conf, $tpl);
-		$tpl = implode($tpl);
-		$tpl .= file_get_contents("./tpl/button.tpl");
-		/************************************************************/
-	}
+
+	$str = handler_temp("./kernel/tpl/tabs.tpl", $buff);
+	unset($buff);
 
 	$html = str_replace( "\$work\$", $tpl,  $html);
 	$html = str_replace( "\$tabs\$", $str,  $html);
