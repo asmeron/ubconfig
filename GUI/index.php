@@ -1,12 +1,17 @@
 <?php 
 
+	include './kernel/lib/info.php';
 	include './kernel/lib/api.php';
 
 	/* Обработка параметров */
 	/************************************************************/
 	$conf = $_REQUEST['conf'];
 	$mode = $_REQUEST['mode'];
-	$info = read_info("./kernel/base.info", ["Tab", "Module"]);
+
+	$base = file_get_contents("./kernel/base.info");
+	$reg = '/([A-z]+)\s*=\s*(.+)/';
+
+	$info = parse_info($reg, $base, ['Module', 'Tab']);
 
 	if ( $mode == NULL )
 		$mode = $info['Tab'];
@@ -18,23 +23,23 @@
 
 	/* Формирование заголовка и меню модулей */
 	/************************************************************/
-	$html = handler_pattern("./kernel/tpl/base.tpl");
+	$tmp = kernel_tmp("base");
+	$html = handler_pattern($tmp, "./kernel/tpl/");
 
-	$modules = scandir("./custom/modules");
-	$modules = array_diff($modules, array('.', '..', 'stperm.sh'));
+	$modules = module_list();
 
 	$in = array_search($info['Module'], $modules);
 	$id = array_search( reset($modules), $modules);
 
 	if ( $in > 0 )
 		list( $modules[$id], $modules[$in] ) = array($modules[$in], $modules[$id]);
+
 	
 	foreach ( $modules as $key => $module )
 	{
-		$path = "custom/modules/" . $module . "/" . $module . ".info";
-		$info = read_info($path);
+		$info = module_info($module);
 
-		if ( $info['Status'] == "Active" )
+		if ( module_status($module) )
 		{
 			$buff[$key]['Tab'] = $info['Tab'];
 			$buff[$key]['Name'] = $info['Name'];
@@ -42,30 +47,27 @@
 		}
 	}
 
-	$str = handler_temp("./kernel/tpl/modules.tpl", $buff);
+	$tmp = kernel_tmp("modules");
+	$str = handler_temp($tmp, $buff);
 	unset($buff);
 	$html = str_replace( "\$modules_list\$", $str,  $html);
 	/************************************************************/
 	$str = "";
 
-	$path = "./custom/modules/$conf/tabs/$mode.tpl";
-	$tpl = handler_pattern($path);
+	$path = "./custom/modules/$conf/";
+	$tmp = tab_code($conf, $mode);
+	$tpl = handler_pattern($tmp, $path);
 
-	$path = "./custom/modules/$conf/tabs";
-	$tabs = scandir($path);
-	$tabs= array_diff($tabs, array('.', '..'));
+	$tabs = tab_list($conf);
 
 	foreach ( $tabs as $key => $tab )
 	{
-		if ( strrpos($tab, ".tpl") )
-		{
-			$tab = strstr($tab, ".tpl", true);
-			$buff[$key]['conf'] = $conf;
-			$buff[$key]['tab'] = $tab;
-		}
+		$buff[$key]['conf'] = $conf;
+		$buff[$key]['tab'] = $key;
 	}
 
-	$str = handler_temp("./kernel/tpl/tabs.tpl", $buff);
+	$tmp = kernel_tmp('tabs');
+	$str = handler_temp($tmp, $buff);
 	unset($buff);
 
 	$html = str_replace( "\$work\$", $tpl,  $html);

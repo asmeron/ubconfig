@@ -13,28 +13,6 @@
 
 		return $result;
 	}
-
-	function read_info($path, $directives = NULL)
-	{
-		$reg = '/(.+)\s=\s(.+)/i';
-
-		if ( $directives == NULL)
-			$directives = ["Name", "Status", "Tab"];
-
-		$info = file_get_contents($path);
-		preg_match_all($reg, $info, $res);
-
-		foreach ($res[1] as $key => $directive) 
-		{
-			if ( in_array($directive, $directives) )
-			{
-				$result["$directive"] = $res[2][$key];
-			}
-		}
-		
-		return $result;
-
-	}
 	
 	function form_generation($str)
 	{
@@ -48,7 +26,8 @@
 
 			foreach ($form['type'] as $key => $conf) 
 			{
-				$temp = file_get_contents("./custom/elements/$conf/pattern.html");
+				$temp = element_code($conf);
+				$temp = $temp['html'];
 
 				$temp = preg_replace('/\$name/', $form['name'][$key], $temp);
 				$temp = preg_replace('/\$default/', $form['default'][$key], $temp);
@@ -76,7 +55,7 @@
 			$ar = "";
 		}
 
-		$but = file_get_contents("./tpl/button.tpl") . PHP_EOL . "</formprepross>";
+		$but = kernel_tmp('button') . PHP_EOL . "</formprepross>";
 		$str = str_replace("</formprepross>", $but, $str);
 		$str = str_replace("formprepross", "form", $str);
 
@@ -84,9 +63,8 @@
 
 	}
 
-	function handler_temp($path, $values)
+	function handler_temp($tpl, $values)
 	{
-		$tpl = file_get_contents($path);
 		preg_match_all('/@(.+)@/', $tpl, $str);
 		$str = $str[1][0];
 		$result = "";
@@ -108,16 +86,9 @@
 		
 	}
 
-	function handler_pattern($path)
+	function handler_pattern($tmp, $path)
 	{
-		$str = file_get_contents($path);
-		$str = form_generation($str);
-		
-		if ( strstr($path, "tabs", true) )
-			$path = strstr($path, "tabs", true);
-		else
-			$path = strstr($path, "base", true);
-
+		$str = form_generation($tmp);
 		
 		$g_reg = '/`.*?([A-z | \.  | " | \/ | 0-9 | \- ]+)[ @ | # | & ][0-9 | ,]*?`/';
 
@@ -162,8 +133,6 @@
 
 				if ( $count == "")
 					$count = count( $out[$name] );
-
-				//print_r("$count<br>" );
 
 				foreach ($pats as $key => $pat) 
 				{
