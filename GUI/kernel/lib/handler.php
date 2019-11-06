@@ -1,6 +1,7 @@
 <?php
 	
 	include 'api.php';
+	include 'info.php';
 
 	$mode = $_REQUEST['mode'];
 	unset($_REQUEST['mode']);
@@ -13,7 +14,10 @@
 		$path = "../../custom/modules/$conf/tabs/$file.tpl";
 		unlink($path);
 
-		$info = read_info("../../custom/modules/$conf/$conf.info", ["Tab"]);
+		$path = "../../custom/modules/$conf/base.info";
+		$file = file_get_contents($path);
+		$reg = '/([A-z]+)\s*=\s*(.+)/';
+		$info = parse_info($reg, $file, ['Tab']);
 
 		echo $info['Tab'];
 

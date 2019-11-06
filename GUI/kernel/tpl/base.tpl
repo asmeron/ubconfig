@@ -22,10 +22,10 @@
 			</ul>
 		</header>
 		<div class = "base_area">
-			$modules_list$
-		--><DIV class = "work">
-			$tabs$
-			$work$
+			?modules?
+		<DIV class = "work">
+			?tabs?
+			@work@
 			</DIV>
 		</div>
 			<DIV class = "mask"></DIV>

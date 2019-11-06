@@ -182,6 +182,7 @@ $('.page_gen').on('click',
 
 			function(date)
 			{
+
 				document.location.href = './' + date;
 			}
 
