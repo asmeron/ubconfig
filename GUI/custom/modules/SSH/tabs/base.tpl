@@ -11,7 +11,7 @@
 
 <style>
 
-inactive,
+.inactive,
 .active
 {
 	display: inline-block;

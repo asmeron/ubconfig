@@ -108,7 +108,6 @@ $('.action').on('click',
 
 			function(date)
 			{
-				alert(date);
 				location.reload()
 			}
 
