@@ -2,6 +2,7 @@
 	
 	include 'api.php';
 	include 'info.php';
+	chdir('../..');
 
 	$mode = $_REQUEST['mode'];
 	unset($_REQUEST['mode']);
@@ -11,13 +12,10 @@
 		$conf = $_REQUEST['config'];
 		$file = $_REQUEST['action'];
 
-		$path = "../../custom/modules/$conf/tabs/$file.tpl";
+		$path = "./custom/modules/$conf/tabs/$file.tpl";
 		unlink($path);
 
-		$path = "../../custom/modules/$conf/base.info";
-		$file = file_get_contents($path);
-		$reg = '/([A-z]+)\s*=\s*(.+)/';
-		$info = parse_info($reg, $file, ['Tab']);
+		$info = module_info($conf, ['Tab']);
 
 		echo $info['Tab'];
 
@@ -28,8 +26,8 @@
 		$script = $_REQUEST['script'];
 		$conf = $_REQUEST['config'];
 
-		$path = "\"../../custom/modules/$conf/sh/";
-		$per = "sudo ../../kernel/stperm.sh ";
+		$path = "\"./custom/modules/$conf/sh/";
+		$per = "sudo ./kernel/stperm.sh ";
 		$path = $per . " " . $path . $script . "\"";
 		
 		exec($path, $out);
@@ -45,7 +43,7 @@
 
 		$conf = $_REQUEST['config'];
 		$str = " ";
-		$path = "\"../../custom/modules/$conf/sh/";
+		$path = "\"./custom/modules/$conf/sh/";
 
 		unset($_REQUEST['action']);
 		unset($_REQUEST['config']);
@@ -68,7 +66,7 @@
 			}
 		}
 
-		$per = "sudo ../../kernel/stperm.sh";
+		$per = "sudo ./kernel/stperm.sh";
 		$path = $per . " " . $path . $action . $str . "\"";
 
 		exec($path, $out);
@@ -98,7 +96,7 @@
 		unset($_REQUEST['action']);
 		unset($_REQUEST['config']);
 
-		$path = "../../custom/modules/$conf/tabs/$file";
+		$path = "./custom/modules/$conf/tabs/$file";
 		$str = file_get_contents("$path.dpl");
 		$k = 0;
 
@@ -144,7 +142,7 @@
 		$conf = $_REQUEST['config'];
 		$action = $_REQUEST['action'];
 		$text = $_REQUEST['text'];
-		$path = "../../custom/modules/$conf/sh/$action";
+		$path = "./custom/modules/$conf/sh/$action";
 
 		$text = explode("\n", $text);
 		$text = array_filter($text);
