@@ -30,7 +30,7 @@
 	display : none;
 }
 
-inactive,
+.inactive,
 .active
 {
 	display: inline-block;

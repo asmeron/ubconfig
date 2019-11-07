@@ -65,7 +65,7 @@
 
 	function handler_temp($tpl, $values)
 	{
-		preg_match_all('/@(.+)@/', $tpl, $str);
+		preg_match_all('/%(.+)%/', $tpl, $str);
 		$str = $str[1][0];
 		$result = "";
 		
@@ -81,7 +81,7 @@
 			$result .= $buff . PHP_EOL;
 		}
 
-		$result = str_replace("@".$str."@", $result, $tpl);
+		$result = str_replace("%".$str."%", $result, $tpl);
 		return $result;
 		
 	}

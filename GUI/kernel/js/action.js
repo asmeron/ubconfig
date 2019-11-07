@@ -108,7 +108,6 @@ $('.action').on('click',
 
 			function(date)
 			{
-				alert(date);
 				location.reload()
 			}
 
@@ -182,6 +181,7 @@ $('.page_gen').on('click',
 
 			function(date)
 			{
+
 				document.location.href = './' + date;
 			}
 
