@@ -3,7 +3,7 @@ var $content, form, config;
 
 tab = get_id_tab();
 
-$('.'+tab).addClass('Active_tab');
+//$('.'+tab).addClass('Active_tab');
 
 // Расвертывание/Свертывание блоков
 ///////////////////////////////////////////////////////////
@@ -205,4 +205,22 @@ $('.close').on('click',
 
 		);
 	}
+);
+
+$('.sumb').on('click',
+
+	function()
+	{
+		form = $('#aut').serializeArray();
+
+		$.post("/kernel/lib/handler.php?mode=aut", form,
+
+			function(date)
+			{
+				location.reload();
+			}
+
+		);
+	}
+
 );

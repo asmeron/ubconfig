@@ -2,6 +2,7 @@
 	
 	include 'api.php';
 	include 'info.php';
+	include 'user.php';
 	chdir('../..');
 
 	$mode = $_REQUEST['mode'];
@@ -159,5 +160,15 @@
 			echo "$value\n";
 		}
 	}
+
+	if ( $mode == "aut" )
+	{
+		$status = aut($_REQUEST['login'], $_REQUEST['password']);
+
+		if ( $status )
+			file_put_contents("./kernel/aut", $_REQUEST['login']);
+
+	}
+
 
 ?>
