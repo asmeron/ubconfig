@@ -1,5 +1,4 @@
 #!/bin/bash
 
-hostname
+echo $(hostname).$(hostname -d)
 hostname -i 
-hostname -d

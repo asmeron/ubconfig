@@ -1,7 +1,8 @@
 <div class = "puz">
 	<H2>SSH</H2>
 	<h4>Status</h4>
-	<P>Program status: <span class = "`status.sh@1`">`status.sh@1`</span></p>
+	<P>Program status: <span class = "`status.sh@1`">
+	`status.sh@1`</span></p>
 	<P>Program version: `version.sh@1`</p>
 	<h4>Management</h4>
 	<button class = "action" value="control.sh start">Start</button>

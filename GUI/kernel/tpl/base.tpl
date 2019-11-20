@@ -16,7 +16,7 @@
 				<H1> enterprise config </H1>
 			</div>
 			<ul class="right_header">
-				<li>`info.sh@1`.`info.sh@3`</li>
+				<li>`info.sh@1`</li>
 				<li>`info.sh@2`</li>
 				<li>`date.sh@1`</li>
 			</ul>

@@ -1,7 +1,6 @@
 <?php 
 
-	include './kernel/lib/info.php';
-	include './kernel/lib/hand.php';
+	include './kernel/lib/lib.php';
 	include './kernel/lib/api.php';
 
 	if ( file_exists("./kernel/aut") )
@@ -53,11 +52,11 @@
 
 		$html = handler_base("base", $buff);
 
-		$html = handler_pattern($html, "./kernel/tpl/");
+		$html = sh_handler("kernel", $html);
 		$tmp = tab_code($conf, $mode);
 
-		$path = "./custom/modules/$conf/";
-		$tmp = handler_pattern($tmp, $path);
+		$tmp = sh_handler($conf, $tmp);
+		$tmp = form_generation($tmp);
 		$html = str_replace( "@work@", $tmp,  $html);
 
 		echo $html;
