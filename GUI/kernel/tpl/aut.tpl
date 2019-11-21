@@ -15,21 +15,16 @@
 				<img src="/kernel/pic/logo.png" class = "logo">
 				<H1> enterprise config </H1>
 			</div>
-			<ul class="right_header">
-				<li>`info.sh@1`</li>
-				<li>`info.sh@2`</li>
-				<li>`date.sh@1`</li>
-			</ul>
-		</header>
-		<div class = "base_area">
-			?modules?
-		<DIV class = "work">
-			?tabs?
-			@work@
-			</DIV>
-		</div>
-			<DIV class = "mask"></DIV>
-			<DIV class = "window"></DIV>
+			<div class = "aut">
+				<form name = "autr" id="aut">
+					<fieldset>
+						<legend>Авторизация</legend>
+						<input type="text" placeholder="Логин" name = "login">
+						<input type="password" placeholder="Пароль" name="password">
+						<button class="sumb">Войти</button>
+					</fieldset>
+				</form>
+			</div>
 		</BODY>
 <LINK href="https://fonts.googleapis.com/css?family=Anonymous+Pro&display=swap" rel="stylesheet">
 <SCRIPT src="../kernel/js/action.js"></script>

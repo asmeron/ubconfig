@@ -412,7 +412,36 @@ fieldset
     top: 65px;
     right: 15px;
 }
-
+.aut
+{
+    width: 25vw;
+    position: absolute;
+    left: 38vw;
+    top: 40vh;
+    background-color: #FFFEFD;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 4px 4px 7px 4px #AEAFB0;
+}
+.aut fieldset
+{
+    width: auto;
+}
+.aut input
+{
+    width: 85%;
+    margin-top: 5px;
+    border: double 1px #0C2C4B;
+    margin-right: 10px;
+    background-color: #D7DADC;
+    padding: 5px;
+    display: block;
+    color: #001022;
+}
+.aut button
+{
+    margin-top: 5px;
+}
 
 @media (max-width: 800px)
 {

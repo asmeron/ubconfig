@@ -1,7 +1,8 @@
 <?php
 	
 	include 'api.php';
-	include 'info.php';
+	include 'lib.php';
+	include 'user.php';
 	chdir('../..');
 
 	$mode = $_REQUEST['mode'];
@@ -48,6 +49,7 @@
 		unset($_REQUEST['action']);
 		unset($_REQUEST['config']);
 
+
 		foreach ($_REQUEST as $key => $value) 
 		{
 			if ( strstr($value, "\n") )
@@ -92,7 +94,7 @@
 	{
 		$conf = $_REQUEST['config'];
 		$file = $_REQUEST['action'];
-
+print_r($_REQUEST);
 		unset($_REQUEST['action']);
 		unset($_REQUEST['config']);
 
@@ -159,5 +161,15 @@
 			echo "$value\n";
 		}
 	}
+
+	if ( $mode == "aut" )
+	{
+		$status = aut($_REQUEST['login'], $_REQUEST['password']);
+
+		if ( $status )
+			file_put_contents("./kernel/aut", $_REQUEST['login']);
+
+	}
+
 
 ?>

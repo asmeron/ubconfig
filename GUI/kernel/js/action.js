@@ -170,6 +170,7 @@ $('.page_gen').on('click',
 	function()
 	{
 		form = $(this).parent();
+		alert(form);
 		action = $(this).attr('file');
 		config = get_id_config();
 
@@ -181,7 +182,7 @@ $('.page_gen').on('click',
 
 			function(date)
 			{
-
+				alert(date);
 				document.location.href = './' + date;
 			}
 
@@ -205,4 +206,22 @@ $('.close').on('click',
 
 		);
 	}
+);
+
+$('.sumb').on('click',
+
+	function()
+	{
+		form = $('#aut').serializeArray();
+
+		$.post("/kernel/lib/handler.php?mode=aut", form,
+
+			function(date)
+			{
+				location.reload();
+			}
+
+		);
+	}
+
 );

@@ -1,17 +1,17 @@
 #/bin/sh
 
-cd ..
-cd ..
-cd custom
-cd modules
+cd custom/modules
+
 modules=($moules[@] $(ls -d */ | cut -d'/' -f1 | grep -v modules) )
 
 for i in $@
  do
 	cd $i
+	pwd
 	sed -i 3d "base.info"
 	echo "Status = Active" >> "base.info"
 	modules=("${modules[@]/$i}")
+	echo $(pwd)
 	cd ..
 done
 
@@ -24,3 +24,5 @@ do
 		cd ..
 	fi
 done
+
+
