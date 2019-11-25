@@ -1,8 +1,6 @@
-Name: Список
-
 <div class = "puz">
 <H2>System User List</h2>
 	<Ul>
-		&:<li>`list.sh@`</li>:&
+		<li>`list.sh@2`</li>
 	</ul>
 </div>

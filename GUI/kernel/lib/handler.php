@@ -94,7 +94,6 @@
 	{
 		$conf = $_REQUEST['config'];
 		$file = $_REQUEST['action'];
-print_r($_REQUEST);
 		unset($_REQUEST['action']);
 		unset($_REQUEST['config']);
 

@@ -1,3 +1,4 @@
+Name: Основное
 <div class = "puz">
 <h2>Base info</h2>
 	<p> Имя компьютера: `info.sh@1` 
