@@ -1,3 +1,4 @@
+Name: Управление
 <div class = "puz">
 	<H2>SSH</H2>
 	<h4>Status</h4>

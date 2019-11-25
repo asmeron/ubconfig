@@ -170,19 +170,20 @@ $('.page_gen').on('click',
 	function()
 	{
 		form = $(this).parent();
-		alert(form);
 		action = $(this).attr('file');
+		par = $(this).attr('par_name');
+		val = $(this).attr('par_val');
 		config = get_id_config();
 
 		form = form.serializeArray();
 		form.push({name: 'action', value: action });
 		form.push({name: 'config', value: config });
+		form.push({name: par , value: val });
 
 		$.post("/kernel/lib/handler.php?mode=gen", form,
 
 			function(date)
 			{
-				alert(date);
 				document.location.href = './' + date;
 			}
 

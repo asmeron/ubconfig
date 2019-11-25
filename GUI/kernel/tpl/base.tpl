@@ -32,5 +32,5 @@
 			<DIV class = "window"></DIV>
 		</BODY>
 <LINK href="https://fonts.googleapis.com/css?family=Anonymous+Pro&display=swap" rel="stylesheet">
-<SCRIPT src="../kernel/js/action.js"></script>
+<SCRIPT src="/kernel/js/action.js"></script>
 		

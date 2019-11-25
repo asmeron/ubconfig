@@ -169,8 +169,8 @@
 		else
 			return "Tab not found";
 
-		$reg = '/([A-z]+):=\s*(.+)/';
-		$result = preg_replace($reg, '', $file);
+		$pos = strpos($file, "<");
+		$result = substr($file, $pos);
 
 		return $result;
 	}
@@ -517,7 +517,7 @@
 
 		foreach ($scripts as $key => $script) 
 		{
-			$command = "$root $path/$script";
+			$command = "$root \"$path/$script\"";
 			exec($command, $buff);
 
 			$result[$script] = $buff;

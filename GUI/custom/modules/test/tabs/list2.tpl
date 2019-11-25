@@ -1,5 +1,3 @@
-Name: Список
-
 <div class = "puz">
 <H2>System User List</h2>
 	<Ul>
