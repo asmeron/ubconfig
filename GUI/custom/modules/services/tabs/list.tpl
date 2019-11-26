@@ -76,9 +76,7 @@ th
 {
 	background: rgba(52,141,216,0.3);
 	background: rgba(52,141,216,0.3);
-    text-align: left;
     padding-left: 5px;
-    font-weight: normal;
     text-transform: uppercase;
 }
 button

@@ -1,22 +1,23 @@
 Name: Список
+
 <div class = "puz">
-<h2>Лог файлы</h2>
-	<table id="list_service">
+<H3> Список процессов</h3>
+&:<span>`info.sh@`</span>:&
+
+<table id="list_service">
 		<thead>
 		<tr>
-			<th>Имя лога</th>
-			<th>Размер</th>
-			<th>Дата последней модификаций</th>
-			<th>Доступные действия</th>
+			<th>PID</th>
+			<th>Пользователь</th>
+			<th>CPU</th>
+			<th>MEM</th>
+			<th>Время</th>
+			<th>Процесс</th>
 	</tr>
 	</thead>
 	<tboby>
 	&:<tr>
-		&:<td><p>`log.sh@3`</p></td>:&
-		<td>
-			<button class = "down_file" file="`log.sh@1`">Dowloand</button>
-			<button class = "page_gen" file="log" par_name="log" par_val="`log.sh@1`">View</button>
-		</td>
+		&:<td><p>`pross.sh@6`</p></td>:&
 	</tr>:&
 	</tboby>
 	</table>
@@ -53,7 +54,7 @@ td
 
 td:nth-child(1)
 {
-	width: 24%;
+	width: 10%;
 }
 
 td:nth-child(2)
@@ -63,7 +64,11 @@ td:nth-child(2)
 
 td:nth-child(3)
 {
-	width: 39%;
+	width: 5%;
+}
+td:nth-child(4)
+{
+	width: 5%;
 }
 
 tr:nth-child(2n+1)
@@ -80,7 +85,7 @@ th
 button
 {
     background: rgba(237,83,17,0.3);
-    width: 48% !important;
+    width: 23% !important;
     font-size: 11px;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -98,7 +103,7 @@ h3
     color: #203D61;
 }
 
-.puz button:nth-of-type(1)
+.puz button:nth-of-type(2)
 {
 	background-color: #b65b4f;
 }
@@ -107,7 +112,7 @@ h3
 {
 	background-color: #bf8d5b;
 }
-.puz button:nth-of-type(2)
+.puz button:nth-of-type(4)
 {
 	background-color: #3A6B76;
 }
