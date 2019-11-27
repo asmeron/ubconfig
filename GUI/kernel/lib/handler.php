@@ -170,5 +170,20 @@
 
 	}
 
+	if ($mode == "file")
+	{
+		$file_or = $_REQUEST['file'];
+		$file = strrchr($file_or, "/");
+		$file = substr($file, 1);
+
+		$root = "./kernel/stperm.sh";
+		$command = $root . " \"cat " . $file_or ."\" > $file" ;
+
+		exec($command);
+		readfile($file);
+
+		unlink($file);
+		exit;
+	}
 
 ?>

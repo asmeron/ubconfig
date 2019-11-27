@@ -226,3 +226,26 @@ $('.sumb').on('click',
 	}
 
 );
+
+$('.down_file').on('click',
+
+	function()
+	{
+		form = $(this).parent();
+		file = $(this).attr('file');
+
+		form = form.serializeArray();
+		form.push({name: 'file', value: file });
+
+		$.post("/kernel/lib/handler.php?mode=file", form,
+
+			function(date)
+			{
+				var data = new Blob(["\ufeff", [date]],{type:'plain/text'});
+				var file = window.URL.createObjectURL(data);
+				window.location.href=file;
+			}
+
+		);
+	}
+);
