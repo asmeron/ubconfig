@@ -27,7 +27,7 @@
 
 		foreach ($keys as $key) 
 			if ( !array_key_exists($key, $result) )
-				$result[$key] = "Not found";
+				$result[$key] = "Not_found";
 
 		return $result;
 

@@ -123,7 +123,6 @@
 
 		}
 
-		$str .= "<button class='close'>Close</button>";
 		file_put_contents($path, $str);
 		$path = str_replace(".tpl", "", $path);
 		

@@ -91,10 +91,10 @@ NAV
     text-align: center;
     text-transform: capitalize;
     padding: 12px;
+    padding-right: 9px;
     color: #041B04;
     word-break: break-word;
     cursor: pointer;
-    max-width: 150px;
     border-radius: 5px 5px 0 0;
 }
 
@@ -442,6 +442,29 @@ fieldset
 {
     margin-top: 5px;
 }
+.tabs h3 img
+{
+    width: 11px;
+    position: inherit;
+    margin-left: 3px;
+    pointer-events: all;
+    border: 1px solid transparent;
+}
+.tabs h3 img:hover
+{
+    border: 1px solid #ccc;
+    background-color: rgba(204,204,204,0.7);
+}
+.tabs h3 .yes
+{
+    display: inherit;
+}
+.tabs h3 .no,
+.tabs h3 .Not_found
+{
+    display: none;
+}
+
 
 @media (max-width: 800px)
 {
