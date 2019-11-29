@@ -49,7 +49,6 @@
 		unset($_REQUEST['action']);
 		unset($_REQUEST['config']);
 
-
 		foreach ($_REQUEST as $key => $value) 
 		{
 			if ( strstr($value, "\n") )
