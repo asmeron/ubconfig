@@ -70,6 +70,7 @@
 		$per = "sudo ./kernel/stperm.sh";
 		$path = $per . " " . $path . $action . $str . "\"";
 
+		print_r($path);
 		exec($path, $out);
 
 		$tr = "";
@@ -182,6 +183,11 @@
 
 		unlink($file);
 		exit;
+	}
+
+	if ($mode == "out")
+	{
+		unlink('./kernel/aut');
 	}
 
 ?>

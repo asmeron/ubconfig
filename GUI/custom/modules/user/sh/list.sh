@@ -1,3 +1,5 @@
 #!/bin/bash
 
-cat /etc/passwd | grep home | cut -d':' -f1
+cd kernel
+cat user | cut -d':' -f1
+

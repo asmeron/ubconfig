@@ -3,7 +3,8 @@ var $content, form, config;
 
 tab = get_id_tab();
 
-$('.'+tab).addClass('Active_tab');
+if ( tab.indexOf("http") )
+	$('.'+tab).addClass('Active_tab');
 
 // Расвертывание/Свертывание блоков
 ///////////////////////////////////////////////////////////
@@ -256,4 +257,20 @@ $('.down_file').on('click',
 
 		);
 	}
+);
+
+$('#out_login').on('click',
+
+	function()
+	{
+		$.post("/kernel/lib/handler.php?mode=out",
+
+			function(date)
+			{
+				location.reload()
+			}
+
+		);
+	}
+
 );
