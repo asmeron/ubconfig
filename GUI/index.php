@@ -49,6 +49,7 @@
 			$buff['conf'][] = $conf;
 			$buff['tab'][] = $key;
 			$buff['tab_name'][] = tab_info($conf, $key, ['Name'])['Name'];
+			$buff['but'][] = tab_info($conf, $key, ['Button_close'])['Button_close'];
 		}
 
 		$html = handler_base("base", $buff);

@@ -57,7 +57,6 @@ header ul
     color: #fff;
     display: inline-block;
     list-style: none;
-    float: right;
     margin: 0;
     margin-top: 10px;
     margin-right: 10px;
@@ -91,10 +90,10 @@ NAV
     text-align: center;
     text-transform: capitalize;
     padding: 12px;
+    padding-right: 9px;
     color: #041B04;
     word-break: break-word;
     cursor: pointer;
-    max-width: 150px;
     border-radius: 5px 5px 0 0;
 }
 
@@ -379,12 +378,19 @@ fieldset
 {
     display: inline-block;
     background: url(/kernel/pic/enterprise.png);
-    background-position: top -111px right -121px;
+    background-position: top -145px right -121px;
     padding-top: 1%;
 }
 .right_header
 {
+    float: right;
+    width: 23%;
+}
+.right_header img
+{
+    width: 18%;
     display: inline-block;
+    cursor: pointer;
 }
 .base_area
 {
@@ -398,6 +404,7 @@ fieldset
     max-height: 85%;
     height: 100%;
     padding: 5px;
+    width: 97%;
 }
 
 .Active_tab
@@ -418,10 +425,8 @@ fieldset
     position: absolute;
     left: 38vw;
     top: 40vh;
-    background-color: #FFFEFD;
     padding: 5px;
     border-radius: 3px;
-    box-shadow: 4px 4px 7px 4px #AEAFB0;
 }
 .aut fieldset
 {
@@ -429,7 +434,7 @@ fieldset
 }
 .aut input
 {
-    width: 85%;
+    width: 96%;
     margin-top: 5px;
     border: double 1px #0C2C4B;
     margin-right: 10px;
@@ -441,7 +446,36 @@ fieldset
 .aut button
 {
     margin-top: 5px;
+    position: relative;
+    left: 40%;
 }
+.aut legend
+{
+    color: white;
+}
+.tabs h3 img
+{
+    width: 11px;
+    position: inherit;
+    margin-left: 3px;
+    pointer-events: all;
+    border: 1px solid transparent;
+}
+.tabs h3 img:hover
+{
+    border: 1px solid #ccc;
+    background-color: rgba(204,204,204,0.7);
+}
+.tabs h3 .yes
+{
+    display: inherit;
+}
+.tabs h3 .no,
+.tabs h3 .Not_found
+{
+    display: none;
+}
+
 
 @media (max-width: 800px)
 {

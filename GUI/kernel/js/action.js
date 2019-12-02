@@ -3,7 +3,8 @@ var $content, form, config;
 
 tab = get_id_tab();
 
-$('.'+tab).addClass('Active_tab');
+if ( tab.indexOf("http") )
+	$('.'+tab).addClass('Active_tab');
 
 // Расвертывание/Свертывание блоков
 ///////////////////////////////////////////////////////////
@@ -195,7 +196,16 @@ $('.close').on('click',
 	function()
 	{
 		config = get_id_config();
-		file = get_id_tab();
+
+		file = $(this).parent().parent();
+		file = file.children('h3');
+		file = file.attr('class');
+
+		pos = file.indexOf(' ',0);
+
+		if (pos > 0)
+			file = file.slice(0,pos);
+
 
 		$.post("/kernel/lib/handler.php?mode=del", {action : file, config : config},
 
@@ -247,4 +257,20 @@ $('.down_file').on('click',
 
 		);
 	}
+);
+
+$('#out_login').on('click',
+
+	function()
+	{
+		$.post("/kernel/lib/handler.php?mode=out",
+
+			function(date)
+			{
+				location.reload()
+			}
+
+		);
+	}
+
 );

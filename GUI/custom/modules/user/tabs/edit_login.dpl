@@ -1,0 +1,11 @@
+Name: ?user?_login
+Button_close: yes
+
+<div class="puz">
+<h2>?user?</h2>
+<form action="edit_login">
+<p>Старый логин:<br><input type="text" name="old_login"  value="?user?" readonly></p>
+<p>Введите новый логин:<br><input type="text" name="login"  value=""></p>
+<button class="form_handler">Сохранить</button>
+</form>
+</div>

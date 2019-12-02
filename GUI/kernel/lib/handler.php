@@ -70,6 +70,7 @@
 		$per = "sudo ./kernel/stperm.sh";
 		$path = $per . " " . $path . $action . $str . "\"";
 
+		print_r($path);
 		exec($path, $out);
 
 		$tr = "";
@@ -123,7 +124,6 @@
 
 		}
 
-		$str .= "<button class='close'>Close</button>";
 		file_put_contents($path, $str);
 		$path = str_replace(".tpl", "", $path);
 		
@@ -183,6 +183,11 @@
 
 		unlink($file);
 		exit;
+	}
+
+	if ($mode == "out")
+	{
+		unlink('./kernel/aut');
 	}
 
 ?>

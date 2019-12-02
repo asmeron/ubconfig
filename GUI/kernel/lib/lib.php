@@ -27,7 +27,7 @@
 
 		foreach ($keys as $key) 
 			if ( !array_key_exists($key, $result) )
-				$result[$key] = "Not found";
+				$result[$key] = "Not_found";
 
 		return $result;
 
@@ -508,6 +508,7 @@
 		else
 			$path = "./kernel/tpl/sh";
 
+
 		$root = "./kernel/stperm.sh";
 
 		foreach ($nesting as $key => $nes) 
@@ -634,7 +635,7 @@
 
 		$str .= "`";
 
-		for ( $i = 0; $i < $count; $i++)
+		for ( $i = 0; $i <= $count; $i++)
 		{
 			$min = $i * $repeat + 1;
 			$max = $min + $repeat - 1;
