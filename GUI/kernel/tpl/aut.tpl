@@ -12,9 +12,12 @@
 	<BODY>
 		<header>
 			<div class="left_header">
-				<img src="/kernel/pic/logo.png" class = "logo">
-				<H1> enterprise config </H1>
+				<div class="head_info">
+					<img src="/kernel/pic/logo.png" class = "logo">
+					<H1> enterprise config </H1>
+				</div>
 			</div>
+		</header>
 			<div class = "aut">
 				<form name = "autr" id="aut">
 					<fieldset>

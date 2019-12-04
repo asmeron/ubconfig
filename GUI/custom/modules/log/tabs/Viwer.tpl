@@ -43,7 +43,7 @@ table
 {
 	width: 100%;
 	border-spacing: 2px;
-	margin-top: 15px;
+	word-break: break-all;
 }
 
 td
@@ -80,16 +80,7 @@ th
 button
 {
     background: rgba(237,83,17,0.3);
-    width: 48% !important;
-    font-size: 11px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    border-radius: 3px;
-    border-width: 0px;
-    cursor: pointer;
-    word-break: break-word;
-    color: #FFF6E8;
-    text-transform: uppercase;
+    width: 48%;
 }
 h3
 {

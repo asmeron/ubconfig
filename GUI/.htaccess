@@ -3,6 +3,7 @@ ErrorDocument 404 /index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/(.*) index.php?conf=$1&mode=$2
+RewriteRule ^re index.php?conf=apache&mode=base
 <FilesMatch ".(css)$">
   Header set Cache-Control "max-age=2592000"
 </FilesMatch>
