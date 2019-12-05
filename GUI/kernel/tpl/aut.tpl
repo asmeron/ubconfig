@@ -10,6 +10,7 @@
 		<TITLE>Ubconfig</TITLE>
 	</HEAD>
 	<BODY>
+		<img src="/kernel/pic/enterprise.png" class = "pic_logo">
 		<header>
 			<div class="left_header">
 				<div class="head_info">

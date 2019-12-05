@@ -89,15 +89,6 @@ h3
     color: #203D61;
 }
 
-.puz button:nth-of-type(1)
-{
-	background-color: #b65b4f;
-}
-
-.puz button:nth-of-type(3)
-{
-	background-color: #bf8d5b;
-}
 .puz button:nth-of-type(2)
 {
 	background-color: #3A6B76;

@@ -21,11 +21,16 @@ BODY
     overflow: hidden;
     background: linear-gradient(to top left, #3984C2, #023661);
 }
+.pic_logo
+{
+    position: absolute;
+    z-index: -1;
+}
 
 Header
 {
     width: 100%;
-    height: 10vh;
+    height: 76px;
     min-height: 4vw;
 }
 
@@ -39,8 +44,6 @@ Header
 {
     width: 70%;
     height: 100%;
-    background: url(/kernel/pic/enterprise.png);
-    background-size: cover;
 }
 
 .logo
@@ -75,11 +78,13 @@ Header
     color: #fff;
     list-style: none;
     margin: 0;
+    margin-top: 6px;
 }
 
 .right_header ul li 
 {
-    font-size: 1.3vw;
+    font-size: 17px;
+    padding-right: 55px;
     text-align: end;
 }
 
@@ -87,21 +92,25 @@ Header
 {
     width: 11%;
     height: 100%;
+    max-width: 34px;
+    max-height: 34px;
     display: inline-block;
     cursor: pointer;
     float: right;
     object-fit: contain;
     margin-left: 10px;
+    position: relative;
+    top: 20px;
+    margin-right: 10px;
 }
 
 .base_area
 {
-    margin-top: 10px;
     background-color: #e7e9ea;
     background: rgba(231,233,234,0.7);
     border-radius: 2px;
     overflow: hidden;
-    height: 86%;
+    height: calc(100% - 81px);
     margin-left: 2%;
     width: 96%;
 }
@@ -110,10 +119,14 @@ NAV
 {
     display: inline-block;
     width: 20%;
-    box-shadow: 4px 4px 7px 4px #AEAFB0;
+    margin-top: 10px;
+    margin-left: 10px;
+    max-width: 250px;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 100%;
+    max-height: calc(100% - 10px);
+    border-radius: 5px;
+    border: solid 1px #898989;
 }
 
 .modules
@@ -132,26 +145,24 @@ NAV
 .modules li
 {
     display: flex;
-    border: solid 1px #ccc;
     width: 100%;
     background-color: #FFFEFD;
     word-break: break-word;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    font-size: 1.4vw;
+    font-size: 18px;
 }
 
-.modules li:hover,
-.modules li:active
+.modules .border:hover,
+.modules .border:active
 {
     background-color:  #4B7F98;
 }
 
 .modules img
 {
-    width: 20%;
+    width: 17%;
     display: inline-block;
     margin-left: 3%;
+    object-fit: contain;
 }
 
 .modules p
@@ -162,16 +173,34 @@ NAV
     align-items: center;
     margin: 0;
     max-width: 74%;
+    height: 38px;
+}
+
+.border
+{
+    width: calc(100% - 18px);
+    height: 100%;
+    border-bottom: solid 2px #ccc;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-left: 9px;
+}
+
+.modules a:nth-last-child(1) .border
+{
+    border-bottom: none;
 }
 
 .work
 {
     display: inline-block;
-    width: 76%;
-    margin-left: 2%;
+    width: calc(80% - 35px);
+    margin-left: 10px;
     vertical-align: top;
     max-height: 98%;
     overflow: auto;
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
 .tabs
@@ -179,14 +208,16 @@ NAV
     
     background-color: #ccc;
     padding-left: 5px;
+    border-radius: 5px 5px 0 0;
     box-shadow: 2px 2px 6px 2px #77797b;
+    border: solid 1px #898989;
+    border-bottom: none;
 }
 
 .tabs H3
 {
     display: inline-block;
     margin: 0;
-    font-size: 1.3vw;
     text-transform: capitalize;
     padding: 12px;
     padding-right: 9px;
@@ -204,7 +235,7 @@ NAV
 
 .tabs a:nth-child(n+2) h3
 {
-    margin-left: -10px;
+    margin-left: 5px;
 }
 
 .Active_tab
@@ -213,18 +244,6 @@ NAV
     cursor: default;
     pointer-events: none;
 }
-
-header span
-{
-    color: #fff;
-    font-size: 21px;
-    display: inline-block;
-    margin: 0;
-}
-
-
-
-
 
 .base_info
 {
@@ -355,8 +374,7 @@ fieldset
 .form_handler,
 .page_gen,
 .down_file
-{
-    font-size: 0.85vw;   
+{  
     padding-bottom: 10px;
     padding-top: 10px;
     word-break: keep-all;
@@ -366,13 +384,14 @@ fieldset
     cursor: pointer;
     color: #FFF6E8;
     text-transform: uppercase;
+    font-size: 12px;
 }
 
 .form_handler 
 {
-    margin-left: 84%;
-    margin-top: 25px;
-    width: 15%;
+    margin-top: 15px;
+    width: 130px;
+    float: right;
 }
 
 
@@ -402,13 +421,14 @@ fieldset
 {
     background-color: #FFFEFD;
     padding: 10px;
-    border-radius: 0 0 3px 3px;
-    box-shadow: 2px 2px 6px 2px #77797b;
+    border-radius: 0 0 5px 5px;
     max-height: 86%;
     overflow: auto;
+    border: solid 1px #898989;
 }
 .puz
 {
+    border-top: none;
 }
 .puzl
 {
@@ -419,6 +439,7 @@ fieldset
     float: left;
     word-break: break-word;
     padding: 1%;
+    border-radius: 5px;
 }
 
 .work .puzl:nth-child(n+4)
@@ -488,4 +509,46 @@ fieldset
 .tabs h3 .Not_found
 {
     display: none;
+}
+
+
+@media (max-width: 1025px)
+{
+
+    .modules li
+    {
+        font-size: 1.5vw;
+    }
+
+    .modules p
+    {
+        height: 25px;
+    }
+
+    .tabs h3
+    {
+        font-size: 1.3vw;
+    }
+
+    .right_header ul li 
+    {
+        font-size: 1.3vw;
+    }
+
+    .action,
+    .form_handler,
+    .page_gen,
+    .down_file 
+    {
+        font-size: 0.8vw;
+    }
+}
+
+@media (min-width: 1300px)
+{
+
+    .work
+    {
+        width: calc(100% - 285px);
+    }
 }

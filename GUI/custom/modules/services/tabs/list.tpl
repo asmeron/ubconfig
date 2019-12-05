@@ -45,7 +45,7 @@ table
 {
 	width: 100%;
 	margin-top: 15px;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 td
