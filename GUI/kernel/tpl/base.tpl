@@ -10,30 +10,31 @@
 		<TITLE>Ubconfig</TITLE>
 	</HEAD>
 	<BODY>
+		<img src="/kernel/pic/enterprise.png" class = "pic_logo">
 		<header>
 			<div class="left_header">
-				<img src="/kernel/pic/logo.png" class = "logo">
-				<H1> enterprise config </H1>
+				<div class="head_info">
+					<img src="/kernel/pic/logo.png" class = "logo">
+					<H1> enterprise config </H1>
+				</div>
 			</div>
 			<div class="right_header">
+				<img src="/kernel/pic/out.png" id="out_login">
 				<ul>
 					<li>`info.sh@1`</li>
 					<li>`info.sh@2`</li>
 					<li>`date.sh@1`</li>
 				</ul>
-			<img src="/kernel/pic/out.png" id="out_login">
 			</div>
 		</header>
 		<div class = "base_area">
 			?modules?
-		<DIV class = "work">
-			?tabs?
-			@work@
+			<DIV class = "work">
+				?tabs?
+				@work@
 			</DIV>
 		</div>
-			<DIV class = "mask"></DIV>
-			<DIV class = "window"></DIV>
-		</BODY>
+	</BODY>
 <LINK href="https://fonts.googleapis.com/css?family=Anonymous+Pro&display=swap" rel="stylesheet">
 <SCRIPT src="/kernel/js/action.js"></script>
 		

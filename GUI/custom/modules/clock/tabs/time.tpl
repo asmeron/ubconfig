@@ -33,7 +33,12 @@ p
 {
 	display: inline-block;
 }
-
+fieldset
+{
+	width: 81%;
+	margin: 0;
+	margin-top: 10px;
+}
 #date
 {
 	width: 132px;

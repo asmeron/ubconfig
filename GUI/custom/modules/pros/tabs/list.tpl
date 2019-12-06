@@ -43,8 +43,8 @@ input
 table
 {
 	width: 100%;
-	border-spacing: 2px;
 	margin-top: 15px;
+	word-break: break-all;
 }
 
 td
@@ -59,16 +59,14 @@ td:nth-child(1)
 
 td:nth-child(2)
 {
-	width: 7%;
+	width: 13%;
 }
 
-td:nth-child(3)
-{
-	width: 5%;
-}
+td:nth-child(3),
 td:nth-child(4)
 {
-	width: 5%;
+	width: 7%;
+	text-align: center;
 }
 
 tr:nth-child(2n+1)

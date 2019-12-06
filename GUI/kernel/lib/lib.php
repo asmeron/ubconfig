@@ -448,7 +448,7 @@
 
 		}
 
-		$reg = '/.+`(.+)`.+/';
+		$reg = '/.*`(.+)`.*/';
 		preg_match_all($reg, $tmp, $out);
 
 		foreach ($out[0] as $key => $line)

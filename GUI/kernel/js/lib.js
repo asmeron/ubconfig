@@ -1,22 +1,31 @@
-function get_id_config()
+function parese_url(count)
 {
 	config = window.location.href;
-	pos1 = config.indexOf('fig/');
-	pos1 += 4;
+	pos1 = config.indexOf('/');
+	pos1 += 2;
+
+	for ( i=0; i < count; i++)
+	{
+		pos1 = config.indexOf('/', pos1);
+		pos1 += 1;
+	}
+
 	pos2 = config.indexOf('/', pos1);
+
+	if (pos2 == -1)
+		pos2 = config.length;
+
 	config = config.slice(pos1, pos2);
 
 	return config;
 }
 
+function get_id_config()
+{
+	return parese_url(1);
+}
+
 function get_id_tab()
 {
-	tab = window.location.href;
-	pos = tab.indexOf('fig/');
-	pos += 4;
-	pos = tab.indexOf('/', pos);
-	pos++;
-	tab = tab.slice(pos);
-
-	return tab;
+	return parese_url(2);
 }

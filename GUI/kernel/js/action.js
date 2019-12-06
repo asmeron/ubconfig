@@ -3,7 +3,7 @@ var $content, form, config;
 
 tab = get_id_tab();
 
-if ( tab.indexOf("http") )
+if ( $('div').hasClass('tabs') )
 	$('.'+tab).addClass('Active_tab');
 
 // Расвертывание/Свертывание блоков
