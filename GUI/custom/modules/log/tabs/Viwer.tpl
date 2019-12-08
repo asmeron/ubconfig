@@ -93,6 +93,10 @@ h3
 {
 	background-color: #3A6B76;
 }
+.arrow
+{
+	width: 15px;
+}
 </style>
 
 <SCRIPT src="/kernel/js/sort_table.js"></script>
@@ -100,5 +104,33 @@ h3
 <script>
 
 	$("#list_service").tablesorter();
+
+	$("th").click(
+
+	function()
+	{
+		test = $(this).find("img").attr('class');
+
+		if ( test == undefined )
+			direction = "up"
+		else
+		{
+			direction = $(this).children('img').attr('id');
+
+			if ( direction == "up" )
+				direction = "down"
+			else
+				direction = "up"
+
+		}
+
+		$('.arrow').detach();
+		str = "<img src='/custom/pic/"+direction+"_arrow.png' class='arrow' id='"+direction+"'>";
+		$(this).append(str);
+	}
+
+	)
+
+	$('th:nth-child(1)').trigger('click');
 
 </script>

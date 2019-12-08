@@ -14,7 +14,7 @@ Name: Список
 	<tboby>
 	&:<tr>
 		&:<td><p>`service_tab.sh@3`</p></td>:&
-		<td><button class = "action" value="control.sh start `service_tab.sh@1`">Start</button>
+		<td><button class = "action" value="control.sh start `service_tab.sh@3`">Start</button>
 			<button class = "action" value="control.sh stop `service_tab.sh@1`">Stop</button>
 			<button class = "action" value="control.sh restart `service_tab.sh@1`">Restart</button>
 			<button class = "page_gen" file = "status" par_name = "service" par_val = "`service_tab.sh@1`">Status</button>
@@ -77,6 +77,7 @@ th
 	background: rgba(52,141,216,0.3);
     text-transform: uppercase;
 }
+
 button
 {
     background: rgba(237,83,17,0.3);
@@ -96,6 +97,11 @@ button
 {
 	background-color: #3A6B76;
 }
+
+.arrow
+{
+	width: 15px;
+}
 </style>
 
 <SCRIPT src="/kernel/js/sort_table.js"></script>
@@ -103,5 +109,33 @@ button
 <script>
 
 	$("#list_service").tablesorter();
+
+	$("th").click(
+
+	function()
+	{
+		test = $(this).find("img").attr('class');
+
+		if ( test == undefined )
+			direction = "up"
+		else
+		{
+			direction = $(this).children('img').attr('id');
+
+			if ( direction == "up" )
+				direction = "down"
+			else
+				direction = "up"
+
+		}
+
+		$('.arrow').detach();
+		str = "<img src='/custom/pic/"+direction+"_arrow.png' class='arrow' id='"+direction+"'>";
+		$(this).append(str);
+	}
+
+	)
+
+	$('th:nth-child(1)').trigger('click');
 
 </script>
