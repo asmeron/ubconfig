@@ -52,7 +52,7 @@ $('#save').on('click',
 		form = $('#EditForm').serializeArray();
 		form.push({name: 'config', value: config });
 
-		$.post("/kernel/lib/handler.php?mode=update", form,
+		$.post("/kernel/lib/handler.php?mode=save", form,
 
 			function( data )
 			{
@@ -122,7 +122,13 @@ $('.form_handler').on('click',
 	function()
 	{
 		$('.mask').fadeIn(200);
-		form = $(this).parent();
+		form = $(this);
+
+		while ( form.prop("tagName") != "FORM" )
+		{
+			form = form.parent();
+		}
+
 		action = form.attr('action');
 		config = get_id_config();
 
@@ -134,6 +140,7 @@ $('.form_handler').on('click',
 
 			function(date)
 			{
+				//alert(date);
 				location.reload();
 			}
 

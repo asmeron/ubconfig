@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cat /var/log/lighttpd/error.log 
+tail --lines=100 /var/log/lighttpd/error.log 

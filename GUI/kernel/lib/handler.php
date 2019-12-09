@@ -44,7 +44,7 @@
 
 		$conf = $_REQUEST['config'];
 		$str = " ";
-		$path = "\"./custom/modules/$conf/sh/";
+		$path = "'./custom/modules/$conf/sh/";
 
 		unset($_REQUEST['action']);
 		unset($_REQUEST['config']);
@@ -63,12 +63,12 @@
 			}
 			else
 			{
-				$str .= $value . " ";
+				$str .= "\"$value\"" . " ";
 			}
 		}
 
 		$per = "sudo ./kernel/stperm.sh";
-		$path = $per . " " . $path . $action . $str . "\"";
+		$path = $per . " " . $path . $action . $str . "'";
 
 		print_r($path);
 		exec($path, $out);
@@ -189,5 +189,16 @@
 	{
 		unlink('./kernel/aut');
 	}
+
+	if ($mode == "save" )
+	{
+		$root = "./kernel/stperm.sh";
+
+		$script = "/usr/local/bin/save_conf_ubfs";
+		$command = $root . " \"$script\"" ;
+
+		exec($command, $out);
+		print_r($out);
+ 	}
 
 ?>

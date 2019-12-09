@@ -1,23 +1,23 @@
-Name: Список
+Name: Маршруты
 
 <div class = "puz">
-<H3> Список процессов</h3>
-&:<span>`info.sh@`</span>:&
-
-<table id="list_service">
+<h2>Сетевые маршруты</h2>
+	<table id="list_service">
 		<thead>
 		<tr>
-			<th>PID</th>
-			<th>Пользователь</th>
-			<th>CPU</th>
-			<th>MEM</th>
-			<th>Время</th>
-			<th>Процесс</th>
-	</tr>
+			<th>Destination</th>
+			<th>Gateway</th>
+			<th>Genmask</th>
+			<th>Flags</th>
+			<th>Metric</th>
+			<th>Ref</th>
+			<th>Use</th>
+			<th>Iface</th>
+		</tr>
 	</thead>
 	<tboby>
 	&:<tr>
-		&:<td><p>`pross.sh@6`</p></td>:&
+		&:<td><p>`route.sh@8`</p></td>:&
 	</tr>:&
 	</tboby>
 	</table>
@@ -44,29 +44,12 @@ table
 {
 	width: 100%;
 	margin-top: 15px;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 td
 {
 	padding-left: 5px;
-}
-
-td:nth-child(1)
-{
-	width: 10%;
-}
-
-td:nth-child(2)
-{
-	width: 13%;
-}
-
-td:nth-child(3),
-td:nth-child(4)
-{
-	width: 7%;
-	text-align: center;
 }
 
 tr:nth-child(2n+1)
@@ -76,29 +59,13 @@ tr:nth-child(2n+1)
 th
 {
 	background: rgba(52,141,216,0.3);
-	background: rgba(52,141,216,0.3);
-    padding-left: 5px;
     text-transform: uppercase;
 }
+
 button
 {
     background: rgba(237,83,17,0.3);
-    width: 23% !important;
-    font-size: 11px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    border-radius: 3px;
-    border-width: 0px;
-    cursor: pointer;
-    word-break: break-word;
-    color: #FFF6E8;
-    text-transform: uppercase;
-}
-h3
-{
-	text-align: center;
-    text-transform: uppercase;
-    color: #203D61;
+    width: 23%
 }
 
 .puz button:nth-of-type(2)
@@ -114,6 +81,7 @@ h3
 {
 	background-color: #3A6B76;
 }
+
 .arrow
 {
 	width: 15px;

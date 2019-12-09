@@ -12,14 +12,6 @@ Name: Редактировать
     collect_values = ( )
 }
 
-[dir_module:DirectoryIndex]
-{
-	name = (Ip-адрес)
-	alt = (adress)
-	type = (field)
-	default = (`info.sh@2`)
-	collect_values = ( )
-}
 
 [dir_module:DirectoryIndex]
 {

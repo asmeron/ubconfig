@@ -19,7 +19,10 @@
 				</div>
 			</div>
 			<div class="right_header">
-				<img src="/kernel/pic/out.png" id="out_login">
+				<div class="pic_button">
+					<img src="/kernel/pic/out.png" id="out_login" title="Выход">
+					<img src="/kernel/pic/save.png" id="save" title="Сохранить все настройки">
+				</div>
 				<ul>
 					<li>`info.sh@1`</li>
 					<li>`info.sh@2`</li>
