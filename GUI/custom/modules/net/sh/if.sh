@@ -1,102 +1,31 @@
 #!/bin/bash
 
-confpath="/etc/NetworkManager/system-connections/"
-#confpath="/home/superadmin/testconf/"
-#confpath="/srv/http/custom/modules/net/sh/testconf/"
+path="/sys/class/net"
+cd $path
+list=( ${list[@]} $(ls | grep -v 'lo') )
 
-cdr2mask ()
-{
-   set -- $(( 5 - ($1 / 8) )) 255 255 255 255 $(( (255 << (8 - ($1 % 8))) & 255 )) 0 0 0
-   [ $1 -gt 1 ] && shift $1 || shift
-   echo ${1-0}.${2-0}.${3-0}.${4-0}
-}
-
-IFS=$'\n'
-for fn in `ls $confpath`
+for i in ${list[@]}
 do
-	ifn=" " 
-	ip=" "
-	actip=" "
-	netmask=" "
-	gateway=" "
-	dns=" "
-	mac=" "
-	proxy=" "
-	proxyip=" " 
-	bronly=" "
-	method=" "
+	address=(${address[@]} $(cat "$i/address") )
+	ip=(${ip[@]} $(nmcli dev show $i | grep IP4.AD | awk '{print $2}' | cut -d'/' -f1) )
+	mask=(${mask[@]} $(nmcli dev show $i | grep IP4.AD | awk '{print $2}' | cut -d'/' -f2) )
+	gateway=(${gateway[@]} $(nmcli dev show $i | grep IP4.GATE | awk '{print $2}') )
+	dns=(${dns[@]} $(nmcli dev show $i | grep IP4.DNS | awk '{print $2}' | xargs | sed -e 's/ /;/') )
 
-	p="y"
-	while read line
-	do
-		c1=`echo $line | head -c1`
-		if [ "$line" == "[ipv6]" ] 
-		then
-			p="n"
-		elif [ "$c1" == "[" ] 
-		then
-			p="y"
-			continue
-		fi
-		if [ $p == "n" ]
-		then 
-			continue
-		fi
-		field=`echo $line | cut -d"=" -f1`
-		val=`echo $line | cut -d"=" -f2`
-		case $field in
-			address-data) 
-				ip=`echo $val | cut -d'/' -f1`
-				netmask=`echo $val | cut -d'/' -f2`
-				netmask=`cdr2mask $netmask`
-				;;
-			interface-name) 
-				ifn=$val 
-				;;
-			gateway) 
-				gateway=$val
-				;;
-			mac-address)
-				mac=$val
-				;;
-			dns) 
-				dns=$val 
-				;;
-			browser-only)
-				if [ $val == 'TRUE' ] 
-				then
-					bronly="checked"
-				fi
-				;;
-			proxy)
-				if [ $val == 'TRUE' ]
-				then
-					proxy="checked"
-				fi
-				;;
-			method)
-				method=$val
-				;;
-		esac
-	done <$confpath$fn
-	if [ "$ifn" == "" -o "$ifn" == " " ]
-	then
-		ifn="ERROR"
-	else
-		actip=`ifconfig $ifn | grep -o "inet [0-9.]*" | cut -d" " -f2`
-	fi
-	if [ "$actip" == "" ]
-	then 
-		actip=" "
-	fi
-	printf "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n" \
-	$ifn $ip $actip $netmask $mac $gateway $dns $proxy $proxyip $bronly
-	#1   2   3      4        5    6        7    8      9        10
-	case $method in
-		auto) printf "checked\n\n\n\n\n" ;;       
-		link-local) printf "\nchecked\n\n\n\n" ;; 
-		manual) printf "\n\nchecked\n\n\n" ;;
-		disabled) printf "\n\n\nchecked\n\n" ;;
-		*) printf "\n\n\n\n\n"
-	esac
 done
+
+for (( i=0; i < ${#list[*]}; i=i+1 ))
+do
+	echo ${list[$i]}
+	echo ${address[$i]}
+
+	echo ${ip[$i]}
+	echo ${mask[$i]}
+
+	echo ${gateway[$i]}
+	echo ${dns[$i]}
+	
+	echo " "
+
+done
+

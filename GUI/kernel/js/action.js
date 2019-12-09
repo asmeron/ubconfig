@@ -140,7 +140,7 @@ $('.form_handler').on('click',
 
 			function(date)
 			{
-				//alert(date);
+				alert(date);
 				location.reload();
 			}
 

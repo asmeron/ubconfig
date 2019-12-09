@@ -218,7 +218,7 @@ NAV
 
 .tabs
 {
-    height: 45px;
+    height: 43px;
     background-color: #ccc;
     padding-left: 5px;
     border-radius: 5px 5px 0 0;
@@ -442,7 +442,7 @@ fieldset
 }
 .puz
 {
-    height:calc(100% - 67px);
+    height:calc(100% - 65px);
     border-top: none;
 }
 .puzl
