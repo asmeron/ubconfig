@@ -5,6 +5,7 @@ echo "$1 $mode"
 
 if [ "$mode" == "auto" ]; then
 	nmcli device modify $1 ipv4.method auto
+	echo "Auto Mod!"
 fi
 
 if [ "$mode" == "disable" ]; then
@@ -12,5 +13,5 @@ if [ "$mode" == "disable" ]; then
 fi
 
 if [ "$mode" == "manual" ]; then
-	nmcli device modify $1 ipv4.method manual ipv4.address $3 ipv4.gateway $5
+	nmcli device modify $1 ipv4.method manual ipv4.address $3/$4 ipv4.gateway $5
 fi
