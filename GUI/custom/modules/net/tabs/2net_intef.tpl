@@ -14,8 +14,7 @@ Name: Сетевые интерфейсы
 		<input type="hidden" name="ifn" value="`if.sh@1`"/>
 		<input type="radio" name="mode_inf" value="auto" `if.sh@11`>Автоматически (DHCP)<br>
 		<input type="radio" name="mode_inf" value="manual" checked>Вручную
-		<input type="radio" name="mode_inf" value="disabled" `if.sh@14`>Отключен<br><br>
-		
+		<br><br>
 		<div class="input">
 			<span>Адрес:</span><br>
 			<input type="text" name="ip" value="`if.sh@3`">

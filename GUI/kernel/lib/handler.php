@@ -44,7 +44,7 @@
 
 		$conf = $_REQUEST['config'];
 		$str = " ";
-		$path = "'./custom/modules/$conf/sh/";
+		$path = "\"./custom/modules/$conf/sh/";
 
 		unset($_REQUEST['action']);
 		unset($_REQUEST['config']);
@@ -68,10 +68,11 @@
 		}
 
 		$per = "sudo ./kernel/stperm.sh";
-		$path = $per . " " . $path . $action . $str . "'";
+		$path = $per . " " . $path . $action . $str . "\"";
 
 		print_r($path);
 		exec($path, $out);
+		print_r($out);
 
 		$tr = "";
 
