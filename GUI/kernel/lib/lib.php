@@ -509,7 +509,7 @@
 			$path = "./kernel/tpl/sh";
 
 
-		$root = "./kernel/stperm.sh";
+		$root = "sudo ./kernel/stperm.sh";
 
 		foreach ($nesting as $key => $nes) 
 			$scripts[] = $nes['script'];
