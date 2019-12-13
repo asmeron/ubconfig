@@ -14,7 +14,7 @@ Name: Список
 	<tboby>
 	&:<tr>
 		&:<td><p>`service_tab.sh@3`</p></td>:&
-		<td><button class = "action" value="control.sh start `service_tab.sh@3`">Start</button>
+		<td><button class = "action" value="control.sh start `service_tab.sh@1`">Start</button>
 			<button class = "action" value="control.sh stop `service_tab.sh@1`">Stop</button>
 			<button class = "action" value="control.sh restart `service_tab.sh@1`">Restart</button>
 			<button class = "page_gen" file = "status" par_name = "service" par_val = "`service_tab.sh@1`">Status</button>

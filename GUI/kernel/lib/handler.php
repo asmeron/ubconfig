@@ -193,7 +193,7 @@
 
 	if ($mode == "save" )
 	{
-		$root = "./kernel/stperm.sh";
+		$root = "sudo ./kernel/stperm.sh";
 
 		$script = "/usr/local/bin/save_conf_ubfs";
 		$command = $root . " \"$script\"" ;
