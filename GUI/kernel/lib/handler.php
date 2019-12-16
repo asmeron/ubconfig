@@ -63,7 +63,10 @@
 			}
 			else
 			{
-				$str .= "\"$value\"" . " ";
+				if ($value != "")
+					$str .= "\"$value\"" . " ";
+				else
+					$str .= "\\\\". " ";
 			}
 		}
 

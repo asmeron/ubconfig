@@ -37,7 +37,7 @@ Name: Сетевые интерфейсы
 		</div>
 		<br>
 		<input type="checkbox" name="proxy" value="proxy" `if_r.sh@13`>Использовать прокси
-		<input type="checkbox" name="browse" value="method" `if_r.sh@14`>Только для браузера
+		<input type="checkbox" name="browse" value="browse" `if_r.sh@14`>Только для браузера
 
 		<button class="form_handler">Применить</button>
 	</fieldset>

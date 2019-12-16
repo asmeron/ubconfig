@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mode=$2
-echo "$1 $mode $3 $4 $5"
+echo "$1 $mode $3 $4 $5 $6"
 str=""
 
 if [ "$mode" == "auto" ]; then
@@ -9,7 +9,7 @@ if [ "$mode" == "auto" ]; then
 fi
 
 if [ "$mode" == "only_address" ]; then
-	nmcli connect modify $1 ipv4.method auto ipv4.ignore-auto-dns true ipv4.dns "" ipv4.gateway "" ipv4.ignore-auto-dns "" ipv4.address ""
+	nmcli connect modify $1 ipv4.method auto ipv4.ignore-auto-dns true ipv4.gateway ""  ipv4.address ""
 fi
 
 if [ "$mode" == "disabled" ]; then
@@ -18,15 +18,15 @@ fi
 
 if [ "$mode" == "manual" ]; then
 
-	if [ "$4" != "" ]; then
+	if [ "$4" != "\\" ]; then
 		str="$str/$4"
 	fi
 
-	if [ "$5" != "" ]; then
+	if [ "$5" != "\\" ]; then
 		str="$str ipv4.gateway $5"
 	fi
 
-	if [ "$6" != "" ]; then
+	if [ "$6" != "\\" ]; then
 		str="$str ipv4.dns $6"
 	fi
 	
@@ -37,4 +37,10 @@ if [ "$7" == "proxy" ]; then
 	nmcli connect modify $1 proxy.method auto
 else
 	nmcli connect modify $1 proxy.method ""
+fi
+
+if [ "$7" == "browse"  -o "$8" == "browse" ]; then
+	nmcli connect modify $1 proxy.browser-only true
+else
+	nmcli connect modify $1 proxy.browser-only ""
 fi

@@ -32,7 +32,7 @@ do
 		gateway[${#gateway[@]}]=$(echo $buff | cut -d'/' -f2 | cut -d',' -f2)
 	fi
 
-	buff=$(cat "$i.nmconnection" | grep dns= | cut -d'=' -f2)
+	buff=$(cat "$i.nmconnection" | grep dns=  | grep ";" | cut -d'=' -f2)
 
 	if [ "$buff" == "" ]; then
 		dns[${#dns[@]}]=""
