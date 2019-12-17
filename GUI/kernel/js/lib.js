@@ -1,3 +1,10 @@
+/**
+* Парсер адресной строки
+* @param count - номер элемнта по размешение в строке(через слеш)
+* 
+* @return Извлеченую подстроку
+*
+*/
 function parese_url(count)
 {
 	config = window.location.href;
@@ -20,11 +27,23 @@ function parese_url(count)
 	return config;
 }
 
-function get_id_config()
+/**
+* Получение активного модуля
+* 
+* @return Системное имя активного модуля
+*
+*/
+function get_id_module()
 {
 	return parese_url(1);
 }
 
+/**
+* Получение активной вкладки
+* 
+* @return Системное имя активного вкладки
+*
+*/
 function get_id_tab()
 {
 	return parese_url(2);
