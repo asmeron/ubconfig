@@ -24,7 +24,6 @@
 
 	if ( $mode == "exe" )
 	{
-		print_r($_REQUEST);
 		$script = $_REQUEST['script'];
 		$conf = $_REQUEST['config'];
 
