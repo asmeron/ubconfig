@@ -24,6 +24,7 @@
 
 	if ( $mode == "exe" )
 	{
+		print_r($_REQUEST);
 		$script = $_REQUEST['script'];
 		$conf = $_REQUEST['config'];
 
@@ -32,7 +33,6 @@
 		$path = $per . " " . $path . $script . "\"";
 		
 		exec($path, $out);
-		print_r($out);
 	}
 
 	if ( $mode == "exel" )

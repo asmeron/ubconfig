@@ -47,7 +47,7 @@ $('#save').on('click',
 
 	function()
 	{
-		config = get_id_config();
+		config = get_id_module();
 
 		form = $('#EditForm').serializeArray();
 		form.push({name: 'config', value: config });
@@ -69,7 +69,7 @@ $('.delete').on('click',
 
 	function()
 	{
-		config = get_id_config();
+		config = get_id_module();
 
 		$content = $(this).parent();
 		$content = $content.children("label");
@@ -103,7 +103,7 @@ $('.action').on('click',
 	function()
 	{
 		test = $(this).attr("value");
-		config = get_id_config();
+		config = get_id_module();
 
 		$.post("/kernel/lib/handler.php?mode=exe", {script : test, config : config},
 
@@ -130,7 +130,7 @@ $('.form_handler').on('click',
 		}
 
 		action = form.attr('action');
-		config = get_id_config();
+		config = get_id_module();
 
 		form = form.serializeArray();
 		form.push({name: 'action', value: action });
@@ -140,7 +140,7 @@ $('.form_handler').on('click',
 
 			function(date)
 			{
-				alert(date);
+				//alert(date);
 				location.reload();
 			}
 
@@ -155,7 +155,7 @@ $('.out_handler').on('click',
 	{
 		form = $(this).parent();
 		action = form.attr('action');
-		config = get_id_config();
+		config = get_id_module();
 
 		form = form.serializeArray();
 		form.push({name: 'action', value: action });
@@ -180,7 +180,7 @@ $('.page_gen').on('click',
 		action = $(this).attr('file');
 		par = $(this).attr('par_name');
 		val = $(this).attr('par_val');
-		config = get_id_config();
+		config = get_id_module();
 
 		form = form.serializeArray();
 		form.push({name: 'action', value: action });
@@ -202,7 +202,7 @@ $('.close').on('click',
 
 	function()
 	{
-		config = get_id_config();
+		config = get_id_module();
 
 		file = $(this).parent().parent();
 		file = file.children('h3');
