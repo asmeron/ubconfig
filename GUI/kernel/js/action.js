@@ -1,35 +1,215 @@
-var $content, form, config;
+/**
+* Поиск и выделение активной вкладки
+*
+*/
+function active_tab()
+{
+	tab = get_id_tab();
+
+	if ( $('div').hasClass('tabs') )
+		$('.'+tab).addClass('Active_tab');
+}
+
+/**
+* Централизуем post-запросы
+*
+* @param mode - флаг обработки отправляемый серверу
+* @parem date - Дополнительные данные для отправки на сервер
+* @param action - Функция которую небходимо выполнить при завершения запроса
+*/
+function post_req(mode, date, action)
+{
+	$.post("/kernel/lib/handler.php?mode="+mode, date, action);
+}
 
 
-tab = get_id_tab();
+/**
+* Централизуем обьявленеие обработчика нажатия
+*
+* @param descript - Селектор элемента
+* @parem action - Функция обработчика
+*
+*/
+function add_handler(descript, action)
+{
+	$(''+descript).on('click', function() { action( $(this) ) } );
+}
 
-if ( $('div').hasClass('tabs') )
-	$('.'+tab).addClass('Active_tab');
 
-// Расвертывание/Свертывание блоков
-///////////////////////////////////////////////////////////
-$('.block .block h2').on('click',
-	
-	function()
+/**
+* Обработчик элементов класса action
+*
+* @param element - Нажатый элемент
+*
+*/
+function action(element)
+{
+	test = element.attr("value");
+	config = get_id_module();
+
+	post_req("exe", {script : test, config : config}, 
+			
+		function(date) 
+		{
+			location.reload();
+		}
+	);
+}
+
+/**
+* Обработчик элементов класса form_handler
+*
+* @param element - Нажатый элемент
+*
+*/
+function form_handler(element)
+{
+	form = element;
+
+	while ( form.prop("tagName") != "FORM" )
 	{
-		$content = $(this).parent();
-		
-		if ( $content.css('border-style') != 'none' )
-		{
-			$content.children('span').css('display','none');
-			$content.children('div').css('display','none');
-			$content.css('border', 'none');
-		}
-		else
-		{
-			$content.children('span').css('display','list-item');
-			$content.children('div').css('display','block');
-			$content.css('border', 'solid 4px #0C2C4B');
-		}
+		form = form.parent();
 	}
-	
-);
 
+	action = form.attr('action');
+	config = get_id_module();
+
+	form = form.serializeArray();
+	form.push({name: 'action', value: action });
+	form.push({name: 'config', value: config });
+
+	post_req("exel", form, 
+
+		function()
+		{
+			location.reload();
+		}
+	)
+}
+
+/**
+* Обработчик элементов класса page_gen
+*
+* @param element - Нажатый элемент
+*
+*/
+function page_gen(element)
+{
+	form = element.parent();
+	action = element.attr('file');
+
+	par = element.attr('par_name');
+	val = element.attr('par_val');
+	config = get_id_module();
+
+	form = form.serializeArray();
+	form.push({name: 'action', value: action });
+
+	form.push({name: 'config', value: config });
+	form.push({name: par , value: val });
+
+	post_req("gen", form,
+
+		function(date)
+		{
+			document.location.href = date;
+		}
+
+	)
+
+}
+
+/**
+* Обработчик удаление вкладок
+*
+* @param element - Нажатый элемент
+*
+*/
+function close(element)
+{
+	config = get_id_module();
+
+	file = element.parent().parent();
+	file = file.children('h3');
+	file = file.attr('class');
+
+	pos = file.indexOf(' ',0);
+
+	if (pos > 0)
+		file = file.slice(0,pos);
+
+	post_req("del", {action : file, config : config},
+
+		function(date)
+		{
+			document.location.href = date;
+		}
+
+	);
+}
+
+/**
+* Обработчик аутентификаций
+*/
+function aut()
+{
+	form = $('#aut').serializeArray();
+
+	post_req("aut", form,
+
+		function(date)
+		{
+			location.reload();
+		}
+
+	);
+}
+
+/**
+* Обработчик выхода
+*/
+function out_log()
+{
+	post_req("out","", 
+
+		function()
+		{
+			location.reload();
+		}
+
+	)
+}
+
+/**
+* Обработчик скачивание файлов
+*
+* @param element - Нажатый элемент
+*
+*/
+function downloand_file(element)
+{
+	form = element.parent();
+	file = element.attr('file');
+
+	form = form.serializeArray();
+	form.push({name: 'file', value: file });
+
+	post_req("file", form,
+
+		function(date)
+		{
+			var data = new Blob(["\ufeff", [date]],{type:'plain/text'});
+			var file = window.URL.createObjectURL(data);
+			window.location.href=file;
+		}
+
+	);
+}
+
+/**
+* Перехватываем стандартный обработчик форм
+*
+*/
 $('Form').on('submit',
 
 	function(e)
@@ -39,245 +219,15 @@ $('Form').on('submit',
 
 );
 
-///////////////////////////////////////////////////////////
+active_tab();
 
-// Ajax-обработка изменений в форме
-///////////////////////////////////////////////////////////
-$('#save').on('click',
+add_handler('.action', action );
+add_handler('.form_handler', form_handler);
 
-	function()
-	{
-		config = get_id_module();
+add_handler('.page_gen', page_gen);
+add_handler('.close', close);
 
-		form = $('#EditForm').serializeArray();
-		form.push({name: 'config', value: config });
+add_handler('.sumb', aut);
+add_handler('#out_login', out_log);
 
-		$.post("/kernel/lib/handler.php?mode=save", form,
-
-			function( data )
-			{
-				alert( "Complite" );
-			}
-
-		);
-	}
-
-);
-///////////////////////////////////////////////////////////
-
-$('.delete').on('click',
-
-	function()
-	{
-		config = get_id_module();
-
-		$content = $(this).parent();
-		$content = $content.children("label");
-
-		key = $content.text();
-		nest = $content.index("[for = " + key + " ]");
-		nest++;
-
-		$.post("/kernel/lib/handler.php?mode=ins_wr", { config : config, key : key, nest : nest }, 
-
-			function( date )
-			{
-
-			},
-		)
-		.done
-		(
-			function()
-			{
-				$content.parent().remove();
-			}
-
-		)
-
-	}
-
-);
-
-$('.action').on('click',
-
-	function()
-	{
-		test = $(this).attr("value");
-		config = get_id_module();
-
-		$.post("/kernel/lib/handler.php?mode=exe", {script : test, config : config},
-
-			function(date)
-			{
-				location.reload()
-			}
-
-		);
-	}
-
-);
-
-$('.form_handler').on('click',
-
-	function()
-	{
-		$('.mask').fadeIn(200);
-		form = $(this);
-
-		while ( form.prop("tagName") != "FORM" )
-		{
-			form = form.parent();
-		}
-
-		action = form.attr('action');
-		config = get_id_module();
-
-		form = form.serializeArray();
-		form.push({name: 'action', value: action });
-		form.push({name: 'config', value: config });
-
-		$.post("/kernel/lib/handler.php?mode=exel", form,
-
-			function(date)
-			{
-				//alert(date);
-				location.reload();
-			}
-
-		);
-	}
-
-);
-
-$('.out_handler').on('click',
-
-	function()
-	{
-		form = $(this).parent();
-		action = form.attr('action');
-		config = get_id_module();
-
-		form = form.serializeArray();
-		form.push({name: 'action', value: action });
-		form.push({name: 'config', value: config });
-
-		$.post("/kernel/lib/handler.php?mode=exel", form,
-
-			function(date)
-			{
-				$('.out_div').html(date);
-			}
-
-		);
-	}
-);
-
-$('.page_gen').on('click',
-
-	function()
-	{
-		form = $(this).parent();
-		action = $(this).attr('file');
-		par = $(this).attr('par_name');
-		val = $(this).attr('par_val');
-		config = get_id_module();
-
-		form = form.serializeArray();
-		form.push({name: 'action', value: action });
-		form.push({name: 'config', value: config });
-		form.push({name: par , value: val });
-
-		$.post("/kernel/lib/handler.php?mode=gen", form,
-
-			function(date)
-			{
-				document.location.href = './' + date;
-			}
-
-		);
-	}
-);
-
-$('.close').on('click',
-
-	function()
-	{
-		config = get_id_module();
-
-		file = $(this).parent().parent();
-		file = file.children('h3');
-		file = file.attr('class');
-
-		pos = file.indexOf(' ',0);
-
-		if (pos > 0)
-			file = file.slice(0,pos);
-
-
-		$.post("/kernel/lib/handler.php?mode=del", {action : file, config : config},
-
-			function(date)
-			{
-				document.location.href = date;
-			}
-
-		);
-	}
-);
-
-$('.sumb').on('click',
-
-	function()
-	{
-		form = $('#aut').serializeArray();
-
-		$.post("/kernel/lib/handler.php?mode=aut", form,
-
-			function(date)
-			{
-				location.reload();
-			}
-
-		);
-	}
-
-);
-
-$('.down_file').on('click',
-
-	function()
-	{
-		form = $(this).parent();
-		file = $(this).attr('file');
-
-		form = form.serializeArray();
-		form.push({name: 'file', value: file });
-
-		$.post("/kernel/lib/handler.php?mode=file", form,
-
-			function(date)
-			{
-				var data = new Blob(["\ufeff", [date]],{type:'plain/text'});
-				var file = window.URL.createObjectURL(data);
-				window.location.href=file;
-			}
-
-		);
-	}
-);
-
-$('#out_login').on('click',
-
-	function()
-	{
-		$.post("/kernel/lib/handler.php?mode=out",
-
-			function(date)
-			{
-				location.reload()
-			}
-
-		);
-	}
-
-);
+add_handler('.down_file', downloand_file);
