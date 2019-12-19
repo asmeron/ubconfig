@@ -1,10 +1,10 @@
 [Unit]
-Description=Testing
+Description=Ubconfig deamon
 
 [Service]
 RemainAfterExit=true
 ExecStart=/usr/local/bin/ubconfig-deamon start
-ExecStop=/usr/local/bin/ubconfig-deamon
+ExecStop=/usr/local/bin/ubconfig-deamon stop
 Type=simple
 
 [Install]
