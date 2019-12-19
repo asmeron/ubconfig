@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Функция проверки пра и исполнения
+exec_sh()
+{
+	file=$1
+	shift
+
+	name=$(echo $file | awk -F "/" '{print $NF}' )
+
+	owner=$(ls -l $file | cut -d' ' -f3)
+	su $owner -c "$file $(echo $@)" > /tmp/ubconfig/$name.txt 
+}
+
+cd /tmp
+i=0
+
+if [ "$1" == "start" ]; then
+	mkdir ubconfig
+	touch ubconfig/turn
+
+	while [ $i -ne 1 ]
+	do
+		str=$(cat ubconfig/turn | head -n 1 )
+
+		if [ "$str" != "" ]; then
+			sed -i '1d' ubconfig/turn 
+			exec_sh $str
+		fi
+
+		sleep 1
+	done
+
+else
+	rm -f -r ubconfig 
+fi

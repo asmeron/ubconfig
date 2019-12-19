@@ -1,0 +1,11 @@
+[Unit]
+Description=Testing
+
+[Service]
+RemainAfterExit=true
+ExecStart=/usr/local/bin/ubconfig-deamon start
+ExecStop=/usr/local/bin/ubconfig-deamon
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
