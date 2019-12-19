@@ -3,13 +3,36 @@
 # Функция проверки пра и исполнения
 exec_sh()
 {
+	declare -i timework
+
+	timeout=$1
+	shift
+
 	file=$1
 	shift
+
+	timework=1
+	j=0
 
 	name=$(echo $file | awk -F "/" '{print $NF}' )
 
 	owner=$(ls -l $file | cut -d' ' -f3)
-	su $owner -c "$file $(echo $@)" > /tmp/ubconfig/$name.txt 
+	su $owner -c "$file $(echo $@)" > /tmp/ubconfig/$name.txt &
+
+	pid=$!
+
+	while [ $timeout -gt $timework -a "$(ps $pid | grep : )" != "" ]
+	do
+		timework=$(ps -p $pid -o etimes= | sed 's/ //g')
+		echo $timework >> test.txt
+
+		if [ $timeout -eq $timework ]; then
+			kill $pid
+			echo "Prosses stopped !!" >> /tmp/ubconfig/$name.txt
+		fi
+	done
+
+	kill $pid
 }
 
 cd /tmp
