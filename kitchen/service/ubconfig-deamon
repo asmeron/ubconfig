@@ -11,9 +11,6 @@ exec_sh()
 	file=$1
 	shift
 
-	timework=1
-	j=0
-
 	name=$(echo $file | awk -F "/" '{print $NF}' )
 
 	owner=$(ls -l $file | cut -d' ' -f3)
@@ -21,18 +18,25 @@ exec_sh()
 
 	pid=$!
 
+	timeout_run $timeout &
+
+}
+
+# Функция контроля времени исполнения
+timeout_run()
+{
+	timework=1
+	timeout=$1
+
 	while [ $timeout -gt $timework -a "$(ps $pid | grep : )" != "" ]
 	do
 		timework=$(ps -p $pid -o etimes= | sed 's/ //g')
-		echo $timework >> test.txt
 
 		if [ $timeout -eq $timework ]; then
 			kill $pid
 			echo "Prosses stopped !!" >> /tmp/ubconfig/$name.txt
 		fi
 	done
-
-	kill $pid
 }
 
 cd /tmp
