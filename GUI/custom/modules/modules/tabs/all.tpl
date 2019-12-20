@@ -53,7 +53,7 @@ for (i = 0; i < coll.length; i++)
 	str = str.slice(1);
 	pos = str.indexOf('/');
 	str = str.slice(0,pos);
-	
+
 	$('#'+str).attr('checked', true);
 }
 

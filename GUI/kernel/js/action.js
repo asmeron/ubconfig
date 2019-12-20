@@ -112,7 +112,8 @@ function page_gen(element)
 
 		function(date)
 		{
-			document.location.href = date;
+			//document.location.href = date;
+			location.reload();
 		}
 
 	)

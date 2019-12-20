@@ -10,11 +10,11 @@ exec_sh()
 
 	file=$1
 	shift
-
+	echo $file >> /ubconfig/log 
 	name=$(echo $file | awk -F "/" '{print $NF}' )
 
 	owner=$(ls -l $file | cut -d' ' -f3)
-	su $owner -c "$file $(echo $@)" > /tmp/ubconfig/$name.txt &
+	su $owner -c "$file $(echo $@)" > /ubconfig/$name.wf &
 
 	pid=$!
 
@@ -34,24 +34,28 @@ timeout_run()
 
 		if [ $timeout -eq $timework ]; then
 			kill $pid
-			echo "Prosses stopped !!" >> /tmp/ubconfig/$name.txt
+			echo "Prosses stopped !!" >> /ubconfig/$name.wf
 		fi
 	done
+
+	mv /ubconfig/$name.wf /ubconfig/$name.txt
+	chmod 777 /ubconfig/$name.txt
 }
 
-cd /tmp
+cd /
 i=0
 
 if [ "$1" == "start" ]; then
 	mkdir ubconfig
-	touch ubconfig/turn
+	touch ubconfig/turn_run
+	chmod -R 777 ubconfig
 
 	while [ $i -ne 1 ]
 	do
-		str=$(cat ubconfig/turn | head -n 1 )
+		str=$(cat ubconfig/turn_run | head -n 1 )
 
 		if [ "$str" != "" ]; then
-			sed -i '1d' ubconfig/turn 
+			sed -i '1d' ubconfig/turn_run 
 			exec_sh $str
 		fi
 

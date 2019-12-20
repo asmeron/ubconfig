@@ -8,7 +8,7 @@ Name: Редактировать
 	name = (Имя компьютера)
 	alt = (name)
 	type = (field)
-    default = (`info.sh@1`)
+    default = ( `info.sh@1` )
     collect_values = ( )
 }
 
