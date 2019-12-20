@@ -106,6 +106,7 @@
 
 		foreach ($_REQUEST as $key => $value) 
 		{
+			$value = str_replace("\n", "", $value);
 			$str = str_replace("?$key?", $value, $str);
 		}
 
