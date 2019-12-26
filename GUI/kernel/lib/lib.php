@@ -538,6 +538,7 @@
     */
 	function sh_execution_new($module, $nesting)
 	{
+
 		$path = $_SERVER['DOCUMENT_ROOT'];
 		$file = "/ubconfig/turn_run";
 		$timeout = 10;
@@ -546,6 +547,8 @@
 			$path .= "/custom/modules/$module/sh";
 		else
 			$path .= "/kernel/tpl/sh";
+
+
 
 		foreach ($nesting as $key => $nes) 
 			$scripts[] = $nes['script'];
@@ -556,7 +559,14 @@
 		{
 			$command = "$timeout $path/$script";
 
-			$file_result = "/ubconfig/$script.txt";
+			$pos = strrpos($script, " ");
+
+			if ( $pos > 0)
+				$name = substr($script, 0, $pos);
+			else
+				$name = $script;
+
+			$file_result = "/ubconfig/$name.txt";
 			unlink($file_result);
 
 			file_put_contents($file, "$command\n", FILE_APPEND);
@@ -565,6 +575,11 @@
 
 			$result[$script] = file($file_result);
 			unlink($file_result);
+
+			foreach ($result[$script] as $key => $value) 
+			{
+				$result[$script][$key] = str_replace("\n", "", $value);
+			}
 		}
 
 		return $result;
@@ -768,7 +783,7 @@
 	{
 		$nesting = sh_analysis_nesting($tmp);
 		$nesting = sh_analysis_script($nesting);
-		$data = sh_execution($module, $nesting);
+		$data = sh_execution_new($module, $nesting);
 		
 		$tmp = sh_control($tmp, $nesting, $data);
 
