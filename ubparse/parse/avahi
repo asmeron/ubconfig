@@ -1,5 +1,0 @@
-Patch /etc/avahi/avahi-daemon.conf
-Comment ^#\s?
-Off ^#\\S
-Block Select ^\\[(.+)\\]$ ^$
-Set ^([^#].+)=(.+)
