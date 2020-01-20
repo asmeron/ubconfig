@@ -1,2 +1,2 @@
-chown httpd:httpd /srv/http
-chmod 775 /srv/http
+chown http:http /srv/http
+chmod -R 775 /srv/http
