@@ -33,11 +33,24 @@
 		<div class = "base_area">
 			?modules?
 			<DIV class = "work">
+				<div class = "tabs_r">
 				?tabs?
+			    </div>
+				<div class = "work_zone">
 				@work@
+			    </div>
 			</DIV>
+		</div>
+		<div class = "mask"></div>
+		<div class = "error_window">
+			<h3> Возникли проблемы во время исполнения</h3>
+			<div class = "area_error">
+				<h4>Список ошибок</h4>
+				<p>@error@</p>
+			</div>
+			<button id = 'close'>Ок</button>
 		</div>
 	</BODY>
 <LINK href="https://fonts.googleapis.com/css?family=Anonymous+Pro&display=swap" rel="stylesheet">
-<SCRIPT src="/kernel/js/action.js"></script>
+<SCRIPT id="script_connect" src="/kernel/js/action.js"></script>
 		

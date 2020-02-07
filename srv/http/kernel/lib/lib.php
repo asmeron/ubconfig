@@ -567,7 +567,10 @@
 				$name = $script;
 
 			$file_result = "/ubconfig/$name.txt";
+			$file_error = "/ubconfig/${name}_error.txt";
+
 			unlink($file_result);
+			unlink($file_error);
 
 			file_put_contents($file, "$command\n", FILE_APPEND);
 
@@ -579,6 +582,16 @@
 			foreach ($result[$script] as $key => $value) 
 			{
 				$result[$script][$key] = str_replace("\n", "", $value);
+			}
+
+			if ( file_exists($file_error) )
+			{
+				$buff = file($file_error);
+
+				if ( !empty($buff) )
+					$result[$script]['error'] = $buff;
+
+				unlink($file_error);
 			}
 		}
 
@@ -723,6 +736,32 @@
 		return $tmp;
 	}
 
+	function sh_error($tmp, $data)
+	{
+		$str = "";
+
+		foreach ($data as $key => $value) 
+		{
+			if ( isset($value['error']) )
+			{
+				$str .= "$key:" . PHP_EOL;
+
+				foreach ($value['error'] as $mess) 
+				{
+					$str .= $mess . PHP_EOL;
+				}
+
+				$str .= PHP_EOL;
+			}
+
+		}
+
+		if ( $str != "" )
+			$tmp = str_replace("@error@", $str, $tmp);
+
+		return $tmp;
+	}
+
 	/**
    	* Управление обработчиками выборки
     *  
@@ -786,6 +825,7 @@
 		$data = sh_execution_new($module, $nesting);
 		
 		$tmp = sh_control($tmp, $nesting, $data);
+		$tmp = sh_error($tmp, $data);
 
 		return $tmp;
 	}

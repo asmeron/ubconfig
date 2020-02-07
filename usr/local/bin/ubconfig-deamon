@@ -14,7 +14,7 @@ exec_sh()
 	name=$(echo $file | awk -F "/" '{print $NF}' )
 
 	owner=$(ls -l $file | cut -d' ' -f3)
-	su $owner -c "$file $(echo $@)" > /ubconfig/$name.wf &
+	su $owner -c "$file $(echo $@)" 1>/ubconfig/$name.wf 2>/ubconfig/${name}_error.wf &
 
 	pid=$!
 
@@ -38,28 +38,32 @@ timeout_run()
 		fi
 	done
 
+	mv /ubconfig/${name}_error.wf /ubconfig/${name}_error.txt
+	chmod 777 /ubconfig/{$name}_error.txt
+	
 	mv /ubconfig/$name.wf /ubconfig/$name.txt
 	chmod 777 /ubconfig/$name.txt
 }
 
 cd /
-i=0
 
 if [ "$1" == "start" ]; then
 	mkdir ubconfig
 	touch ubconfig/turn_run
 	chmod -R 777 ubconfig
 
-	while [ $i -ne 1 ]
+	while : ;
 	do
-		str=$(cat ubconfig/turn_run | head -n 1 )
+		inotifywait -e close_write ubconfig/turn_run
+		(
+			str=$(cat ubconfig/turn_run | head -n 1 )
 
-		if [ "$str" != "" ]; then
-			sed -i '1d' ubconfig/turn_run 
-			exec_sh $str
-		fi
+			if [ "$str" != "" ]; then
+				sed -i '1d' ubconfig/turn_run 
+				exec_sh $str
+			fi
+		)
 
-		sleep 1
 	done
 
 else

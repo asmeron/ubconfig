@@ -56,10 +56,10 @@
 
 		$html = sh_handler("kernel", $html);
 		$tmp = tab_code($conf, $mode);
-
-		$tmp = sh_handler($conf, $tmp);
-		$tmp = form_generation($tmp);
 		$html = str_replace( "@work@", $tmp,  $html);
+
+		$html = sh_handler($conf, $html);
+		$html = form_generation($html);
 
 		echo $html;
 	}

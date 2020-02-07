@@ -6,8 +6,13 @@ function active_tab()
 {
 	tab = get_id_tab();
 
-	if ( $('div').hasClass('tabs') )
-		$('.'+tab).addClass('Active_tab');
+	if ( $('div').hasClass('tabs_r') )
+	{
+		$('.tabs_r .tabs h3').removeClass('Active_tab');
+		$('.tabs_r .tabs .'+tab).addClass('Active_tab');
+
+	}
+
 }
 
 /**
@@ -51,7 +56,7 @@ function action(element)
 			
 		function(date) 
 		{
-			location.reload();
+			render_work();
 		}
 	);
 }
@@ -82,7 +87,13 @@ function form_handler(element)
 
 		function()
 		{
-			location.reload();
+			conf = get_id_module();
+			mode = get_id_tab();
+
+			conf = "/"+conf+"/"+mode;
+			history.pushState(null, null, conf);
+			render_work();
+			render_tabs();
 		}
 	)
 }
@@ -112,7 +123,13 @@ function page_gen(element)
 
 		function(date)
 		{
-			document.location.href = date;
+			conf = get_id_module();
+
+			conf = "/"+conf+"/"+date;
+			history.pushState(null, null, conf);
+			render_work();
+			render_tabs();
+			
 		}
 
 	)
@@ -142,7 +159,12 @@ function close(element)
 
 		function(date)
 		{
-			document.location.href = date;
+			conf = get_id_module();
+
+			conf = "/"+conf+"/"+date;
+			history.pushState(null, null, conf);
+			render_work();
+			render_tabs();
 		}
 
 	);
@@ -207,6 +229,37 @@ function downloand_file(element)
 }
 
 /**
+* Показ и скрытие окна ошибко
+*
+* @param status
+*
+*/
+function show_window_eror(status)
+{
+	if ( !status )
+	{
+
+		$('.mask').fadeIn(500);
+		$('.error_window').css('display', 'block');
+	}
+	else
+	{
+		$('.error_window').css('display', 'none');
+		$('.mask').fadeOut(500);
+	}
+}
+
+function check_error()
+{
+	error = $('.area_error p').text();
+
+	if (error != "@error@")
+	{
+		show_window_eror(false);
+	}
+}
+
+/**
 * Перехватываем стандартный обработчик форм
 *
 */
@@ -219,15 +272,115 @@ $('Form').on('submit',
 
 );
 
+
+function render(data, div_draw)
+{		
+	$.post("/kernel/lib/render.php", data, 
+
+			function(date)
+			{
+				delete_handlers();
+				$(div_draw).html(date);
+				active_tab();
+				add_hadlers();
+
+			}
+		);
+}
+
+function render_work()
+{
+	conf = get_id_module();
+	mode = get_id_tab();
+	mode_render = "work";
+
+	render({conf : conf, mode : mode, mode_render : mode_render}, '.work_zone');
+}
+
+function render_tabs()
+{
+	conf = get_id_module();
+	mode_render = "tabs";
+
+	render({conf : conf, mode_render : mode_render}, '.tabs_r');
+}
+
+function transition(element)
+{
+	event.preventDefault()
+	link = element.attr('href');
+	history.pushState(null, null, link);
+
+	type = element.parent().attr('class');
+
+	if ( type == 'modules' )
+		render_tabs();
+	
+	render_work();
+	
+	active_tab();
+}
+
+
+
+let list_element = ['.action',
+					 '.form_handler',
+					 '.page_gen',
+					 '.close',
+					 '.sumb',
+					 '#out_login',
+					 '.down_file',
+					 '#close',
+					 '.modules a',
+					 '.tabs a'];
+
+let list_function = [action,
+					 form_handler,
+					 page_gen,
+					 close,
+					 aut,
+					 out_log,
+					 downloand_file,
+					 show_window_eror,
+					 transition,
+					 transition];
+
 active_tab();
 
-add_handler('.action', action );
-add_handler('.form_handler', form_handler);
+function add_hadlers()
+{
 
-add_handler('.page_gen', page_gen);
-add_handler('.close', close);
+	list_element.forEach(
 
-add_handler('.sumb', aut);
-add_handler('#out_login', out_log);
+		function(item, i)
+		{
+			add_handler(item, list_function[i]);
+		}
 
-add_handler('.down_file', downloand_file);
+		);
+
+	$('Form').on('submit',
+
+	function(e)
+	{
+ 		e.preventDefault();
+	}
+
+);
+
+}
+
+function delete_handlers()
+{
+	list_element.forEach(
+
+		function(item)
+		{
+			$(item).off();
+		}
+
+		);
+}
+
+check_error();
+add_hadlers();
