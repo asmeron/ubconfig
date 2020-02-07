@@ -1,6 +1,0 @@
-Patch /etc/X11/vncserver-virtual.conf
-Comment ^#\s? 
-Off ^#\\S
-Block Sec ^Section\\s?\(".+") EndSection
-Group Option
-Set ^([a-Z]+)\\s(.+)

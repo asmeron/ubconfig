@@ -1,6 +1,0 @@
-Set key = value
-Block \\ntype:name\\n{
-End }\\n
-BeginGroup [name]\\n(\\n  value
-ValueGroup 	\\0 value
-EndGroup )
