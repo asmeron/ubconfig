@@ -1,6 +1,7 @@
 <?php 
 
 	include './kernel/lib/lib.php';
+	include './kernel/lib/new_lib.php';
 	include './kernel/lib/api.php';
 
 	if ( file_exists("./kernel/aut") )
@@ -22,23 +23,17 @@
 			$conf = $info['Module'];
 		/************************************************************/
 		
-		$modules = module_list();
+		$Modules = Modules::getListModules();
 
-		$in = array_search($info['Module'], $modules);
-		$id = array_search( reset($modules), $modules);
+		$in = array_search($info['Module'], array_keys($Modules));
 
-		if ( $in > 0 )
-			list( $modules[$id], $modules[$in] ) = array($modules[$in], $modules[$id]);
-
-		foreach ( $modules as $key => $module )
+		foreach ( $Modules as $IdModule => $Module )
 		{
-			$info = module_info($module);
-
-			if ( module_status($module) )
+			if ( $Module->isStatusActive() )
 			{
-				$buff['Tab'][] = $info['Tab'];
-				$buff['Name'][] = $info['Name'];
-				$buff['module'][] = $module;
+				$buff['Tab'][] = $Module->getTabDefault();
+				$buff['Name'][] = $Module->getName();
+				$buff['module'][] = $IdModule;
 			}
 		}
 
